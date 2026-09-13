@@ -1,0 +1,602 @@
+.user-choice {
+  padding: 72px 22px;
+  background: #ffffff;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.user-choice__intro {
+  max-width: 340px;
+}
+
+.user-choice__eyebrow {
+  display: block;
+  margin-bottom: 12px;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #d3a700;
+}
+
+.user-choice__title {
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+
+  color: #0b2748;
+}
+
+.user-choice__description {
+  margin-top: 14px;
+
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  color: #667789;
+}
+
+/* =========================
+   AZIENDA / PRIVATO
+========================= */
+
+.user-choice__options {
+  margin-top: 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.user-choice__card {
+  width: 100%;
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+
+  border: 1px solid #e1e6eb;
+  border-radius: 18px;
+
+  background: #f8fafb;
+  color: #0b2748;
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.user-choice__card:hover {
+  border-color: #d4dce4;
+  background: #ffffff;
+
+  box-shadow: 0 8px 24px rgba(11, 39, 72, 0.06);
+}
+
+.user-choice__card:active {
+  transform: scale(0.985);
+}
+
+.user-choice__icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background: #eef2f6;
+  color: #0b2748;
+}
+
+.user-choice__card-content {
+  min-width: 0;
+}
+
+.user-choice__card-content h3 {
+  margin: 0 0 5px;
+
+  font-size: 1rem;
+  line-height: 1.25;
+
+  color: #0b2748;
+}
+
+.user-choice__card-content p {
+  margin: 0;
+
+  font-size: 0.82rem;
+  line-height: 1.45;
+
+  color: #667789;
+}
+
+.user-choice__card > svg {
+  flex-shrink: 0;
+  color: #9aa8b7;
+}
+
+/* =========================
+   AIUTO
+========================= */
+
+.user-choice__help {
+  margin-top: 26px;
+  padding-top: 22px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  border-top: 1px solid #e1e6eb;
+
+  font-size: 0.82rem;
+  color: #7b8998;
+}
+
+.user-choice__help button {
+  width: fit-content;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: #0b2748;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =========================
+   STEP
+========================= */
+
+.user-choice__step {
+  width: 100%;
+}
+
+/* =========================
+   INDIETRO
+========================= */
+
+.user-choice__back {
+  margin-bottom: 24px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  border: 0;
+  background: transparent;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  color: #526579;
+
+  cursor: pointer;
+}
+
+.user-choice__back:hover {
+  color: #0b2748;
+}
+
+/* =========================
+   TITOLO STEP
+========================= */
+
+.user-choice__results-heading {
+  margin-bottom: 26px;
+}
+
+.user-choice__results-heading span {
+  display: block;
+  margin-bottom: 10px;
+
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #d3a700;
+}
+
+.user-choice__results-heading h2 {
+  margin: 0;
+
+  font-size: 2rem;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+
+  color: #0b2748;
+}
+
+.user-choice__results-heading p {
+  max-width: 340px;
+  margin-top: 12px;
+
+  font-size: 0.9rem;
+  line-height: 1.55;
+
+  color: #667789;
+}
+
+/* =========================
+   LISTA SERVIZI
+========================= */
+
+.user-choice__services {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.user-choice__service {
+  width: 100%;
+  min-height: 66px;
+  padding: 12px 16px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 13px;
+
+  border: 1px solid #e4e9ee;
+  border-radius: 15px;
+
+  background: #ffffff;
+  color: #0b2748;
+
+  text-align: left;
+  cursor: pointer;
+
+  box-shadow: 0 4px 16px rgba(11, 39, 72, 0.035);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.user-choice__service:hover {
+  border-color: #d5dde5;
+  background: #fbfcfd;
+
+  box-shadow: 0 7px 20px rgba(11, 39, 72, 0.06);
+}
+
+.user-choice__service:active {
+  transform: scale(0.985);
+}
+
+.user-choice__service-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #f0f3f6;
+  color: #0b2748;
+}
+
+.user-choice__service-content {
+  min-width: 0;
+}
+
+.user-choice__service-content h3 {
+  margin: 0;
+
+  font-size: 0.94rem;
+  line-height: 1.25;
+  font-weight: 750;
+
+  color: #0b2748;
+}
+
+.user-choice__service > svg {
+  flex-shrink: 0;
+  color: #a1adba;
+}
+
+.user-choice__service.is-selected {
+  border-color: #f4c430;
+  background: #fffdf7;
+}
+
+.user-choice__service.is-selected .user-choice__service-icon {
+  background: #f4c430;
+  color: #0b2748;
+}
+
+.user-choice__service.is-selected > svg {
+  color: #0b2748;
+}
+
+/* Step 3 senza icona */
+
+.user-choice__service--simple {
+  grid-template-columns: 1fr auto;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.user-choice__breadcrumb {
+  margin-bottom: 22px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+
+  font-size: 0.72rem;
+  line-height: 1.4;
+
+  color: #8794a2;
+}
+
+/* =========================
+   DESTINAZIONE FINALE
+========================= */
+
+.user-choice__destination {
+  width: 100%;
+}
+
+.user-choice__destination-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #d3a700;
+}
+
+.user-choice__destination-title {
+  max-width: 520px;
+  margin: 0;
+
+  font-size: 2rem;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+
+  color: #0b2748;
+}
+
+.user-choice__destination-description {
+  max-width: 570px;
+  margin-top: 18px;
+
+  font-size: 0.95rem;
+  line-height: 1.65;
+
+  color: #607184;
+}
+
+/* =========================
+   COME PUÒ AIUTARTI
+========================= */
+
+.user-choice__destination-services {
+  margin-top: 34px;
+  padding-top: 28px;
+
+  border-top: 1px solid #e1e6eb;
+}
+
+.user-choice__destination-services h3 {
+  margin: 0 0 20px;
+
+  font-size: 1rem;
+
+  color: #0b2748;
+}
+
+.user-choice__destination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.user-choice__destination-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 12px;
+
+  font-size: 0.9rem;
+  line-height: 1.45;
+
+  color: #3f5266;
+}
+
+.user-choice__check {
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #fff8d9;
+  color: #b48b00;
+}
+
+/* =========================
+   NOTA
+========================= */
+
+.user-choice__destination-note {
+  margin-top: 32px;
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background: #f5f7f9;
+}
+
+.user-choice__destination-note strong {
+  display: block;
+  margin-bottom: 7px;
+
+  font-size: 0.85rem;
+
+  color: #0b2748;
+}
+
+.user-choice__destination-note p {
+  margin: 0;
+
+  font-size: 0.84rem;
+  line-height: 1.55;
+
+  color: #607184;
+}
+
+/* =========================
+   CONTATTO WHATSAPP
+========================= */
+
+.user-choice__destination-contact {
+  margin-top: 34px;
+  padding-top: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  border-top: 1px solid #e1e6eb;
+}
+
+.user-choice__destination-contact > span {
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  color: #0b2748;
+}
+
+.user-choice__whatsapp {
+  width: 100%;
+  min-height: 54px;
+  padding: 15px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-radius: 14px;
+
+  background: #0b2748;
+  color: #ffffff;
+
+  font-size: 0.9rem;
+  font-weight: 800;
+
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.user-choice__whatsapp:hover {
+  opacity: 0.94;
+  box-shadow: 0 8px 22px rgba(11, 39, 72, 0.14);
+}
+
+.user-choice__whatsapp:active {
+  transform: scale(0.985);
+}
+
+.user-choice__destination-contact small {
+  text-align: center;
+
+  font-size: 0.7rem;
+  line-height: 1.45;
+
+  color: #8a97a5;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 768px) {
+  .user-choice {
+    padding: 90px 40px;
+  }
+
+  .user-choice__intro,
+  .user-choice__step {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .user-choice__options {
+    max-width: 720px;
+    margin: 36px auto 0;
+  }
+
+  .user-choice__help {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .user-choice__services {
+    gap: 12px;
+  }
+
+  .user-choice__service {
+    padding: 14px 18px;
+  }
+
+  .user-choice__destination {
+    max-width: 720px;
+  }
+
+  .user-choice__destination-title {
+    font-size: 2.5rem;
+  }
+
+  .user-choice__whatsapp {
+    width: fit-content;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  .user-choice__destination-contact small {
+    text-align: left;
+  }
+}

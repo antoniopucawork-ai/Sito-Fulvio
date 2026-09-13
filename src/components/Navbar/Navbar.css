@@ -1,0 +1,81 @@
+.navbar {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e9edf2;
+}
+
+.navbar__inner {
+  min-height: 72px;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar__logo {
+  width: 42px;
+  height: 52px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__name {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0b2748;
+}
+
+.navbar__subtitle {
+  margin-top: 2px;
+  font-size: 0.58rem;
+  color: #6f7f91;
+}
+
+.navbar__menu-button {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #0b2748;
+  cursor: pointer;
+}
+
+.navbar__mobile-menu {
+  padding: 12px 20px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  background: #ffffff;
+}
+
+.navbar__mobile-menu a {
+  padding: 14px 12px;
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0b2748;
+}
+
+.navbar__mobile-menu a:hover {
+  background: #f3f5f7;
+}
