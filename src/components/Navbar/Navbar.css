@@ -1,27 +1,58 @@
+/* =========================
+   NAVBAR
+========================= */
+
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
   width: 100%;
-  background: #ffffff;
+
+  background: rgba(255, 255, 255, 0.96);
+
   border-bottom: 1px solid #e9edf2;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
+
+/* =========================
+   INNER
+========================= */
 
 .navbar__inner {
   min-height: 72px;
+
   padding: 0 20px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.navbar__logo {
-  width: 42px;
-  height: 52px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
+
+/* =========================
+   BRAND
+========================= */
+
 .navbar__brand {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
+  text-decoration: none;
+
+  flex-shrink: 0;
+}
+
+.navbar__logo {
+  width: 42px;
+  height: 52px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
 }
 
 .navbar__brand-text {
@@ -33,14 +64,29 @@
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.08em;
+
   color: #0b2748;
 }
 
 .navbar__subtitle {
   margin-top: 2px;
+
   font-size: 0.58rem;
+
   color: #6f7f91;
 }
+
+/* =========================
+   DESKTOP MENU
+========================= */
+
+.navbar__desktop-menu {
+  display: none;
+}
+
+/* =========================
+   MOBILE BUTTON
+========================= */
 
 .navbar__menu-button {
   width: 44px;
@@ -52,16 +98,24 @@
 
   border: 0;
   border-radius: 12px;
+
   background: transparent;
+
   color: #0b2748;
+
   cursor: pointer;
 }
+
+/* =========================
+   MOBILE MENU
+========================= */
 
 .navbar__mobile-menu {
   padding: 12px 20px 24px;
 
   display: flex;
   flex-direction: column;
+
   gap: 6px;
 
   background: #ffffff;
@@ -69,13 +123,153 @@
 
 .navbar__mobile-menu a {
   padding: 14px 12px;
+
   border-radius: 10px;
 
   font-size: 0.95rem;
   font-weight: 600;
+
   color: #0b2748;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .navbar__mobile-menu a:hover {
   background: #f3f5f7;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 901px) {
+  .navbar__inner {
+    min-height: 88px;
+
+    max-width: 1440px;
+
+    margin: 0 auto;
+
+    padding: 0 28px;
+  }
+
+  .navbar__logo {
+    width: 46px;
+    height: 56px;
+  }
+
+  .navbar__name {
+    font-size: 1rem;
+  }
+
+  .navbar__subtitle {
+    font-size: 0.6rem;
+  }
+
+  /* =========================
+     DESKTOP LINKS
+  ========================= */
+
+  .navbar__desktop-menu {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    margin-left: auto;
+  }
+
+  .navbar__desktop-menu a {
+    position: relative;
+
+    padding: 12px 11px;
+
+    font-size: 0.84rem;
+    font-weight: 600;
+
+    color: #42566d;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    white-space: nowrap;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .navbar__desktop-menu a:hover {
+    color: #0b2748;
+
+    background: #f5f6f7;
+  }
+
+  .navbar__desktop-menu a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 11px;
+    right: 11px;
+    bottom: 5px;
+
+    height: 2px;
+
+    background: #f4c430;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform 0.2s ease;
+  }
+  .navbar__desktop-menu a.navbar__link--active {
+    color: #0b2748;
+    font-weight: 700;
+  }
+
+  .navbar__desktop-menu a.navbar__link--active::after {
+    transform: scaleX(1);
+  }
+  .navbar__desktop-menu a:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* =========================
+     HIDE MOBILE
+  ========================= */
+
+  .navbar__menu-button {
+    display: none;
+  }
+
+  .navbar__mobile-menu {
+    display: none;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1200px) {
+  .navbar__inner {
+    padding: 0 32px;
+  }
+
+  .navbar__desktop-menu {
+    gap: 10px;
+  }
+
+  .navbar__desktop-menu a {
+    padding-left: 13px;
+    padding-right: 13px;
+
+    font-size: 0.88rem;
+  }
 }

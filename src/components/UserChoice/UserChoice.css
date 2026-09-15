@@ -547,7 +547,35 @@
 
   color: #8a97a5;
 }
+.user-choice__help-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
+  margin-top: 10px;
+  padding: 10px 16px;
+
+  border: 1px solid #d8dee7;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #102a4c;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.user-choice__help-button:hover {
+  background: #f6f8fb;
+  border-color: #b9c4d2;
+  transform: translateY(-1px);
+}
 /* =========================
    DESKTOP
 ========================= */

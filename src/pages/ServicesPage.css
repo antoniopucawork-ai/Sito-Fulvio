@@ -1,0 +1,682 @@
+:root {
+  --fulvio-blue: #0f2948;
+  --fulvio-blue-soft: #183a63;
+  --fulvio-yellow: #f4c542;
+  --fulvio-bg: #f7f7f4;
+  --fulvio-card: #ffffff;
+  --fulvio-text: #1f1f1f;
+  --fulvio-muted: #6f706b;
+  --fulvio-border: #deded6;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.services-page {
+  min-height: 100vh;
+  background: var(--fulvio-bg);
+  color: var(--fulvio-text);
+}
+.services-page__step {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 96px;
+
+  scroll-margin-top: 90px;
+}
+/* =========================
+   HERO
+========================= */
+
+.services-page__hero {
+  position: relative;
+
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 72px 24px 48px;
+}
+
+.services-page__eyebrow,
+.services-page__heading > span,
+.services-page__service-detail > span {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: var(--fulvio-blue-soft);
+}
+
+.services-page__title {
+  max-width: 760px;
+  margin: 0;
+
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__description {
+  max-width: 650px;
+
+  margin: 24px 0 0;
+
+  font-size: 1.05rem;
+  line-height: 1.7;
+
+  color: var(--fulvio-muted);
+}
+
+.services-page__hero::after {
+  content: "";
+
+  display: block;
+
+  width: 54px;
+  height: 5px;
+
+  margin-top: 26px;
+
+  border-radius: 999px;
+
+  background: var(--fulvio-yellow);
+}
+
+/* =========================
+   STEP CONTAINER
+========================= */
+
+.services-page__step {
+  max-width: 1180px;
+
+  margin: 0 auto;
+  padding: 32px 24px 96px;
+}
+
+.services-page__step > h2 {
+  margin: 0 0 28px;
+
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+
+  color: var(--fulvio-blue);
+}
+
+/* =========================
+   MACRO AREA
+========================= */
+
+.services-page__macro-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.services-page__macro-card {
+  width: 100%;
+  min-height: 230px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 20px;
+
+  padding: 28px;
+
+  border: 1px solid var(--fulvio-border);
+  border-radius: 22px;
+
+  background: var(--fulvio-card);
+  color: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.services-page__macro-card:hover {
+  transform: translateY(-4px);
+
+  border-color: var(--fulvio-blue);
+
+  box-shadow: 0 14px 40px rgba(15, 41, 72, 0.08);
+}
+
+.services-page__macro-card svg {
+  color: var(--fulvio-blue);
+}
+
+.services-page__macro-card span {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+
+  color: var(--fulvio-blue-soft);
+}
+
+.services-page__macro-card h3 {
+  margin: 0;
+
+  font-size: 1.65rem;
+  letter-spacing: -0.03em;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__macro-card p {
+  max-width: 430px;
+
+  margin: 14px 0 0;
+
+  line-height: 1.65;
+
+  color: var(--fulvio-muted);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.services-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 30px;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: var(--fulvio-blue);
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.services-page__back:hover {
+  color: var(--fulvio-blue-soft);
+}
+
+/* =========================
+   STEP HEADING
+========================= */
+
+.services-page__heading {
+  margin-bottom: 32px;
+}
+
+.services-page__heading h2 {
+  max-width: 780px;
+
+  margin: 0;
+
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__heading p {
+  max-width: 620px;
+
+  margin: 16px 0 0;
+
+  color: var(--fulvio-muted);
+
+  line-height: 1.6;
+}
+
+/* =========================
+   BREADCRUMB
+========================= */
+
+.services-page__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  margin-bottom: 22px;
+
+  font-size: 0.8rem;
+  line-height: 1.5;
+
+  color: #8a8a82;
+}
+
+.services-page__breadcrumb span:last-child {
+  color: var(--fulvio-blue);
+  font-weight: 700;
+}
+
+/* =========================
+   AREAS + SECTIONS
+========================= */
+
+.services-page__areas,
+.services-page__sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.services-page__area-card,
+.services-page__section-card {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 24px;
+
+  border: 1px solid var(--fulvio-border);
+  border-radius: 18px;
+
+  background: var(--fulvio-card);
+  color: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.services-page__area-card::before,
+.services-page__section-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 18%;
+
+  width: 3px;
+  height: 64%;
+
+  border-radius: 0 4px 4px 0;
+
+  background: transparent;
+
+  transition: background 0.2s ease;
+}
+
+.services-page__area-card:hover,
+.services-page__section-card:hover {
+  transform: translateY(-2px);
+
+  border-color: var(--fulvio-blue);
+
+  box-shadow: 0 10px 30px rgba(15, 41, 72, 0.06);
+}
+
+.services-page__area-card:hover::before,
+.services-page__section-card:hover::before {
+  background: var(--fulvio-yellow);
+}
+
+.services-page__area-card svg,
+.services-page__section-card svg {
+  flex-shrink: 0;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__area-card h3,
+.services-page__section-card h3 {
+  margin: 0;
+
+  font-size: 1.15rem;
+  line-height: 1.3;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__area-card p,
+.services-page__section-card p {
+  margin: 8px 0 0;
+
+  font-size: 0.9rem;
+
+  color: #85857d;
+}
+
+/* =========================
+   SERVICES LIST
+========================= */
+
+.services-page__service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.services-page__service-item {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 18px 20px;
+
+  border: 1px solid var(--fulvio-border);
+  border-radius: 15px;
+
+  background: var(--fulvio-card);
+  color: var(--fulvio-blue);
+
+  font-size: 0.97rem;
+  font-weight: 700;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.services-page__service-item::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 18%;
+
+  width: 3px;
+  height: 64%;
+
+  border-radius: 0 4px 4px 0;
+
+  background: transparent;
+
+  transition: background 0.2s ease;
+}
+
+.services-page__service-item:hover {
+  transform: translateY(-1px);
+
+  border-color: var(--fulvio-blue);
+
+  background: #fbfbf8;
+
+  box-shadow: 0 8px 24px rgba(15, 41, 72, 0.05);
+}
+
+.services-page__service-item:hover::before {
+  background: var(--fulvio-yellow);
+}
+
+.services-page__service-item svg {
+  flex-shrink: 0;
+
+  color: var(--fulvio-blue);
+}
+
+/* =========================
+   SERVICE DETAIL
+========================= */
+
+.services-page__service-detail {
+  position: relative;
+  overflow: hidden;
+
+  max-width: 760px;
+
+  padding: 36px;
+
+  border: 1px solid var(--fulvio-border);
+  border-radius: 24px;
+
+  background: var(--fulvio-card);
+
+  box-shadow: 0 14px 35px rgba(15, 41, 72, 0.05);
+}
+
+.services-page__service-detail::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: var(--fulvio-yellow);
+}
+
+.services-page__service-detail h2 {
+  margin: 0;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+
+  color: var(--fulvio-blue);
+}
+
+.services-page__service-detail > p {
+  max-width: 620px;
+
+  margin: 20px 0 0;
+
+  line-height: 1.7;
+
+  color: var(--fulvio-muted);
+}
+
+/* =========================
+   SELECTED SERVICE
+========================= */
+
+.services-page__service-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 28px;
+  padding: 15px 17px;
+
+  border-radius: 12px;
+
+  background: #f6f4e8;
+  color: var(--fulvio-blue);
+
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.services-page__service-selected svg {
+  flex-shrink: 0;
+
+  color: var(--fulvio-blue);
+}
+
+/* =========================
+   WHATSAPP CTA
+========================= */
+
+.services-page__whatsapp {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 26px;
+  padding: 16px 22px;
+
+  border-radius: 999px;
+
+  background: var(--fulvio-blue);
+  color: #ffffff;
+
+  text-decoration: none;
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.services-page__whatsapp:hover {
+  transform: translateY(-2px);
+
+  background: var(--fulvio-blue-soft);
+
+  box-shadow: 0 10px 26px rgba(15, 41, 72, 0.18);
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+.services-page button:focus-visible,
+.services-page a:focus-visible {
+  outline: 3px solid rgba(15, 41, 72, 0.28);
+  outline-offset: 4px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .services-page__hero {
+    padding-top: 56px;
+  }
+
+  .services-page__macro-options,
+  .services-page__areas,
+  .services-page__sections,
+  .services-page__service-list {
+    grid-template-columns: 1fr;
+  }
+
+  .services-page__macro-card {
+    min-height: 0;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .services-page__hero {
+    padding: 44px 18px 28px;
+  }
+
+  .services-page__step {
+    padding: 24px 18px 64px;
+  }
+
+  .services-page__title {
+    font-size: 2.65rem;
+  }
+
+  .services-page__description {
+    font-size: 0.98rem;
+  }
+
+  .services-page__hero::after {
+    width: 46px;
+    height: 4px;
+
+    margin-top: 22px;
+  }
+
+  .services-page__macro-card {
+    grid-template-columns: auto 1fr;
+
+    padding: 22px;
+
+    border-radius: 18px;
+  }
+
+  .services-page__macro-card > svg:last-child {
+    display: none;
+  }
+
+  .services-page__macro-card h3 {
+    font-size: 1.45rem;
+  }
+
+  .services-page__area-card,
+  .services-page__section-card {
+    padding: 20px;
+  }
+
+  .services-page__area-card h3,
+  .services-page__section-card h3 {
+    font-size: 1.08rem;
+  }
+
+  .services-page__service-item {
+    min-height: 64px;
+
+    padding: 16px 18px;
+
+    font-size: 0.94rem;
+  }
+
+  .services-page__service-detail {
+    padding: 28px 24px 24px;
+
+    border-radius: 18px;
+  }
+
+  .services-page__service-detail h2 {
+    font-size: 2rem;
+  }
+
+  .services-page__whatsapp {
+    width: 100%;
+
+    padding: 16px 18px;
+  }
+
+  .services-page__breadcrumb {
+    font-size: 0.76rem;
+  }
+}

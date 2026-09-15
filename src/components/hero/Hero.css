@@ -1,5 +1,6 @@
 .hero {
   min-height: calc(100svh - 72px);
+
   padding: 42px 22px 30px;
 
   display: flex;
@@ -13,6 +14,14 @@
       transparent 32%
     ),
     linear-gradient(180deg, #ffffff 0%, #f5f7f9 100%);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.hero__main {
+  width: 100%;
 }
 
 .hero__content {
@@ -34,6 +43,7 @@
 
 .hero__title {
   max-width: 340px;
+  margin: 0;
 
   font-size: clamp(2.15rem, 9.5vw, 2.8rem);
   line-height: 1.04;
@@ -48,7 +58,7 @@
 
 .hero__description {
   max-width: 330px;
-  margin-top: 24px;
+  margin: 24px 0 0;
 
   font-size: 1rem;
   line-height: 1.6;
@@ -56,8 +66,21 @@
   color: #526579;
 }
 
+/* =========================
+   ACTIONS
+========================= */
+
+.hero__actions {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .hero__primary-button {
   width: 100%;
+
   margin-top: 32px;
   padding: 17px 20px;
 
@@ -74,12 +97,21 @@
 
   font-weight: 800;
   text-decoration: none;
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.hero__primary-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 24px rgba(11, 39, 72, 0.1);
 }
 
 .hero__secondary-link {
-  align-self: center;
-
   margin-top: 18px;
   padding-bottom: 3px;
 
@@ -87,10 +119,27 @@
   font-weight: 600;
 
   color: #0b2748;
+
   border-bottom: 1px solid #0b2748;
+
+  text-decoration: none;
 }
 
+/* =========================
+   HIGHLIGHTS
+========================= */
+
+.hero__highlights {
+  display: none;
+}
+
+/* =========================
+   GUIDE
+========================= */
+
 .hero__guide {
+  width: 100%;
+
   margin-top: 45px;
   padding-top: 20px;
 
@@ -101,9 +150,237 @@
   border-top: 1px solid #dce2e8;
 
   font-size: 0.82rem;
+
   color: #6f7f91;
+  text-decoration: none;
+}
+
+.hero__guide > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .hero__guide strong {
   color: #0b2748;
+}
+
+.hero__guide-action {
+  display: none;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 901px) {
+  .hero {
+    min-height: calc(100vh - 88px);
+
+    padding: 74px 24px 34px;
+
+    justify-content: space-between;
+  }
+
+  .hero__main {
+    width: 100%;
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1.15fr)
+      minmax(340px, 0.85fr);
+
+    gap: 110px;
+
+    align-items: center;
+  }
+
+  /* =========================
+     CONTENT
+  ========================= */
+
+  .hero__content {
+    max-width: 650px;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 24px;
+
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+  }
+
+  .hero__title {
+    max-width: 650px;
+
+    font-size: clamp(3.8rem, 5vw, 5.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .hero__description {
+    max-width: 580px;
+
+    margin-top: 30px;
+
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  /* =========================
+     ACTIONS
+  ========================= */
+
+  .hero__actions {
+    width: auto;
+
+    margin-top: 34px;
+
+    flex-direction: row;
+    align-items: center;
+
+    gap: 24px;
+  }
+
+  .hero__primary-button {
+    width: auto;
+
+    min-height: 54px;
+
+    margin-top: 0;
+    padding: 0 26px;
+
+    border-radius: 9px;
+  }
+
+  .hero__secondary-link {
+    margin-top: 0;
+
+    font-size: 0.92rem;
+  }
+
+  /* =========================
+     RIGHT SIDE
+  ========================= */
+
+  .hero__highlights {
+    display: flex;
+    flex-direction: column;
+
+    border-top: 1px solid #dce2e8;
+  }
+
+  .hero__highlight {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 26px;
+
+    align-items: center;
+
+    padding: 28px 0;
+
+    border-bottom: 1px solid #dce2e8;
+  }
+
+  .hero__highlight-top {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    align-items: flex-start;
+  }
+
+  .hero__highlight-number {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+
+    color: #f4c430;
+  }
+
+  .hero__highlight-icon {
+    color: #0b2748;
+  }
+
+  .hero__highlight h2 {
+    margin: 0 0 6px;
+
+    font-size: 1.45rem;
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+
+    color: #0b2748;
+  }
+
+  .hero__highlight p {
+    margin: 0;
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    color: #6f7f91;
+  }
+
+  /* =========================
+     GUIDE
+  ========================= */
+
+  .hero__guide {
+    max-width: 1180px;
+
+    margin: 70px auto 0;
+    padding: 23px 0 0;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #6f7f91;
+  }
+
+  .hero__guide > div:first-child {
+    gap: 4px;
+  }
+
+  .hero__guide strong {
+    font-size: 0.95rem;
+  }
+
+  .hero__guide-action {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color: #0b2748;
+
+    transition: gap 0.2s ease;
+  }
+
+  .hero__guide:hover .hero__guide-action {
+    gap: 13px;
+  }
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1300px) {
+  .hero {
+    padding-top: 88px;
+  }
+
+  .hero__main {
+    gap: 130px;
+  }
 }

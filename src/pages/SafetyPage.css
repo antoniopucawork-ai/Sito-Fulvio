@@ -1,0 +1,577 @@
+:root {
+  --fulvio-blue: #0f2948;
+  --fulvio-blue-soft: #183a63;
+  --fulvio-yellow: #f4c542;
+
+  --fulvio-bg: #f7f7f4;
+  --fulvio-card: #ffffff;
+
+  --fulvio-text: #1f1f1f;
+  --fulvio-muted: #6f706b;
+
+  --fulvio-border: #deded6;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.safety-page {
+  background: var(--fulvio-bg);
+  color: var(--fulvio-text);
+  min-height: 100vh;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.safety-hero {
+  padding: 78px 24px 88px;
+}
+
+.safety-hero__content {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.safety-hero__eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-hero__title {
+  max-width: 900px;
+  margin: 0;
+
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-hero__title span {
+  color: var(--fulvio-blue-soft);
+}
+
+.safety-hero__description {
+  max-width: 690px;
+
+  margin: 30px 0 34px;
+
+  font-size: 1.14rem;
+  line-height: 1.7;
+
+  color: var(--fulvio-muted);
+}
+
+.safety-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 52px;
+  padding: 0 24px;
+
+  border-radius: 8px;
+
+  background: var(--fulvio-yellow);
+  color: var(--fulvio-blue);
+
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.safety-hero__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 41, 72, 0.12);
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.safety-intro {
+  padding: 88px 24px;
+
+  background: var(--fulvio-blue);
+}
+
+.safety-intro__content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.safety-intro__eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  color: var(--fulvio-yellow);
+}
+
+.safety-intro h2 {
+  max-width: 760px;
+  margin: 0 0 26px;
+
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+
+  color: #ffffff;
+}
+
+.safety-intro p {
+  max-width: 740px;
+
+  margin: 0 0 16px;
+
+  font-size: 1.06rem;
+  line-height: 1.75;
+
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.safety-services {
+  max-width: 1180px;
+  margin: 0 auto;
+
+  padding: 100px 24px;
+}
+
+.safety-services__header {
+  max-width: 760px;
+  margin-bottom: 60px;
+}
+
+.safety-services__header > span {
+  display: inline-block;
+  margin-bottom: 16px;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-services__header h2 {
+  margin: 0 0 20px;
+
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-services__header p {
+  margin: 0;
+
+  font-size: 1.07rem;
+  line-height: 1.7;
+
+  color: var(--fulvio-muted);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.safety-services__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  border-top: 1px solid var(--fulvio-border);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.safety-card {
+  position: relative;
+
+  padding: 42px 42px 48px;
+
+  border-bottom: 1px solid var(--fulvio-border);
+}
+
+.safety-card:nth-child(odd) {
+  border-right: 1px solid var(--fulvio-border);
+}
+
+.safety-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 32px;
+}
+
+.safety-card__number {
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+
+  color: var(--fulvio-muted);
+}
+
+.safety-card__icon {
+  color: var(--fulvio-blue);
+}
+
+.safety-card h3 {
+  max-width: 440px;
+
+  margin: 0 0 16px;
+
+  font-size: clamp(1.6rem, 2.8vw, 2.15rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-card__description {
+  max-width: 500px;
+
+  margin: 0 0 28px;
+
+  font-size: 1rem;
+  line-height: 1.65;
+
+  color: var(--fulvio-muted);
+}
+
+.safety-card__details {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.safety-card__details li {
+  position: relative;
+
+  padding: 10px 0 10px 20px;
+
+  font-size: 0.95rem;
+  line-height: 1.45;
+
+  color: var(--fulvio-text);
+}
+
+.safety-card__details li::before {
+  content: "";
+
+  position: absolute;
+  top: 17px;
+  left: 0;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--fulvio-yellow);
+}
+
+/* =========================
+   HELP
+========================= */
+
+.safety-help {
+  padding: 0 24px 100px;
+}
+
+.safety-help__content {
+  max-width: 1180px;
+  margin: 0 auto;
+
+  padding: 54px;
+
+  background: #efefe9;
+
+  border-radius: 14px;
+}
+
+.safety-help__icon {
+  margin-bottom: 24px;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-help__content > span {
+  display: block;
+
+  margin-bottom: 14px;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-help h2 {
+  max-width: 760px;
+
+  margin: 0 0 18px;
+
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+
+  color: var(--fulvio-blue);
+}
+
+.safety-help p {
+  max-width: 720px;
+
+  margin: 0;
+
+  font-size: 1.04rem;
+  line-height: 1.7;
+
+  color: var(--fulvio-muted);
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.safety-contact {
+  padding: 96px 24px;
+
+  background: var(--fulvio-blue);
+}
+
+.safety-contact__content {
+  max-width: 850px;
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.safety-contact__content > span {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  color: var(--fulvio-yellow);
+}
+
+.safety-contact h2 {
+  margin: 0 0 20px;
+
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+
+  color: #ffffff;
+}
+
+.safety-contact p {
+  max-width: 640px;
+
+  margin: 0 auto 32px;
+
+  font-size: 1.06rem;
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.safety-contact__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 54px;
+  padding: 0 26px;
+
+  border-radius: 8px;
+
+  background: var(--fulvio-yellow);
+  color: var(--fulvio-blue);
+
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.safety-contact__button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .safety-hero {
+    padding-top: 62px;
+    padding-bottom: 72px;
+  }
+
+  .safety-services {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .safety-services__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .safety-card {
+    padding: 38px 20px;
+  }
+
+  .safety-card:nth-child(odd) {
+    border-right: none;
+  }
+
+  .safety-help {
+    padding-bottom: 80px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .safety-hero {
+    padding: 48px 18px 58px;
+  }
+
+  .safety-hero__eyebrow {
+    margin-bottom: 14px;
+
+    font-size: 0.74rem;
+  }
+
+  .safety-hero__title {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .safety-hero__description {
+    margin-top: 24px;
+    margin-bottom: 28px;
+
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .safety-hero__cta {
+    width: 100%;
+  }
+
+  .safety-intro {
+    padding: 62px 18px;
+  }
+
+  .safety-intro h2 {
+    font-size: 2.15rem;
+  }
+
+  .safety-intro p {
+    font-size: 1rem;
+  }
+
+  .safety-services {
+    padding: 70px 18px;
+  }
+
+  .safety-services__header {
+    margin-bottom: 42px;
+  }
+
+  .safety-services__header h2 {
+    font-size: 2.25rem;
+  }
+
+  .safety-services__header p {
+    font-size: 1rem;
+  }
+
+  .safety-card {
+    padding: 34px 0;
+  }
+
+  .safety-card__top {
+    margin-bottom: 24px;
+  }
+
+  .safety-card h3 {
+    font-size: 1.65rem;
+  }
+
+  .safety-card__description {
+    font-size: 0.98rem;
+  }
+
+  .safety-card__details li {
+    padding-top: 9px;
+    padding-bottom: 9px;
+
+    font-size: 0.93rem;
+  }
+
+  .safety-help {
+    padding: 0 18px 70px;
+  }
+
+  .safety-help__content {
+    padding: 34px 24px;
+
+    border-radius: 10px;
+  }
+
+  .safety-help h2 {
+    font-size: 2rem;
+  }
+
+  .safety-contact {
+    padding: 72px 18px;
+  }
+
+  .safety-contact h2 {
+    font-size: 2.55rem;
+  }
+
+  .safety-contact__button {
+    width: 100%;
+  }
+}

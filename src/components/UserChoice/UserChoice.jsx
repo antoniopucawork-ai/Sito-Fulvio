@@ -21,7 +21,6 @@ import {
 import "./UserChoice.css";
 
 import { aziendaOptions, privatoOptions } from "../../data/serviceOptions.js";
-
 import { serviceDestinations } from "../../data/serviceDestinations.js";
 import { contactConfig } from "../../data/contactConfig.js";
 
@@ -58,7 +57,6 @@ const UserChoice = () => {
       settori: <HardHat size={22} />,
       formazione: <GraduationCap size={22} />,
       contabilita: <Calculator size={22} />,
-
       domestico: <House size={22} />,
       lavoro: <BriefcaseBusiness size={22} />,
       pensione: <Landmark size={22} />,
@@ -93,6 +91,15 @@ const UserChoice = () => {
 
 Percorso dal sito:
 ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
+
+    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+      message,
+    )}`;
+  };
+
+  const createGenericWhatsappUrl = () => {
+    const message =
+      "Buongiorno Fulvio, arrivo dal suo sito. Non sono sicuro di quale servizio mi serva e vorrei spiegare brevemente la mia situazione.";
 
     return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
       message,
@@ -161,7 +168,15 @@ ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
           <div className="user-choice__help">
             <span>Non sai quale scegliere?</span>
 
-            <button type="button">Nessun problema, ti aiutiamo noi.</button>
+            <a
+              href={createGenericWhatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="user-choice__help-button"
+            >
+              <MessageCircle size={18} />
+              Aiutami a capire cosa mi serve
+            </a>
           </div>
         </>
       )}
@@ -249,9 +264,7 @@ ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
                 <button
                   type="button"
                   key={option.id}
-                  className={`user-choice__service user-choice__service--simple ${
-                    selectedNeed === option.id ? "is-selected" : ""
-                  }`}
+                  className="user-choice__service user-choice__service--simple"
                   onClick={() => setSelectedNeed(option.id)}
                 >
                   <div className="user-choice__service-content">
