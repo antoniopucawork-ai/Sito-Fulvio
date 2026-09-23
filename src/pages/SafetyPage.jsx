@@ -38,7 +38,7 @@ const safetyAreas = [
     details: [
       "Documento di Valutazione dei Rischi (DVR)",
       "Valutazione completa dei rischi aziendali",
-      "Rischio incendio",
+      "Rischio incendio e C.P.I.",
       "Rischio chimico e biologico",
       "Rumore e vibrazioni",
       "Stress lavoro-correlato",

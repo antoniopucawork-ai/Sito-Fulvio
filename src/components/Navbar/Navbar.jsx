@@ -43,9 +43,14 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <header className="navbar">
       <div className="navbar__inner">
+        {/* BRAND */}
         <Link to="/" className="navbar__brand" onClick={closeMenu}>
           <img
             src={logoFulvio}
@@ -76,28 +81,46 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* MOBILE BUTTON */}
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
-          className="navbar__menu-button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className={`navbar__menu-button ${
+            isMenuOpen ? "navbar__menu-button--open" : ""
+          }`}
+          onClick={toggleMenu}
           aria-label={isMenuOpen ? "Chiudi menu" : "Apri menu"}
           aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
         >
           {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
       </div>
 
-      {/* MOBILE MENU */}
-      {isMenuOpen && (
-        <nav className="navbar__mobile-menu">
+      {/* MOBILE NAVIGATION */}
+      <nav
+        id="mobile-navigation"
+        className={`navbar__mobile-menu ${
+          isMenuOpen ? "navbar__mobile-menu--open" : ""
+        }`}
+        aria-hidden={!isMenuOpen}
+      >
+        <div className="navbar__mobile-menu-inner">
           {navItems.map((item) => (
-            <Link key={item.path} to={item.path} onClick={closeMenu}>
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              onClick={closeMenu}
+              tabIndex={isMenuOpen ? 0 : -1}
+              className={({ isActive }) =>
+                isActive ? "navbar__mobile-link--active" : ""
+              }
+            >
               {item.label}
-            </Link>
+            </NavLink>
           ))}
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 };

@@ -16,7 +16,7 @@ export const serviceDestinations = {
       "Distacchi e trasferimenti",
       "Periodo di prova",
       "Patti di non concorrenza",
-      "Comunicazioni obbligatorie UNILAV e UNISOMM",
+      "Comunicazioni obbligatorie UNILAV",
     ],
     note: "Non serve conoscere in anticipo quale contratto utilizzare: la soluzione può essere valutata in base alle esigenze dell'azienda e del lavoratore.",
     whatsappMessage:
@@ -73,7 +73,6 @@ export const serviceDestinations = {
     services: [
       "Individuazione del CCNL applicabile",
       "Inquadramento del personale",
-      "Verifica della corretta classificazione",
       "Politiche retributive",
       "Piani di welfare aziendale",
       "Piani di incentivazione",
@@ -163,7 +162,7 @@ export const serviceDestinations = {
       "Stress lavoro-correlato",
       "Rumore",
       "Vibrazioni",
-      "Rischio incendio",
+      "Rischio incendio e C.P.I.",
       "DUVRI e interferenze",
     ],
     note: "Le valutazioni necessarie dipendono dalle attività, dagli ambienti e dalle sostanze o attrezzature utilizzate.",
@@ -186,7 +185,7 @@ export const serviceDestinations = {
       "Verifica idoneità tecnico-professionale",
       "Safety audit",
       "Supporto ISO 45001",
-      "Modelli organizzativi ex art. 30",
+      "Modelli organizzativi D.Lgs. 231/01",
     ],
     note: "Queste attività possono essere integrate in un sistema di gestione più ampio della sicurezza aziendale.",
     whatsappMessage:
@@ -205,7 +204,6 @@ export const serviceDestinations = {
       "Assistenza durante ispezioni INL",
       "Assistenza durante controlli VVF",
       "Analisi delle cause dell'infortunio",
-      "Root cause analysis",
       "Supporto in caso di indagini della magistratura",
     ],
     note: "La gestione varia in funzione della gravità dell'evento e degli enti coinvolti.",
@@ -299,7 +297,6 @@ export const serviceDestinations = {
     services: [
       "Documento di valutazione rischio esplosione",
       "Valutazione ATEX",
-      "Rapporto di sicurezza RIR",
       "Supporto Seveso III",
       "Piani di emergenza interna",
       "Gestione sostanze pericolose",
@@ -358,6 +355,9 @@ export const serviceDestinations = {
       "Moduli RSPP e ASPP A-B-C",
       "Modulo B specifico edilizia",
       "Modulo B specifico chimico",
+      "Modulo B specifico pesca",
+      "Modulo B specifico agricoltura",
+      "Modulo B specifico sanità",
       "Formazione Datore di Lavoro che svolge il ruolo di RSPP",
     ],
     note: "Il percorso corretto dipende dalla funzione ricoperta e dal settore di attività.",
@@ -376,6 +376,7 @@ export const serviceDestinations = {
       "PLE",
       "Escavatori",
       "Autogru",
+      "Carroponte",
       "Lavori in quota",
       "DPI anticaduta",
       "Spazi confinati",
@@ -406,7 +407,7 @@ export const serviceDestinations = {
   },
 
   // =========================
-  // CONTABILITÀ
+  // CONTABILITÀ / CONSULENZA FISCALE E SOCIETARIA
   // =========================
 
   "contabilita-azienda": {
