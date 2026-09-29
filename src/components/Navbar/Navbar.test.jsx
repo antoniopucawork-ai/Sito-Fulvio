@@ -101,7 +101,7 @@ describe("Navbar", () => {
 
     expect(formationLinks[0]).toHaveAttribute("href", "/formazione");
 
-    expect(privateLinks[0]).toHaveAttribute("href", "/privati");
+    expect(privateLinks[0]).toHaveAttribute("href", "/servizi-per-privati");
   });
 
   test("il menu mobile è chiuso inizialmente", () => {

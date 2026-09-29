@@ -6,7 +6,7 @@ import ServicesPage from "./pages/ServicesPage.jsx";
 import SafetyPage from "./pages/SafetyPage.jsx";
 import PrivateServicesPage from "./pages/PrivateServicesPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
-
+import AboutPage from "./pages/AboutPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
         <Route path="/servizi-per-privati" element={<PrivateServicesPage />} />
 
         <Route path="/contatti" element={<ContactPage />} />
+        <Route path="/chi-sono" element={<AboutPage />} />
       </Routes>
     </>
   );

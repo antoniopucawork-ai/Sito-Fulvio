@@ -85,8 +85,7 @@ describe("SafetyPage", () => {
       screen.getByText("Valutazione completa dei rischi aziendali"),
     ).toBeInTheDocument();
 
-    expect(screen.getByText("Rischio incendio")).toBeInTheDocument();
-
+    expect(screen.getByText("Rischio incendio e C.P.I.")).toBeInTheDocument();
     expect(screen.getAllByText("Rischio ATEX").length).toBeGreaterThan(0);
 
     expect(screen.getByText("DUVRI")).toBeInTheDocument();
