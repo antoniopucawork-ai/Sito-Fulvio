@@ -1,0 +1,362 @@
+/* =========================================
+   PRIVACY PAGE
+========================================= */
+
+.privacy-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0b2748;
+}
+
+.privacy-container {
+  width: min(100% - 40px, 1000px);
+  margin-inline: auto;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.privacy-hero {
+  padding: 42px 0 58px;
+
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      rgba(214, 167, 0, 0.055),
+      transparent 35%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f7f9fb 100%);
+}
+
+.privacy-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 42px;
+
+  color: #526579;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.privacy-back:hover {
+  color: #0b2748;
+}
+
+.privacy-back:focus-visible {
+  outline: 2px solid #0b2748;
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+.privacy-hero__heading {
+  max-width: 760px;
+}
+
+.privacy-hero__icon {
+  display: block;
+  margin-bottom: 18px;
+  color: #0b2748;
+}
+
+.privacy-eyebrow {
+  display: block;
+  margin-bottom: 13px;
+
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.13em;
+}
+
+.privacy-hero h1 {
+  margin: 0;
+
+  color: #0b2748;
+  font-size: clamp(2.65rem, 7vw, 4.5rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.privacy-hero p {
+  max-width: 620px;
+  margin: 20px 0 0;
+
+  color: #526579;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.privacy-content {
+  padding: 48px 0 90px;
+}
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.privacy-section {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 18px;
+
+  padding: 32px 0;
+
+  border-top: 1px solid #e1e7ed;
+}
+
+.privacy-section:first-child {
+  padding-top: 25px;
+}
+
+.privacy-section__number {
+  padding-top: 5px;
+
+  color: #a67c00;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+}
+
+.privacy-section h2 {
+  margin: 0 0 16px;
+
+  color: #0b2748;
+  font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.privacy-section p {
+  max-width: 760px;
+  margin: 0 0 15px;
+
+  color: #526579;
+  font-size: 0.96rem;
+  line-height: 1.85;
+}
+
+.privacy-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================
+   PROFESSIONAL DETAILS
+========================================= */
+
+.privacy-section address {
+  margin-top: 22px;
+  padding: 20px 22px;
+
+  border: 1px solid #e4eaf0;
+  border-radius: 10px;
+
+  background: #f8fafc;
+
+  color: #526579;
+  font-size: 0.93rem;
+  font-style: normal;
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+
+.privacy-section address strong {
+  color: #0b2748;
+  font-weight: 750;
+}
+
+.privacy-section address a {
+  color: #0b2748;
+  text-decoration: underline;
+  text-decoration-color: #b5c0cc;
+  text-underline-offset: 3px;
+}
+
+.privacy-section address a:hover {
+  text-decoration-color: #0b2748;
+}
+
+/* =========================================
+   CONTACT CARD
+========================================= */
+
+.privacy-contact {
+  margin-top: 38px;
+  padding: 30px 26px;
+
+  border: 1px solid #e4eaf0;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.privacy-contact > svg {
+  display: block;
+  margin-bottom: 16px;
+  color: #0b2748;
+}
+
+.privacy-contact h2 {
+  margin: 0 0 12px;
+
+  color: #0b2748;
+  font-size: clamp(1.3rem, 3vw, 1.55rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.privacy-contact p {
+  max-width: 650px;
+  margin: 0 0 20px;
+
+  color: #526579;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.privacy-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  max-width: 100%;
+
+  color: #0b2748;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  overflow-wrap: anywhere;
+}
+
+.privacy-contact a:hover {
+  color: #315b82;
+}
+
+.privacy-contact a:focus-visible,
+.privacy-section address a:focus-visible {
+  outline: 2px solid #0b2748;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.privacy-contact a svg {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (min-width: 768px) {
+  .privacy-hero {
+    padding: 55px 0 75px;
+  }
+
+  .privacy-back {
+    margin-bottom: 52px;
+  }
+
+  .privacy-content {
+    padding: 60px 0 110px;
+  }
+
+  .privacy-section {
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 26px;
+
+    padding: 38px 0;
+  }
+
+  .privacy-contact {
+    padding: 38px;
+  }
+}
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media (min-width: 1100px) {
+  .privacy-hero {
+    padding: 60px 0 85px;
+  }
+
+  .privacy-content {
+    padding: 65px 0 120px;
+  }
+
+  .privacy-section {
+    grid-template-columns: 65px minmax(0, 1fr);
+    gap: 30px;
+
+    padding: 42px 0;
+  }
+
+  .privacy-contact {
+    margin-top: 45px;
+    padding: 45px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .privacy-container {
+    width: min(100% - 32px, 1000px);
+  }
+
+  .privacy-hero {
+    padding: 32px 0 48px;
+  }
+
+  .privacy-back {
+    margin-bottom: 35px;
+  }
+
+  .privacy-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .privacy-section {
+    grid-template-columns: 25px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .privacy-section address {
+    padding: 16px;
+  }
+
+  .privacy-contact {
+    padding: 24px 20px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-back {
+    transition: none;
+  }
+}

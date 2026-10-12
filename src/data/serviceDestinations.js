@@ -20,7 +20,7 @@ export const serviceDestinations = {
     ],
     note: "Non serve conoscere in anticipo quale contratto utilizzare: la soluzione può essere valutata in base alle esigenze dell'azienda e del lavoratore.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e avrei bisogno di assistenza per un'assunzione o per la modifica di un contratto di lavoro.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e avrei bisogno di assistenza per un'assunzione o per la modifica di un contratto di lavoro.",
   },
 
   paghe: {
@@ -41,7 +41,7 @@ export const serviceDestinations = {
     ],
     note: "La gestione può comprendere operai, impiegati, quadri, dirigenti e apprendisti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e avrei bisogno di supporto per paghe, presenze, contributi e gestione amministrativa del personale.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e avrei bisogno di supporto per paghe, presenze, contributi e gestione amministrativa del personale.",
   },
 
   cessazioni: {
@@ -62,7 +62,7 @@ export const serviceDestinations = {
     ],
     note: "Le modalità cambiano in base alla situazione concreta e alla tipologia di cessazione.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e avrei bisogno di assistenza per la cessazione di un rapporto di lavoro.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e avrei bisogno di assistenza per la cessazione di un rapporto di lavoro.",
   },
 
   organizzazione: {
@@ -84,7 +84,7 @@ export const serviceDestinations = {
     ],
     note: "Questo tipo di consulenza può riguardare sia l'organizzazione interna sia i rapporti sindacali.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e vorrei supporto per organizzazione del personale, welfare o rapporti sindacali.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e vorrei supporto per organizzazione del personale, welfare o rapporti sindacali.",
   },
 
   "ispezioni-lavoro": {
@@ -105,7 +105,7 @@ export const serviceDestinations = {
     ],
     note: "La gestione può richiedere il coordinamento con altri professionisti in base alla natura del contenzioso.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e ho bisogno di assistenza per un'ispezione, un verbale o un contenzioso di lavoro.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e ho bisogno di assistenza per un'ispezione, un verbale o un contenzioso di lavoro.",
   },
 
   // =========================
@@ -128,7 +128,7 @@ export const serviceDestinations = {
     ],
     note: "L'incarico può essere integrato con altre attività di consulenza e valutazione dei rischi.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e avrei bisogno di informazioni per un incarico come RSPP esterno.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e avrei bisogno di informazioni per un incarico come RSPP esterno.",
   },
 
   dvr: {
@@ -145,7 +145,7 @@ export const serviceDestinations = {
     ],
     note: "Il DVR può richiedere valutazioni specifiche aggiuntive in base all'attività svolta.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e avrei bisogno di redigere o aggiornare il DVR della mia attività.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e avrei bisogno di redigere o aggiornare il DVR della mia attività.",
   },
 
   rischi: {
@@ -167,7 +167,7 @@ export const serviceDestinations = {
     ],
     note: "Le valutazioni necessarie dipendono dalle attività, dagli ambienti e dalle sostanze o attrezzature utilizzate.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e devo valutare uno o più rischi specifici presenti nella mia attività.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e devo valutare uno o più rischi specifici presenti nella mia attività.",
   },
 
   "organizzazione-sicurezza": {
@@ -189,7 +189,7 @@ export const serviceDestinations = {
     ],
     note: "Queste attività possono essere integrate in un sistema di gestione più ampio della sicurezza aziendale.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e vorrei organizzare meglio la gestione interna della sicurezza.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e vorrei organizzare meglio la gestione interna della sicurezza.",
   },
 
   infortunio: {
@@ -208,7 +208,7 @@ export const serviceDestinations = {
     ],
     note: "La gestione varia in funzione della gravità dell'evento e degli enti coinvolti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un'azienda e ho bisogno di assistenza in seguito a un infortunio o a un'ispezione.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un'azienda e ho bisogno di assistenza in seguito a un infortunio o a un'ispezione.",
   },
 
   // =========================
@@ -232,7 +232,7 @@ export const serviceDestinations = {
     ],
     note: "Gli adempimenti dipendono dalla tipologia di lavori, dalle imprese coinvolte e dall'organizzazione del cantiere.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Devo gestire la sicurezza di un cantiere edile e vorrei capire quali adempimenti sono necessari.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Devo gestire la sicurezza di un cantiere edile e vorrei capire quali adempimenti sono necessari.",
   },
 
   "psc-pos": {
@@ -249,7 +249,7 @@ export const serviceDestinations = {
     ],
     note: "Il documento necessario dipende dal ruolo ricoperto e dalla configurazione del cantiere.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di supporto per PSC, POS o altra documentazione relativa a un cantiere.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di supporto per PSC, POS o altra documentazione relativa a un cantiere.",
   },
 
   coordinamento: {
@@ -266,7 +266,7 @@ export const serviceDestinations = {
     ],
     note: "La necessità di CSP o CSE dipende dall'organizzazione e dalle imprese coinvolte nel cantiere.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di supporto per il coordinamento della sicurezza come CSP o CSE.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di supporto per il coordinamento della sicurezza come CSP o CSE.",
   },
 
   chimico: {
@@ -286,7 +286,7 @@ export const serviceDestinations = {
     ],
     note: "La valutazione deve essere calibrata sulle sostanze, sugli impianti e sulle lavorazioni effettivamente presenti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Gestisco un'attività chimica o petrolchimica e avrei bisogno di consulenza sulla sicurezza.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Gestisco un'attività chimica o petrolchimica e avrei bisogno di consulenza sulla sicurezza.",
   },
 
   "atex-seveso": {
@@ -304,7 +304,7 @@ export const serviceDestinations = {
     ],
     note: "Gli adempimenti dipendono dalle caratteristiche dell'impianto e dalle sostanze presenti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di assistenza per ATEX, Seveso o gestione di sostanze pericolose.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di assistenza per ATEX, Seveso o gestione di sostanze pericolose.",
   },
 
   // =========================
@@ -325,7 +325,7 @@ export const serviceDestinations = {
     ],
     note: "La durata e il percorso dipendono dal livello di rischio e dalla mansione.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di organizzare la formazione sulla sicurezza per uno o più lavoratori.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di organizzare la formazione sulla sicurezza per uno o più lavoratori.",
   },
 
   "preposti-dirigenti": {
@@ -341,7 +341,7 @@ export const serviceDestinations = {
     ],
     note: "Il percorso viene individuato in base al ruolo effettivamente svolto.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di formazione sulla sicurezza per preposti o dirigenti.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di formazione sulla sicurezza per preposti o dirigenti.",
   },
 
   "rls-rspp": {
@@ -362,7 +362,7 @@ export const serviceDestinations = {
     ],
     note: "Il percorso corretto dipende dalla funzione ricoperta e dal settore di attività.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di informazioni su un corso RLS, RSPP, ASPP o Datore di Lavoro.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di informazioni su un corso RLS, RSPP, ASPP o Datore di Lavoro.",
   },
 
   attrezzature: {
@@ -385,7 +385,7 @@ export const serviceDestinations = {
     ],
     note: "Il corso necessario dipende dall'attrezzatura utilizzata e dalla mansione svolta.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di un corso per attrezzature, lavori in quota o attività particolari.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di un corso per attrezzature, lavori in quota o attività particolari.",
   },
 
   emergenze: {
@@ -403,7 +403,7 @@ export const serviceDestinations = {
     ],
     note: "Il percorso viene individuato in base alla classificazione dell'attività e dell'azienda.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di organizzare un corso antincendio o di primo soccorso.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di organizzare un corso antincendio o di primo soccorso.",
   },
 
   // =========================
@@ -425,7 +425,7 @@ export const serviceDestinations = {
     ],
     note: "La gestione viene impostata in base alla tipologia e al regime dell'attività.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di assistenza per la gestione contabile della mia attività.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di assistenza per la gestione contabile della mia attività.",
   },
 
   bilancio: {
@@ -442,7 +442,7 @@ export const serviceDestinations = {
     ],
     note: "Gli adempimenti dipendono dalla forma societaria e dalla situazione dell'impresa.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di assistenza per la predisposizione o il deposito del bilancio.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di assistenza per la predisposizione o il deposito del bilancio.",
   },
 
   dichiarazioni: {
@@ -463,7 +463,7 @@ export const serviceDestinations = {
     ],
     note: "Gli adempimenti effettivamente necessari dipendono dalla posizione fiscale del soggetto.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di assistenza per dichiarazioni fiscali, IVA o F24.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di assistenza per dichiarazioni fiscali, IVA o F24.",
   },
 
   "regime-fiscale": {
@@ -479,7 +479,7 @@ export const serviceDestinations = {
     ],
     note: "La scelta dipende dalle caratteristiche concrete dell'attività e del soggetto.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Vorrei una consulenza per capire quale regime fiscale o forma societaria può essere più adatta alla mia attività.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Vorrei una consulenza per capire quale regime fiscale o forma societaria può essere più adatta alla mia attività.",
   },
 
   accertamenti: {
@@ -495,7 +495,7 @@ export const serviceDestinations = {
     ],
     note: "La strategia di gestione dipende dal tipo di controllo e dalla documentazione ricevuta.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Ho ricevuto un controllo o un accertamento fiscale e avrei bisogno di assistenza.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Ho ricevuto un controllo o un accertamento fiscale e avrei bisogno di assistenza.",
   },
 
   // =========================
@@ -515,7 +515,7 @@ export const serviceDestinations = {
     ],
     note: "Il rapporto deve essere impostato sulla base dell'attività svolta e delle condizioni concordate.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e vorrei assumere una colf, una badante o una baby-sitter.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e vorrei assumere una colf, una badante o una baby-sitter.",
   },
 
   "busta-paga-domestico": {
@@ -530,7 +530,7 @@ export const serviceDestinations = {
     ],
     note: "La gestione può essere effettuata in continuità durante il rapporto di lavoro.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di supporto per buste paga e contributi di un lavoratore domestico.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di supporto per buste paga e contributi di un lavoratore domestico.",
   },
 
   "cessazione-domestico": {
@@ -545,7 +545,7 @@ export const serviceDestinations = {
     ],
     note: "La procedura dipende dalle caratteristiche del rapporto in essere.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per terminare un rapporto di lavoro domestico.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per terminare un rapporto di lavoro domestico.",
   },
 
   // =========================
@@ -564,7 +564,7 @@ export const serviceDestinations = {
     ],
     note: "È utile valutare la situazione complessiva prima della cessazione del rapporto.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza perché devo dimettermi.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza perché devo dimettermi.",
   },
 
   tfr: {
@@ -579,7 +579,7 @@ export const serviceDestinations = {
     ],
     note: "La valutazione dipende dai dati del rapporto e dalla relativa documentazione.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e vorrei chiarimenti o assistenza sul mio TFR.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e vorrei chiarimenti o assistenza sul mio TFR.",
   },
 
   naspi: {
@@ -594,7 +594,7 @@ export const serviceDestinations = {
     ],
     note: "La situazione deve essere valutata in relazione alla cessazione del rapporto e alla posizione contributiva.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per la NASpI.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per la NASpI.",
   },
 
   controversia: {
@@ -609,7 +609,7 @@ export const serviceDestinations = {
     ],
     note: "Quando necessario la gestione può richiedere il coinvolgimento di altri professionisti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di supporto per una controversia di lavoro.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di supporto per una controversia di lavoro.",
   },
 
   prestazione: {
@@ -625,7 +625,7 @@ export const serviceDestinations = {
     ],
     note: "La soluzione dipende dal tipo di attività e dalle modalità con cui viene svolta.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una collaborazione o prestazione occasionale.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una collaborazione o prestazione occasionale.",
   },
 
   // =========================
@@ -644,7 +644,7 @@ export const serviceDestinations = {
     ],
     note: "La valutazione richiede l'analisi della posizione previdenziale personale.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e vorrei capire meglio la mia situazione pensionistica.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e vorrei capire meglio la mia situazione pensionistica.",
   },
 
   ricongiunzione: {
@@ -659,7 +659,7 @@ export const serviceDestinations = {
     ],
     note: "La pratica dipende dalla storia contributiva e dagli enti previdenziali coinvolti.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per verificare o ricongiungere i miei contributi.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per verificare o ricongiungere i miei contributi.",
   },
 
   "pratica-previdenziale": {
@@ -674,7 +674,7 @@ export const serviceDestinations = {
     ],
     note: "La pratica corretta viene individuata in base alla situazione personale.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica previdenziale.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica previdenziale.",
   },
 
   // =========================
@@ -693,7 +693,7 @@ export const serviceDestinations = {
     ],
     note: "Gli obblighi dipendono dalla presenza di dipendenti e dall'organizzazione del condominio.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Avrei bisogno di consulenza sulla sicurezza per un condominio.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Avrei bisogno di consulenza sulla sicurezza per un condominio.",
   },
 
   "piccola-attivita": {
@@ -709,7 +709,7 @@ export const serviceDestinations = {
     ],
     note: "Gli adempimenti variano in base al tipo di attività e alla presenza di lavoratori.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Ho una piccola attività e vorrei capire quali obblighi di sicurezza devo gestire.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Ho una piccola attività e vorrei capire quali obblighi di sicurezza devo gestire.",
   },
 
   ristrutturazione: {
@@ -725,7 +725,7 @@ export const serviceDestinations = {
     ],
     note: "Gli obblighi dipendono dal numero di imprese e dall'organizzazione dei lavori.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sto facendo una ristrutturazione e vorrei capire quali adempimenti di sicurezza sono necessari.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sto facendo una ristrutturazione e vorrei capire quali adempimenti di sicurezza sono necessari.",
   },
 
   "corso-privato": {
@@ -742,7 +742,7 @@ export const serviceDestinations = {
     ],
     note: "La disponibilità del corso va verificata in base all'attrezzatura e al tipo di formazione richiesta.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di informazioni su un corso o un patentino.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di informazioni su un corso o un patentino.",
   },
 
   // =========================
@@ -761,7 +761,7 @@ export const serviceDestinations = {
     ],
     note: "Il tipo di pratica viene individuato in base alla situazione personale.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica INPS.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica INPS.",
   },
 
   inail: {
@@ -776,7 +776,7 @@ export const serviceDestinations = {
     ],
     note: "La documentazione richiesta dipende dalla situazione specifica.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica INAIL.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica INAIL.",
   },
 
   "centro-impiego": {
@@ -791,7 +791,7 @@ export const serviceDestinations = {
     ],
     note: "La procedura dipende dal tipo di necessità e dalla situazione lavorativa.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica collegata al Centro per l'Impiego.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato e avrei bisogno di assistenza per una pratica collegata al Centro per l'Impiego.",
   },
 
   consulenza: {
@@ -806,6 +806,6 @@ export const serviceDestinations = {
     ],
     note: "Non devi conoscere il nome tecnico della pratica prima di chiedere assistenza.",
     whatsappMessage:
-      "Buongiorno Fulvio, arrivo dal suo sito. Sono un privato ma non so esattamente quale pratica mi serva. Vorrei spiegare la mia situazione e capire come procedere.",
+      "Salve Dott. Fulvio Martello, arrivo dal suo sito. Sono un privato ma non so esattamente quale pratica mi serva. Vorrei spiegare la mia situazione e capire come procedere.",
   },
 };

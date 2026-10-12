@@ -1,16 +1,14 @@
 // @vitest-environment jsdom
-import { aziendaOptions, privatoOptions } from "../../data/serviceOptions.js";
 
-import { serviceDestinations } from "../../data/serviceDestinations.js";
 import { render, screen, cleanup } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
-
 import { test, expect, afterEach } from "vitest";
-
 import "@testing-library/jest-dom/vitest";
 
 import UserChoice from "./UserChoice";
+import { aziendaOptions, privatoOptions } from "../../data/serviceOptions.js";
+import { serviceDestinations } from "../../data/serviceDestinations.js";
+import { contactConfig } from "../../data/contactConfig.js";
 
 afterEach(() => {
   cleanup();
@@ -19,9 +17,7 @@ afterEach(() => {
 test("mostra la scelta iniziale tra azienda e privato", () => {
   render(<UserChoice />);
 
-  const title = screen.getByText("Qual è la tua situazione?");
-
-  expect(title).toBeInTheDocument();
+  expect(screen.getByText("Qual è la tua situazione?")).toBeInTheDocument();
 });
 
 test("cliccando su azienda mostra le opzioni per l'azienda", async () => {
@@ -29,16 +25,15 @@ test("cliccando su azienda mostra le opzioni per l'azienda", async () => {
 
   render(<UserChoice />);
 
-  const aziendaButton = screen.getByRole("button", {
-    name: /sono un'azienda/i,
-  });
+  await user.click(
+    screen.getByRole("button", {
+      name: /sono un'azienda/i,
+    }),
+  );
 
-  await user.click(aziendaButton);
-
-  const title = screen.getByText("Di cosa hai bisogno?");
-
-  expect(title).toBeInTheDocument();
+  expect(screen.getByText("Di cosa hai bisogno?")).toBeInTheDocument();
 });
+
 test("completa il percorso azienda fino alla destinazione finale", async () => {
   const user = userEvent.setup();
 
@@ -66,14 +61,19 @@ test("completa il percorso azienda fino alla destinazione finale", async () => {
     screen.getByText("Assumere o modificare un contratto"),
   ).toBeInTheDocument();
 
-  expect(screen.getByText("Come può aiutarti Fulvio")).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", {
+      name: /come può aiutarti il dott\. fulvio martello/i,
+    }),
+  ).toBeInTheDocument();
 
   expect(
     screen.getByRole("link", {
-      name: /parla con fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     }),
   ).toBeInTheDocument();
 });
+
 test("completa un percorso privato fino alla destinazione finale", async () => {
   const user = userEvent.setup();
 
@@ -103,11 +103,12 @@ test("completa un percorso privato fino alla destinazione finale", async () => {
 
   expect(
     screen.getByRole("link", {
-      name: /parla con fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     }),
   ).toBeInTheDocument();
 });
-test("crea correttamente il link whatsapp con il percorso selezionato", async () => {
+
+test("crea correttamente il link WhatsApp con il percorso selezionato", async () => {
   const user = userEvent.setup();
 
   render(<UserChoice />);
@@ -131,19 +132,30 @@ test("crea correttamente il link whatsapp con il percorso selezionato", async ()
   );
 
   const whatsappLink = screen.getByRole("link", {
-    name: /parla con fulvio su whatsapp/i,
+    name: /contatta il dott\. fulvio martello/i,
   });
 
-  expect(whatsappLink).toHaveAttribute(
-    "href",
-    expect.stringContaining("393421284498"),
-  );
+  const href = whatsappLink.getAttribute("href");
 
-  expect(whatsappLink).toHaveAttribute(
-    "href",
-    expect.stringContaining("Percorso%20dal%20sito"),
-  );
+  const url = new URL(href);
+
+  expect(url.origin).toBe("https://wa.me");
+
+  expect(url.pathname).toBe(`/${contactConfig.whatsappNumber}`);
+
+  const message = url.searchParams.get("text");
+
+  expect(message).toContain(`Salve ${contactConfig.professionalName}`);
+
+  expect(message).toContain("Percorso dal sito:");
+
+  expect(message).toContain("Azienda");
+
+  expect(message).toContain("Gestire dipendenti e personale");
+
+  expect(message).toContain("Assumere o modificare un contratto");
 });
+
 test("ogni esigenza del wizard ha una destinazione finale", () => {
   const allOptions = [...aziendaOptions, ...privatoOptions];
 

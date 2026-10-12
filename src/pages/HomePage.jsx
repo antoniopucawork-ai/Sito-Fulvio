@@ -6,8 +6,11 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
-      <Hero />
-      <UserChoice />
+
+      <main>
+        <Hero />
+        <UserChoice />
+      </main>
     </>
   );
 };

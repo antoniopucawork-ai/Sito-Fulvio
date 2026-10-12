@@ -100,7 +100,7 @@ const ServicesPage = () => {
       selectedUser === "aziende" ? "Aziende" : "Privati"
     } → ${currentArea.title} → ${currentSection.title} → ${selectedService}`;
 
-    const message = `Buongiorno Fulvio, arrivo dal suo sito.
+    const message = `Salve ${contactConfig.professionalName}, arrivo dal suo sito.
 
 Sono ${userLabel} e avrei bisogno di informazioni sul seguente servizio:
 
@@ -109,7 +109,7 @@ ${selectedService}
 Percorso dal sito:
 ${path}`;
 
-    return `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
       message,
     )}`;
   };
@@ -387,9 +387,9 @@ ${path}`;
                 <h2>{selectedService}</h2>
 
                 <p>
-                  Hai trovato il servizio che stavi cercando. Puoi contattare
-                  Fulvio direttamente per ricevere informazioni e capire come
-                  procedere.
+                  Hai individuato il servizio di tuo interesse. Puoi contattare
+                  il Dott. Fulvio Martello per ricevere maggiori informazioni e
+                  capire come procedere.
                 </p>
 
                 <div className="services-page__service-selected">
@@ -405,7 +405,7 @@ ${path}`;
                   className="services-page__whatsapp"
                 >
                   <MessageCircle size={20} />
-                  Contatta Fulvio su WhatsApp
+                  Contatta il Dott. Fulvio Martello
                 </a>
               </div>
             </section>

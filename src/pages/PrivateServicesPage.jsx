@@ -212,21 +212,21 @@ const PrivateServicesPage = () => {
   };
 
   const createWhatsappUrl = () => {
+    const whatsappBase = `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}`;
+
     if (!currentArea || !currentService) {
-      const genericMessage = `Buongiorno Fulvio, arrivo dal suo sito.
+      const genericMessage = `Salve ${contactConfig.professionalName}, arrivo dal suo sito.
 
 Avrei bisogno di informazioni su un servizio per privati.
 
 La mia esigenza è:`;
 
-      return `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-        genericMessage,
-      )}`;
+      return `${whatsappBase}?text=${encodeURIComponent(genericMessage)}`;
     }
 
     const path = `Servizi per privati → ${currentArea.title} → ${currentService.label}`;
 
-    const message = `Buongiorno Fulvio, arrivo dal suo sito.
+    const message = `Salve ${contactConfig.professionalName}, arrivo dal suo sito.
 
 Sono un privato e avrei bisogno di informazioni sulla seguente esigenza:
 
@@ -235,9 +235,7 @@ ${currentService.label}
 Percorso dal sito:
 ${path}`;
 
-    return `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-      message,
-    )}`;
+    return `${whatsappBase}?text=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -419,11 +417,13 @@ ${path}`;
                   className="private-guide__whatsapp"
                 >
                   <MessageCircle size={20} />
-                  Contatta Fulvio su WhatsApp
+                  Contatta il Dott. Fulvio Martello
                 </a>
 
                 <p className="private-guide__whatsapp-note">
-                  Fulvio riceverà già il percorso che hai selezionato.
+                  Il messaggio WhatsApp includerà automaticamente il percorso
+                  selezionato, così il Dott. Fulvio Martello potrà comprendere
+                  meglio la tua esigenza.
                 </p>
               </div>
             </div>
@@ -489,7 +489,9 @@ ${path}`;
             <div>
               <span>NON TROVI LA TUA SITUAZIONE?</span>
 
-              <h2>Puoi comunque raccontarla direttamente a Fulvio.</h2>
+              <h2>
+                Puoi comunque raccontarla direttamente al Dott. Fulvio Martello.
+              </h2>
 
               <p>
                 Il percorso guidato serve ad aiutarti, non a limitarti. Se la
@@ -510,8 +512,10 @@ ${path}`;
 
             <h2>Hai ancora un dubbio?</h2>
 
-            <p>Contatta Fulvio e descrivi brevemente ciò che devi risolvere.</p>
-
+            <p>
+              Contatta il Dott. Fulvio Martello e descrivi brevemente la tua
+              esigenza.
+            </p>
             <a
               href={createWhatsappUrl()}
               target="_blank"
@@ -519,7 +523,7 @@ ${path}`;
               className="private-contact__button"
             >
               <MessageCircle size={20} />
-              Contatta Fulvio su WhatsApp
+              Contatta il Dott. Fulvio Martello
             </a>
           </div>
         </section>

@@ -99,7 +99,8 @@ ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
 
   const createGenericWhatsappUrl = () => {
     const message =
-      "Buongiorno Fulvio, arrivo dal suo sito. Non sono sicuro di quale servizio mi serva e vorrei spiegare brevemente la mia situazione.";
+      `Salve ${contactConfig.professionalName}, arrivo dal suo sito. ` +
+      "Non sono sicuro di quale servizio mi serva e vorrei spiegare brevemente la mia situazione.";
 
     return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
       message,
@@ -315,7 +316,7 @@ ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
               </p>
 
               <div className="user-choice__destination-services">
-                <h3>Come può aiutarti Fulvio</h3>
+                <h3>Come può aiutarti il Dott. Fulvio Martello</h3>
 
                 <div className="user-choice__destination-list">
                   {currentDestination.services.map((service) => (
@@ -351,12 +352,13 @@ ${userLabel} → ${currentService.title} → ${currentNeed.title}`;
                   className="user-choice__whatsapp"
                 >
                   <MessageCircle size={20} />
-                  Parla con Fulvio su WhatsApp
+                  Contatta il Dott. Fulvio Martello
                 </a>
 
                 <small>
-                  Il messaggio includerà automaticamente la richiesta che hai
-                  selezionato.
+                  Il messaggio WhatsApp includerà il percorso che hai
+                  selezionato, così il Dott. Fulvio Martello potrà comprendere
+                  meglio la tua esigenza.
                 </small>
               </div>
             </div>

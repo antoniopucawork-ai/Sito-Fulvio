@@ -117,13 +117,13 @@ const safetyAreas = [
 
 const SafetyPage = () => {
   const createWhatsappUrl = () => {
-    const message = `Buongiorno Fulvio, arrivo dal suo sito.
+    const message = `Salve Dott. Fulvio Martello, arrivo dal suo sito.
 
 Avrei bisogno di informazioni sui servizi di sicurezza sul lavoro.
 
 La mia esigenza è:`;
 
-    return `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
       message,
     )}`;
   };
@@ -178,9 +178,8 @@ La mia esigenza è:`;
             </p>
 
             <p>
-              Puoi partire semplicemente dalla situazione della tua azienda.
-              L&apos;obiettivo è capire quali aspetti devono essere valutati e
-              quale tipo di supporto può essere necessario.
+              Il Dott. Fulvio Martello è consulente della sicurezza e ha
+              completato la formazione RSPP nei moduli A, B, C, B-SP3 e B-SP5.
             </p>
           </div>
         </section>
@@ -191,7 +190,7 @@ La mia esigenza è:`;
           <div className="safety-services__header">
             <span>AMBITI DI INTERVENTO</span>
 
-            <h2>Come può aiutarti Fulvio</h2>
+            <h2>Come può aiutarti il Dott. Fulvio Martello</h2>
 
             <p>
               I servizi di sicurezza vengono organizzati qui per esigenza, così
@@ -253,8 +252,8 @@ La mia esigenza è:`;
             <h2>Hai bisogno di supporto?</h2>
 
             <p>
-              Contatta Fulvio e raccontagli brevemente la situazione della tua
-              azienda.
+              Contatta il Dott. Fulvio Martello e descrivi brevemente la
+              situazione della tua azienda.
             </p>
 
             <a
@@ -264,7 +263,7 @@ La mia esigenza è:`;
               className="safety-contact__button"
             >
               <MessageCircle size={20} />
-              Contatta Fulvio su WhatsApp
+              Contatta il Dott. Fulvio Martello
             </a>
           </div>
         </section>

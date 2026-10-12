@@ -6,6 +6,7 @@ import { describe, expect, test, afterEach } from "vitest";
 import "@testing-library/jest-dom/vitest";
 
 import SafetyPage from "./SafetyPage.jsx";
+import { contactConfig } from "../data/contactConfig.js";
 
 afterEach(() => {
   cleanup();
@@ -86,6 +87,7 @@ describe("SafetyPage", () => {
     ).toBeInTheDocument();
 
     expect(screen.getByText("Rischio incendio e C.P.I.")).toBeInTheDocument();
+
     expect(screen.getAllByText("Rischio ATEX").length).toBeGreaterThan(0);
 
     expect(screen.getByText("DUVRI")).toBeInTheDocument();
@@ -129,27 +131,46 @@ describe("SafetyPage", () => {
     renderSafetyPage();
 
     const whatsappLink = screen.getByRole("link", {
-      name: /contatta fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     });
 
     expect(whatsappLink).toBeInTheDocument();
 
     expect(whatsappLink).toHaveAttribute("target", "_blank");
+
+    expect(whatsappLink).toHaveAttribute("rel", "noreferrer");
   });
 
   test("il link WhatsApp contiene il messaggio dedicato alla sicurezza", () => {
     renderSafetyPage();
 
     const whatsappLink = screen.getByRole("link", {
-      name: /contatta fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     });
 
     const href = whatsappLink.getAttribute("href");
 
-    expect(href).toContain("wa.me");
+    expect(href).toBeTruthy();
 
-    expect(decodeURIComponent(href)).toContain(
-      "Avrei bisogno di informazioni sui servizi di sicurezza sul lavoro.",
+    const url = new URL(href);
+
+    // Verifica che il collegamento punti a WhatsApp
+    expect(url.origin).toBe("https://wa.me");
+
+    // Verifica il numero configurato
+    expect(url.pathname).toBe(`/${contactConfig.whatsappNumber}`);
+
+    // Recupera il messaggio WhatsApp
+    const message = url.searchParams.get("text");
+
+    expect(message).toBeTruthy();
+
+    // Verifica il saluto professionale
+    expect(message).toContain(`Salve ${contactConfig.professionalName}`);
+
+    // Verifica che la richiesta riguardi la sicurezza
+    expect(message).toContain(
+      "Avrei bisogno di informazioni sui servizi di sicurezza sul lavoro",
     );
   });
 });

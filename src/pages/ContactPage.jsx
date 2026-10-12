@@ -1,38 +1,72 @@
-import { Building2, UserRound, MessageCircle, ArrowRight } from "lucide-react";
+import {
+  Building2,
+  UserRound,
+  MessageCircle,
+  ArrowRight,
+  MapPin,
+  Clock3,
+  Phone,
+  Mail,
+  ExternalLink,
+  MonitorSmartphone,
+} from "lucide-react";
 
 import Navbar from "../components/Navbar/Navbar.jsx";
 import { contactConfig } from "../data/contactConfig.js";
+
 import "./ContactPage.css";
 
 const ContactPage = () => {
+  const {
+    professionalName,
+    whatsappNumber,
+    whatsappBaseUrl,
+    officePhone,
+    email,
+    pec,
+    address,
+    officeHours,
+    services,
+  } = contactConfig;
+
   const createWhatsappUrl = (userType) => {
-    const message =
+    const introduction = `Salve ${professionalName}, arrivo dal suo sito.`;
+
+    const context =
       userType === "azienda"
-        ? `Buongiorno Fulvio, arrivo dal suo sito.
+        ? "La contatto per un'esigenza relativa alla mia azienda."
+        : "La contatto come privato.";
 
-La contatto per un'esigenza relativa alla mia azienda.
+    const message = `${introduction}
 
-Avrei bisogno di informazioni su:`
-        : `Buongiorno Fulvio, arrivo dal suo sito.
+${context}
 
-La contatto come privato.
+Avrei bisogno di informazioni su:
 
-Avrei bisogno di informazioni su:`;
+`;
 
-    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+    return `${whatsappBaseUrl}${whatsappNumber}?text=${encodeURIComponent(
       message,
     )}`;
   };
 
   const createGenericWhatsappUrl = () => {
-    const message = `Buongiorno Fulvio, arrivo dal suo sito.
+    const message = `Salve ${professionalName}, arrivo dal suo sito.
 
-Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:`;
+Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
 
-    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+`;
+
+    return `${whatsappBaseUrl}${whatsappNumber}?text=${encodeURIComponent(
       message,
     )}`;
   };
+
+  const fullAddress = `${address.street}, ${address.postalCode} ${address.city} (${address.province})`;
+
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    fullAddress,
+  )}`;
 
   return (
     <>
@@ -59,7 +93,7 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
           </div>
         </section>
 
-        {/* SCELTA */}
+        {/* SCELTA DEL TIPO DI CONTATTO */}
 
         <section className="contact-choice">
           <div className="contact-choice__header">
@@ -68,15 +102,17 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
             <h2>Scegli da dove vuoi partire</h2>
 
             <p>
-              Il messaggio WhatsApp sarà già impostato per aiutarti a descrivere
-              la tua richiesta.
+              Il messaggio WhatsApp sarà già impostato. Ti basterà completarlo
+              con una breve descrizione della tua richiesta prima di inviarlo.
             </p>
           </div>
 
           <div className="contact-choice__grid">
+            {/* AZIENDE */}
+
             <article className="contact-card">
               <div className="contact-card__icon">
-                <Building2 size={28} />
+                <Building2 size={28} aria-hidden="true" />
               </div>
 
               <span>PER LE AZIENDE</span>
@@ -96,13 +132,15 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
                 className="contact-card__button"
               >
                 Scrivi su WhatsApp
-                <ArrowRight size={18} />
+                <ArrowRight size={18} aria-hidden="true" />
               </a>
             </article>
 
+            {/* PRIVATI */}
+
             <article className="contact-card">
               <div className="contact-card__icon">
-                <UserRound size={28} />
+                <UserRound size={28} aria-hidden="true" />
               </div>
 
               <span>PER I PRIVATI</span>
@@ -121,7 +159,7 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
                 className="contact-card__button"
               >
                 Scrivi su WhatsApp
-                <ArrowRight size={18} />
+                <ArrowRight size={18} aria-hidden="true" />
               </a>
             </article>
           </div>
@@ -131,7 +169,11 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
 
         <section className="contact-direct">
           <div className="contact-direct__content">
-            <MessageCircle size={34} className="contact-direct__icon" />
+            <MessageCircle
+              size={34}
+              className="contact-direct__icon"
+              aria-hidden="true"
+            />
 
             <span>NON SAI QUALE SERVIZIO SCEGLIERE?</span>
 
@@ -139,8 +181,8 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
 
             <p>
               Se non sai in quale area rientra la tua esigenza, puoi scrivere
-              direttamente a Fulvio e spiegare brevemente ciò di cui hai
-              bisogno.
+              direttamente al {professionalName} e spiegare brevemente ciò di
+              cui hai bisogno.
             </p>
 
             <a
@@ -149,9 +191,147 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
               rel="noopener noreferrer"
               className="contact-direct__button"
             >
-              <MessageCircle size={20} />
-              Contatta Fulvio su WhatsApp
+              <MessageCircle size={20} aria-hidden="true" />
+              Contatta il {professionalName}
             </a>
+          </div>
+        </section>
+
+        {/* STUDIO E CONTATTI */}
+
+        <section className="contact-studio">
+          <div className="contact-studio__inner">
+            <div className="contact-studio__heading">
+              <span className="contact-studio__eyebrow">LO STUDIO</span>
+
+              <h2>
+                Un riferimento vicino.
+                <span> Anche a distanza.</span>
+              </h2>
+
+              <p>
+                Lo studio del {professionalName} si trova a {address.city}, in
+                provincia di Napoli.
+                {services.remoteConsultations && (
+                  <>
+                    {" "}
+                    Le consulenze sono disponibili anche a distanza, per
+                    assistere clienti su tutto il territorio nazionale.
+                  </>
+                )}
+              </p>
+            </div>
+
+            <div className="contact-studio__grid">
+              {/* INDIRIZZO */}
+
+              <article className="contact-studio__card">
+                <MapPin size={26} aria-hidden="true" />
+
+                <h3>Dove siamo</h3>
+
+                <address>
+                  {address.street}
+                  <br />
+                  {address.postalCode} {address.city}
+                  <br />({address.province})
+                </address>
+
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer">
+                  Come raggiungere lo studio
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+              </article>
+
+              {/* ORARI */}
+
+              <article className="contact-studio__card">
+                <Clock3 size={26} aria-hidden="true" />
+
+                <h3>Orari dello studio</h3>
+
+                <p>
+                  Mattina
+                  <strong>{officeHours.morning}</strong>
+                </p>
+
+                <p>
+                  Pomeriggio
+                  <strong>{officeHours.afternoon}</strong>
+                </p>
+
+                {officeHours.appointmentOnly && (
+                  <span className="contact-studio__note">
+                    Ricevimento su appuntamento.
+                  </span>
+                )}
+              </article>
+
+              {/* TELEFONO */}
+
+              <article className="contact-studio__card">
+                <Phone size={26} aria-hidden="true" />
+
+                <h3>Telefono</h3>
+
+                <p>
+                  Per informazioni e appuntamenti puoi contattare direttamente
+                  lo studio.
+                </p>
+
+                <a href={`tel:${officePhone}`}>
+                  {officePhone}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              </article>
+
+              {/* CONSULENZE A DISTANZA */}
+
+              {services.remoteConsultations && (
+                <article className="contact-studio__card">
+                  <MonitorSmartphone size={26} aria-hidden="true" />
+
+                  <h3>Consulenze a distanza</h3>
+
+                  <p>
+                    Non è necessario recarsi sempre in studio. È possibile
+                    richiedere una consulenza anche a distanza, previo
+                    appuntamento.
+                  </p>
+
+                  <a
+                    href={createGenericWhatsappUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Richiedi informazioni
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                </article>
+              )}
+            </div>
+
+            {/* EMAIL E PEC */}
+
+            <div className="contact-studio__emails">
+              <div>
+                <Mail size={20} aria-hidden="true" />
+
+                <div>
+                  <span>Email</span>
+                  <a href={`mailto:${email}`}>{email}</a>
+                </div>
+              </div>
+
+              <div>
+                <Mail size={20} aria-hidden="true" />
+
+                <div>
+                  <span>PEC</span>
+                  <a href={`mailto:${pec}`}>{pec}</a>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

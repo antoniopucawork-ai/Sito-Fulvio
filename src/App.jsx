@@ -7,6 +7,8 @@ import SafetyPage from "./pages/SafetyPage.jsx";
 import PrivateServicesPage from "./pages/PrivateServicesPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
+import PrivacyPage from "./pages/PrivacyPage/PrivacyPage.jsx";
+
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -24,6 +26,7 @@ const App = () => {
         <Route path="/servizi-per-privati" element={<PrivateServicesPage />} />
         <Route path="/contatti" element={<ContactPage />} />
         <Route path="/chi-sono" element={<AboutPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 

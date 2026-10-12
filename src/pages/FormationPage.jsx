@@ -96,13 +96,14 @@ const deliveryMethods = [
 
 const FormationPage = () => {
   const createWhatsappUrl = () => {
-    const message = `Buongiorno Fulvio, arrivo dal suo sito.
+    const message = `Salve Dott. Fulvio Martello, arrivo dal suo sito.
 
-Avrei bisogno di informazioni sui corsi di formazione.
+Avrei bisogno di informazioni sui corsi di formazione
+e sui percorsi disponibili per la mia azienda.
 
 La mia esigenza è:`;
 
-    return `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
+    return `${contactConfig.whatsappBaseUrl}${contactConfig.whatsappNumber}?text=${encodeURIComponent(
       message,
     )}`;
   };
@@ -163,8 +164,9 @@ La mia esigenza è:`;
             </p>
 
             <p>
-              Fulvio può aiutarti a individuare il percorso formativo più adatto
-              alla tua situazione.
+              Il Dott. Fulvio Martello, formatore per la sicurezza sui luoghi di
+              lavoro, può aiutarti a individuare il percorso formativo più
+              adatto alle esigenze della tua azienda.
             </p>
           </div>
         </section>
@@ -267,7 +269,7 @@ La mia esigenza è:`;
               className="formation-contact__button"
             >
               <MessageCircle size={20} />
-              Contatta Fulvio su WhatsApp
+              Contatta il Dott. Fulvio Martello
             </a>
           </div>
         </section>

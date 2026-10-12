@@ -1,8 +1,16 @@
+/* =========================================
+   CONTACT PAGE
+========================================= */
+
 .contact-page {
   min-height: 100vh;
   background: #f7f8fa;
   color: #172033;
 }
+
+/* =========================================
+   HERO
+========================================= */
 
 .contact-hero {
   padding: 120px 24px 90px;
@@ -17,7 +25,8 @@
 .contact-hero__eyebrow,
 .contact-choice__header > span,
 .contact-card > span,
-.contact-direct__content > span {
+.contact-direct__content > span,
+.contact-studio__eyebrow {
   display: block;
   margin-bottom: 16px;
   font-size: 0.78rem;
@@ -46,6 +55,10 @@
   line-height: 1.75;
 }
 
+/* =========================================
+   SCELTA TIPOLOGIA UTENTE
+========================================= */
+
 .contact-choice {
   width: min(1180px, calc(100% - 48px));
   margin: 0 auto;
@@ -60,12 +73,14 @@
 .contact-choice__header h2 {
   margin: 0 0 16px;
   font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.1;
   letter-spacing: -0.04em;
 }
 
 .contact-choice__header p {
   margin: 0;
   line-height: 1.7;
+  color: #526073;
 }
 
 .contact-choice__grid {
@@ -73,6 +88,10 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
+
+/* =========================================
+   CARD AZIENDE E PRIVATI
+========================================= */
 
 .contact-card {
   display: flex;
@@ -82,6 +101,17 @@
   border: 1px solid #e3e6eb;
   border-radius: 22px;
   background: #ffffff;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contact-card:hover {
+  border-color: #cbd3df;
+  box-shadow: 0 12px 35px rgba(23, 32, 51, 0.06);
+  transform: translateY(-3px);
 }
 
 .contact-card__icon {
@@ -93,16 +123,20 @@
   margin-bottom: 42px;
   border-radius: 14px;
   background: #f0f2f5;
+  color: #172b47;
 }
 
 .contact-card h3 {
   margin: 0 0 16px;
   font-size: 1.65rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
 .contact-card p {
   margin: 0 0 32px;
   line-height: 1.7;
+  color: #526073;
 }
 
 .contact-card__button {
@@ -116,7 +150,20 @@
   border-radius: 12px;
   text-decoration: none;
   font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.contact-card__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(23, 32, 51, 0.1);
+}
+
+/* =========================================
+   CONTATTO DIRETTO
+========================================= */
 
 .contact-direct {
   padding: 100px 24px;
@@ -131,11 +178,13 @@
 
 .contact-direct__icon {
   margin-bottom: 26px;
+  color: #172b47;
 }
 
 .contact-direct__content h2 {
   margin: 0 0 20px;
   font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.12;
   letter-spacing: -0.04em;
 }
 
@@ -143,6 +192,7 @@
   max-width: 620px;
   margin: 0 auto 34px;
   line-height: 1.75;
+  color: #526073;
 }
 
 .contact-direct__button {
@@ -154,24 +204,275 @@
   border-radius: 12px;
   text-decoration: none;
   font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.contact-direct__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(23, 32, 51, 0.1);
+}
+
+/* =========================================
+   STUDIO E CONTATTI
+========================================= */
+
+.contact-studio {
+  padding: 110px 24px;
+  background: #f7f8fa;
+}
+
+.contact-studio__inner {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+/* INTESTAZIONE */
+
+.contact-studio__heading {
+  max-width: 720px;
+  margin-bottom: 56px;
+}
+
+.contact-studio__heading h2 {
+  margin: 0 0 24px;
+  font-size: clamp(2.3rem, 4.5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.contact-studio__heading h2 span {
+  display: block;
+  font-weight: 400;
+  color: #657083;
+}
+
+.contact-studio__heading p {
+  max-width: 650px;
+  margin: 0;
+  line-height: 1.8;
+  color: #526073;
+}
+
+/* =========================================
+   GRIGLIA INFORMAZIONI
+========================================= */
+
+.contact-studio__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* =========================================
+   CARD STUDIO
+========================================= */
+
+.contact-studio__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 270px;
+  padding: 34px;
+  border: 1px solid #e3e6eb;
+  border-radius: 20px;
+  background: #ffffff;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.contact-studio__card:hover {
+  border-color: #cbd3df;
+  box-shadow: 0 12px 35px rgba(23, 32, 51, 0.06);
+  transform: translateY(-3px);
+}
+
+.contact-studio__card > svg {
+  margin-bottom: 26px;
+  color: #172b47;
+}
+
+.contact-studio__card h3 {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.contact-studio__card p,
+.contact-studio__card address {
+  margin: 0 0 20px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: #526073;
+  font-style: normal;
+}
+
+.contact-studio__card p strong {
+  display: block;
+  margin-top: 4px;
+  color: #172033;
+  font-weight: 700;
+}
+
+/* LINK DELLE CARD */
+
+.contact-studio__card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  color: #172b47;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.contact-studio__card a:hover {
+  color: #b58a18;
+}
+
+/* NOTA APPUNTAMENTO */
+
+.contact-studio__note {
+  display: block;
+  margin-top: auto;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f0f2f5;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #526073;
+}
+
+/* =========================================
+   EMAIL E PEC
+========================================= */
+
+.contact-studio__emails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 34px;
+  padding: 32px 0;
+  border-top: 1px solid #e3e6eb;
+}
+
+.contact-studio__emails > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.contact-studio__emails svg {
+  flex-shrink: 0;
+  color: #172b47;
+}
+
+.contact-studio__emails span {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 0.8rem;
+  color: #657083;
+}
+
+.contact-studio__emails a {
+  color: #172033;
+  text-decoration: none;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+
+  transition: color 0.2s ease;
+}
+
+.contact-studio__emails a:hover {
+  color: #b58a18;
+}
+
+/* =========================================
+   ACCESSIBILITÀ
+========================================= */
+
+.contact-page a:focus-visible {
+  outline: 3px solid #b58a18;
+  outline-offset: 4px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .contact-hero {
+    padding: 110px 24px 80px;
+  }
+
+  .contact-choice {
+    padding: 85px 0;
+  }
+
+  .contact-studio {
+    padding: 90px 24px;
+  }
+
+  .contact-card {
+    padding: 30px;
+  }
+
+  .contact-studio__card {
+    padding: 30px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 768px) {
+  /* HERO */
+
   .contact-hero {
     padding: 90px 20px 64px;
   }
+
+  .contact-hero__title {
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    line-height: 1.02;
+  }
+
+  .contact-hero__description {
+    margin-top: 26px;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* SCELTA */
 
   .contact-choice {
     width: min(100% - 32px, 1180px);
     padding: 70px 0;
   }
 
-  .contact-choice__grid {
-    grid-template-columns: 1fr;
+  .contact-choice__header {
+    margin-bottom: 36px;
   }
 
+  .contact-choice__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* CARD AZIENDE E PRIVATI */
+
   .contact-card {
-    min-height: auto;
+    min-height: 0;
     padding: 28px;
   }
 
@@ -179,7 +480,122 @@
     margin-bottom: 30px;
   }
 
+  .contact-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .contact-card p {
+    margin-bottom: 28px;
+  }
+
+  /* CONTATTO DIRETTO */
+
   .contact-direct {
     padding: 72px 20px;
+  }
+
+  .contact-direct__content h2 {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+  }
+
+  .contact-direct__button {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* STUDIO */
+
+  .contact-studio {
+    padding: 75px 20px;
+  }
+
+  .contact-studio__heading {
+    margin-bottom: 38px;
+  }
+
+  .contact-studio__heading h2 {
+    font-size: clamp(2.1rem, 7vw, 3rem);
+  }
+
+  .contact-studio__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .contact-studio__card {
+    min-height: 240px;
+    padding: 28px;
+  }
+
+  /* EMAIL */
+
+  .contact-studio__emails {
+    flex-direction: column;
+    gap: 26px;
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+
+  /* DISATTIVA SOLLEVAMENTO SU TOUCH */
+
+  .contact-card:hover,
+  .contact-studio__card:hover {
+    transform: none;
+  }
+}
+
+/* =========================================
+   SCHERMI MOLTO PICCOLI
+========================================= */
+
+@media (max-width: 380px) {
+  .contact-hero {
+    padding-inline: 16px;
+  }
+
+  .contact-hero__title {
+    font-size: 2.35rem;
+  }
+
+  .contact-choice {
+    width: calc(100% - 32px);
+  }
+
+  .contact-card {
+    padding: 24px;
+  }
+
+  .contact-studio {
+    padding-inline: 16px;
+  }
+
+  .contact-studio__card {
+    padding: 24px;
+  }
+
+  .contact-studio__emails a {
+    font-size: 0.9rem;
+  }
+}
+
+/* =========================================
+   RIDUZIONE MOVIMENTO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-card,
+  .contact-card__button,
+  .contact-direct__button,
+  .contact-studio__card,
+  .contact-studio__card a,
+  .contact-studio__emails a {
+    transition: none;
+  }
+
+  .contact-card:hover,
+  .contact-card__button:hover,
+  .contact-direct__button:hover,
+  .contact-studio__card:hover {
+    transform: none;
   }
 }

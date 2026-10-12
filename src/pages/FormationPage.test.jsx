@@ -1,14 +1,12 @@
 // @vitest-environment jsdom
 
 import { render, screen, cleanup } from "@testing-library/react";
-
 import { MemoryRouter } from "react-router-dom";
-
 import { describe, expect, test, afterEach } from "vitest";
-
 import "@testing-library/jest-dom/vitest";
 
 import FormationPage from "./FormationPage.jsx";
+import { contactConfig } from "../data/contactConfig.js";
 
 afterEach(() => {
   cleanup();
@@ -101,27 +99,51 @@ describe("FormationPage", () => {
     renderFormationPage();
 
     const whatsappLink = screen.getByRole("link", {
-      name: /contatta fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     });
 
     expect(whatsappLink).toBeInTheDocument();
 
     expect(whatsappLink).toHaveAttribute("target", "_blank");
+
+    expect(whatsappLink).toHaveAttribute("rel", "noreferrer");
   });
 
   test("il link WhatsApp contiene il messaggio dedicato alla formazione", () => {
     renderFormationPage();
 
     const whatsappLink = screen.getByRole("link", {
-      name: /contatta fulvio su whatsapp/i,
+      name: /contatta il dott\. fulvio martello/i,
     });
 
     const href = whatsappLink.getAttribute("href");
 
-    expect(href).toContain("wa.me");
+    expect(href).toBeTruthy();
 
-    expect(decodeURIComponent(href)).toContain(
-      "Avrei bisogno di informazioni sui corsi di formazione.",
+    const url = new URL(href);
+
+    // Verifica che il collegamento punti a WhatsApp
+    expect(url.origin).toBe("https://wa.me");
+
+    // Verifica il numero configurato
+    expect(url.pathname).toBe(`/${contactConfig.whatsappNumber}`);
+
+    // Recupera il messaggio WhatsApp
+    const message = url.searchParams.get("text");
+
+    expect(message).toBeTruthy();
+
+    // Verifica il saluto professionale
+    expect(message).toContain(`Salve ${contactConfig.professionalName}`);
+
+    // Verifica il contenuto dedicato alla formazione
+    expect(message).toContain(
+      "Avrei bisogno di informazioni sui corsi di formazione",
     );
+
+    expect(message).toContain("e sui percorsi disponibili per la mia azienda.");
+
+    // Verifica che sia presente lo spazio per descrivere l'esigenza
+    expect(message).toContain("La mia esigenza è:");
   });
 });

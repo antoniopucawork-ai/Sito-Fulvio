@@ -30,19 +30,52 @@
   align-items: flex-start;
 }
 
+/* =========================
+   IDENTITÀ PROFESSIONALE
+========================= */
+
+.hero__identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  margin-bottom: 22px;
+}
+
+.hero__professional-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.4;
+
+  letter-spacing: 0.025em;
+
+  color: #0b2748;
+}
+
 .hero__eyebrow {
-  margin-bottom: 18px;
+  display: block;
+
+  margin: 0;
 
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  line-height: 1.5;
+
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 
   color: #6f7f91;
 }
 
+/* =========================
+   TITLE
+========================= */
+
 .hero__title {
   max-width: 340px;
+
   margin: 0;
 
   font-size: clamp(2.15rem, 9.5vw, 2.8rem);
@@ -58,6 +91,7 @@
 
 .hero__description {
   max-width: 330px;
+
   margin: 24px 0 0;
 
   font-size: 1rem;
@@ -198,19 +232,27 @@
     align-items: center;
   }
 
-  /* =========================
-     CONTENT
-  ========================= */
+  /* IDENTITÀ */
 
-  .hero__content {
-    max-width: 650px;
+  .hero__identity {
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .hero__professional-name {
+    font-size: 1rem;
+    letter-spacing: 0.035em;
   }
 
   .hero__eyebrow {
-    margin-bottom: 24px;
-
     font-size: 0.76rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
+  }
+
+  /* CONTENT */
+
+  .hero__content {
+    max-width: 650px;
   }
 
   .hero__title {
@@ -230,9 +272,7 @@
     line-height: 1.7;
   }
 
-  /* =========================
-     ACTIONS
-  ========================= */
+  /* ACTIONS */
 
   .hero__actions {
     width: auto;
@@ -262,9 +302,7 @@
     font-size: 0.92rem;
   }
 
-  /* =========================
-     RIGHT SIDE
-  ========================= */
+  /* RIGHT SIDE */
 
   .hero__highlights {
     display: flex;
@@ -325,9 +363,7 @@
     color: #6f7f91;
   }
 
-  /* =========================
-     GUIDE
-  ========================= */
+  /* GUIDE */
 
   .hero__guide {
     max-width: 1180px;
@@ -353,7 +389,6 @@
   .hero__guide-action {
     display: flex;
     flex-direction: row;
-
     align-items: center;
 
     gap: 8px;
