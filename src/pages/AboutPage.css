@@ -154,14 +154,15 @@
   border-bottom: 1px solid #dce2e8;
 }
 
-.about__story-number {
-  padding-top: 4px;
+.about__story-icon {
+  width: 30px;
+  height: 30px;
 
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  margin-top: 4px;
 
-  color: #f4c430;
+  color: #f4c542;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .about__story-item h3 {

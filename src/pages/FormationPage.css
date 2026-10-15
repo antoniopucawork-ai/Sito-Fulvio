@@ -233,23 +233,17 @@
 
 .formation-card__top {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-
-  gap: 18px;
-}
-
-.formation-card__number {
-  font-size: 2.4rem;
-  line-height: 1;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-
-  color: var(--fulvio-yellow);
+  justify-content: flex-start;
 }
 
 .formation-card__icon {
-  color: var(--fulvio-blue);
+  width: 34px;
+  height: 34px;
+
+  color: var(--fulvio-yellow);
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .formation-card__main {
@@ -393,12 +387,13 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.formation-method > span {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+.formation-method__icon {
+  width: 26px;
+  height: 26px;
 
   color: var(--fulvio-yellow);
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .formation-method p {
@@ -587,15 +582,16 @@
   }
 
   .formation-card__top {
-    flex-direction: row;
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     margin-bottom: 22px;
   }
 
-  .formation-card__number {
-    font-size: 2rem;
+  .formation-card__icon {
+    width: 32px;
+    height: 32px;
   }
 
   .formation-card__main h3 {

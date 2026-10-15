@@ -16,21 +16,18 @@ import "./AboutPage.css";
 const professionalAreas = [
   {
     id: "labor",
-    number: "01",
     title: "Consulenza del lavoro",
     description:
       "Supporto ad aziende e lavoratori nelle questioni legate ai rapporti di lavoro, alla gestione del personale e agli adempimenti connessi.",
   },
   {
     id: "safety",
-    number: "02",
     title: "Salute e sicurezza sul lavoro",
     description:
       "Consulenza in materia di salute e sicurezza nei luoghi di lavoro, con competenze RSPP e attenzione alle esigenze delle diverse attività aziendali.",
   },
   {
     id: "training",
-    number: "03",
     title: "Formazione per la sicurezza",
     description:
       "Attività di formazione per la sicurezza sui luoghi di lavoro, con percorsi rivolti alle figure coinvolte nella prevenzione e nella gestione dei rischi.",
@@ -106,9 +103,17 @@ const AboutPage = () => {
             </div>
 
             <div className="about__story-content">
-              {professionalAreas.map((area) => (
+              {professionalAreas.map((area) => {
+                const Icon =
+                  qualificationIcons[area.id] || BriefcaseBusiness;
+
+                return (
                 <div className="about__story-item" key={area.id}>
-                  <span className="about__story-number">{area.number}</span>
+                  <Icon
+                    size={30}
+                    className="about__story-icon"
+                    aria-hidden="true"
+                  />
 
                   <div>
                     <h3>{area.title}</h3>
@@ -116,7 +121,8 @@ const AboutPage = () => {
                     <p>{area.description}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

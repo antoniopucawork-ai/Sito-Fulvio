@@ -325,22 +325,16 @@
 
   .hero__highlight-top {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    align-items: flex-start;
-  }
-
-  .hero__highlight-number {
-    font-size: 0.76rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-
-    color: #f4c430;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .hero__highlight-icon {
-    color: #0b2748;
+    width: 30px;
+    height: 30px;
+    color: #f4c542;
+    stroke-width: 2;
+    flex-shrink: 0;
   }
 
   .hero__highlight h2 {

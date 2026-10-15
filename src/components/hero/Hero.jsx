@@ -14,21 +14,18 @@ import "./Hero.css";
 const serviceHighlights = [
   {
     id: "lavoro",
-    number: "01",
     icon: BriefcaseBusiness,
     title: "Lavoro",
     description: "Consulenza e gestione",
   },
   {
     id: "sicurezza",
-    number: "02",
     icon: ShieldCheck,
     title: "Sicurezza",
     description: "Prevenzione e adempimenti",
   },
   {
     id: "formazione",
-    number: "03",
     icon: GraduationCap,
     title: "Formazione",
     description: "Corsi e aggiornamenti",
@@ -89,12 +86,8 @@ const Hero = () => {
             return (
               <div key={service.id} className="hero__highlight">
                 <div className="hero__highlight-top">
-                  <span className="hero__highlight-number">
-                    {service.number}
-                  </span>
-
                   <Icon
-                    size={23}
+                    size={30}
                     className="hero__highlight-icon"
                     aria-hidden="true"
                   />

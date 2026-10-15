@@ -218,17 +218,19 @@
 .private-guide__area-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   margin-bottom: 44px;
 
   color: var(--fulvio-yellow);
 }
 
-.private-guide__area-top span {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+.private-guide__area-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--fulvio-yellow);
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .private-guide__area-content > span {
@@ -609,14 +611,21 @@
   border-bottom: 1px solid var(--fulvio-border);
 }
 
-.private-information__number {
+.private-information__icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
   padding-top: 4px;
 
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  color: var(--fulvio-yellow);
+}
 
-  color: var(--fulvio-muted);
+.private-information__icon svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .private-information__eyebrow {
@@ -952,7 +961,7 @@
     padding: 36px 0;
   }
 
-  .private-information__number {
+  .private-information__icon {
     margin-bottom: 22px;
   }
 

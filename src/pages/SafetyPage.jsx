@@ -16,7 +16,7 @@ import "./SafetyPage.css";
 const safetyAreas = [
   {
     id: "gestione-sicurezza",
-    number: "01",
+
     icon: ShieldCheck,
     title: "Gestire la sicurezza della tua azienda",
     description:
@@ -30,7 +30,7 @@ const safetyAreas = [
   },
   {
     id: "valutazione-rischi",
-    number: "02",
+
     icon: ClipboardCheck,
     title: "Valutare i rischi",
     description:
@@ -49,7 +49,7 @@ const safetyAreas = [
   },
   {
     id: "cantieri",
-    number: "03",
+
     icon: HardHat,
     title: "Cantieri ed edilizia",
     description:
@@ -65,7 +65,7 @@ const safetyAreas = [
   },
   {
     id: "chimico-petrolchimico",
-    number: "04",
+
     icon: FlaskConical,
     title: "Settore chimico e petrolchimico",
     description:
@@ -83,7 +83,7 @@ const safetyAreas = [
   },
   {
     id: "organizzazione",
-    number: "05",
+
     icon: UsersRound,
     title: "Organizzare la prevenzione",
     description:
@@ -100,7 +100,7 @@ const safetyAreas = [
   },
   {
     id: "infortuni-ispezioni",
-    number: "06",
+
     icon: TriangleAlert,
     title: "Infortuni e ispezioni",
     description:
@@ -206,9 +206,11 @@ La mia esigenza è:`;
               return (
                 <article key={area.id} className="safety-card">
                   <div className="safety-card__top">
-                    <span className="safety-card__number">{area.number}</span>
-
-                    <Icon className="safety-card__icon" size={28} />
+                    <Icon
+                      className="safety-card__icon"
+                      size={28}
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <h3>{area.title}</h3>

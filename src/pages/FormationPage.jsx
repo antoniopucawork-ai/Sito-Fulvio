@@ -7,16 +7,21 @@ import {
   Laptop,
   MessageCircle,
   ArrowRight,
+  Presentation,
+  MonitorPlay,
+  Wrench,
+  BookOpen,
 } from "lucide-react";
 
 import Navbar from "../components/Navbar/Navbar.jsx";
 import { contactConfig } from "../data/contactConfig.js";
 import "./FormationPage.css";
 
+// AREE FORMATIVE
+
 const formationAreas = [
   {
     id: "lavoratori",
-    number: "01",
     icon: Users,
     title: "Formazione per lavoratori, preposti e dirigenti",
     description:
@@ -31,7 +36,6 @@ const formationAreas = [
   },
   {
     id: "figure-sicurezza",
-    number: "02",
     icon: ShieldCheck,
     title: "RLS, RSPP e figure della sicurezza",
     description:
@@ -50,7 +54,6 @@ const formationAreas = [
   },
   {
     id: "attrezzature",
-    number: "03",
     icon: Forklift,
     title: "Attrezzature e mansioni specifiche",
     description:
@@ -72,7 +75,6 @@ const formationAreas = [
   },
   {
     id: "specialistica",
-    number: "04",
     icon: Building2,
     title: "Formazione specialistica",
     description:
@@ -87,11 +89,25 @@ const formationAreas = [
   },
 ];
 
+// MODALITÀ DI EROGAZIONE
+
 const deliveryMethods = [
-  "Formazione in aula presso l'azienda",
-  "Formazione a distanza, ove consentito",
-  "Formazione pratica in cantieri e impianti",
-  "E-learning con piattaforma dedicata",
+  {
+    title: "Formazione in aula presso l'azienda",
+    icon: Presentation,
+  },
+  {
+    title: "Formazione a distanza, ove consentito",
+    icon: MonitorPlay,
+  },
+  {
+    title: "Formazione pratica in cantieri e impianti",
+    icon: Wrench,
+  },
+  {
+    title: "E-learning con piattaforma dedicata",
+    icon: BookOpen,
+  },
 ];
 
 const FormationPage = () => {
@@ -193,11 +209,11 @@ La mia esigenza è:`;
               return (
                 <article key={area.id} className="formation-card">
                   <div className="formation-card__top">
-                    <span className="formation-card__number">
-                      {area.number}
-                    </span>
-
-                    <Icon size={28} className="formation-card__icon" />
+                    <Icon
+                      size={30}
+                      className="formation-card__icon"
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <div className="formation-card__main">
@@ -219,7 +235,7 @@ La mia esigenza è:`;
           </div>
         </section>
 
-        {/* MODALITÀ */}
+        {/* MODALITÀ DI EROGAZIONE */}
 
         <section className="formation-methods">
           <div className="formation-methods__content">
@@ -238,18 +254,26 @@ La mia esigenza è:`;
             </div>
 
             <div className="formation-methods__list">
-              {deliveryMethods.map((method, index) => (
-                <div key={method} className="formation-method">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+              {deliveryMethods.map((method) => {
+                const Icon = method.icon;
 
-                  <p>{method}</p>
-                </div>
-              ))}
+                return (
+                  <div key={method.title} className="formation-method">
+                    <Icon
+                      size={24}
+                      className="formation-method__icon"
+                      aria-hidden="true"
+                    />
+
+                    <p>{method.title}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* CTA FINALE */}
+        {/* CONTATTI */}
 
         <section className="formation-contact">
           <div className="formation-contact__content">

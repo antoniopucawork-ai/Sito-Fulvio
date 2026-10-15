@@ -223,21 +223,18 @@
 .safety-card__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
-  margin-bottom: 32px;
-}
-
-.safety-card__number {
-  font-size: 0.84rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-
-  color: var(--fulvio-muted);
+  margin-bottom: 28px;
 }
 
 .safety-card__icon {
-  color: var(--fulvio-blue);
+  width: 30px;
+  height: 30px;
+
+  color: #f4c542;
+  stroke-width: 2;
+  flex-shrink: 0;
 }
 
 .safety-card h3 {

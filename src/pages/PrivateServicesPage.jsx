@@ -19,7 +19,6 @@ import "./PrivateServicesPage.css";
 const privateServiceAreas = [
   {
     id: "lavoro-previdenza",
-    number: "01",
     icon: BriefcaseBusiness,
     eyebrow: "LAVORO E PREVIDENZA",
     title: "Lavoro e contributi",
@@ -78,7 +77,6 @@ const privateServiceAreas = [
 
   {
     id: "sicurezza-piccole-realta",
-    number: "02",
     icon: ShieldCheck,
     eyebrow: "SICUREZZA E PICCOLE REALTÀ",
     title: "Sicurezza o lavori",
@@ -131,7 +129,6 @@ const privateServiceAreas = [
 
   {
     id: "pratiche-assistenza",
-    number: "03",
     icon: FileText,
     eyebrow: "PRATICHE E ASSISTENZA",
     title: "Pratiche e assistenza",
@@ -302,9 +299,11 @@ ${path}`;
                     onClick={() => handleSelectArea(area.id)}
                   >
                     <div className="private-guide__area-top">
-                      <span>{area.number}</span>
-
-                      <Icon size={27} />
+                      <Icon
+                        size={30}
+                        className="private-guide__area-icon"
+                        aria-hidden="true"
+                      />
                     </div>
 
                     <div className="private-guide__area-content">
@@ -452,13 +451,12 @@ ${path}`;
 
               return (
                 <article key={area.id} className="private-information__area">
-                  <div className="private-information__number">
-                    {area.number}
+                  <div className="private-information__icon">
+                    <Icon size={30} aria-hidden="true" />
                   </div>
 
                   <div className="private-information__main">
                     <div className="private-information__eyebrow">
-                      <Icon size={25} />
                       <span>{area.eyebrow}</span>
                     </div>
 
