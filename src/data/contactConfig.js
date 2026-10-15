@@ -21,6 +21,7 @@ export const contactConfig = {
 
   // Orari comunicati
   officeHours: {
+    days: "Dal lunedì al venerdì",
     morning: "09:00 - 13:00",
     afternoon: "14:30 - 18:30",
     appointmentOnly: true,

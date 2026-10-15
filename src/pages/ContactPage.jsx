@@ -251,6 +251,10 @@ Avrei bisogno di informazioni e vorrei descriverle brevemente la mia situazione:
                 <h3>Orari dello studio</h3>
 
                 <p>
+                  <strong>{officeHours.days}</strong>
+                </p>
+
+                <p>
                   Mattina
                   <strong>{officeHours.morning}</strong>
                 </p>

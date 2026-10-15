@@ -63,6 +63,16 @@ const AboutPage = () => {
               </h1>
             </div>
 
+            <div className="about__portrait">
+              <img
+                src="/images/fulvio-martello.jpeg"
+                alt="Ritratto professionale del Dott. Fulvio Martello"
+                width="1056"
+                height="1408"
+                fetchPriority="high"
+              />
+            </div>
+
             <div className="about__hero-text">
               <p>
                 Sono il <strong>{name}</strong>, consulente del lavoro iscritto
