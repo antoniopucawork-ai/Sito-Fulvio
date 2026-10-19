@@ -1,0 +1,240 @@
+/* ========================================
+   BOOKING FORM - FULVIO MARTELLO
+======================================== */
+
+.booking-form {
+  margin-top: 75px;
+}
+
+.booking-form__heading {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.booking-form__heading h2 {
+  margin: 0 0 15px;
+  color: #17243a;
+  font-size: clamp(25px, 3vw, 34px);
+}
+
+.booking-form__heading p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #617086;
+  line-height: 1.7;
+}
+
+/* CONTENITORE */
+
+.booking-form__card {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 45px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(17, 41, 67, 0.06);
+}
+
+/* GRIGLIA */
+
+.booking-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.booking-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.booking-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.booking-form__field label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #25496a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.booking-form__field label svg {
+  color: #b59a67;
+}
+
+/* INPUT */
+
+.booking-form__field input,
+.booking-form__field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d8e4ee;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #17243a;
+  font: inherit;
+  font-size: 15px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.booking-form__field input:focus,
+.booking-form__field textarea:focus {
+  outline: none;
+  border-color: #b59a67;
+  box-shadow: 0 0 0 3px rgba(181, 154, 103, 0.15);
+}
+
+.booking-form__field input::placeholder,
+.booking-form__field textarea::placeholder {
+  color: #94a3b8;
+}
+
+.booking-form__field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.booking-form__hint {
+  color: #617086;
+  font-size: 12px;
+}
+
+/* PRIVACY */
+
+.booking-form__privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 35px;
+  color: #617086;
+  font-size: 14px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.booking-form__privacy input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: #25496a;
+}
+
+.booking-form__privacy a {
+  color: #25496a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* AVVISO */
+
+.booking-form__notice {
+  margin-top: 30px;
+  padding: 20px 24px;
+  border: 1px solid #d8e4ee;
+  border-radius: 12px;
+  background: #edf4f9;
+  color: #25496a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* PULSANTE INVIO */
+
+.booking-form__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 30px;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 12px;
+  background: #25496a;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.booking-form__submit:hover:not(:disabled) {
+  background: #173650;
+  transform: translateY(-2px);
+}
+
+.booking-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.booking-form__submit:focus-visible {
+  outline: 3px solid #b59a67;
+  outline-offset: 4px;
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .booking-form {
+    margin-top: 65px;
+  }
+
+  .booking-form__card {
+    padding: 35px;
+  }
+}
+
+/* SMARTPHONE */
+
+@media (max-width: 600px) {
+  .booking-form {
+    margin-top: 55px;
+  }
+
+  .booking-form__card {
+    padding: 25px 20px;
+  }
+
+  .booking-form__grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .booking-form__field--full {
+    grid-column: auto;
+  }
+
+  .booking-form__submit {
+    font-size: 14px;
+  }
+
+  .booking-form__notice {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-form__submit,
+  .booking-form__field input,
+  .booking-form__field textarea {
+    transition: none;
+  }
+
+  .booking-form__submit:hover:not(:disabled) {
+    transform: none;
+  }
+}
