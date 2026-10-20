@@ -4,7 +4,7 @@ import { CalendarDays, Clock3, MapPin, Video, Building2 } from "lucide-react";
 import { bookingConfig } from "../data/bookingConfig";
 import BookingCalendar from "../components/Booking/BookingCalendar";
 import BookingForm from "../components/Booking/BookingForm";
-
+import { createBookingRequest } from "../services/bookingService";
 import "./BookingPage.css";
 
 const appointmentIcons = {
@@ -24,9 +24,8 @@ const BookingPage = () => {
     setSelectedTime(null);
   };
 
-  // Verrà attivato quando avremo un backend funzionante.
-  const handleBookingSubmit = async () => {
-    throw new Error("Il servizio di invio richieste non è ancora disponibile.");
+  const handleBookingSubmit = async (bookingData) => {
+    return await createBookingRequest(bookingData);
   };
 
   return (
@@ -141,7 +140,7 @@ const BookingPage = () => {
                 selectedDate={selectedDate}
                 selectedTime={selectedTime}
                 onSubmit={handleBookingSubmit}
-                submissionEnabled={false}
+                submissionEnabled={import.meta.env.DEV}
               />
             </>
           )}

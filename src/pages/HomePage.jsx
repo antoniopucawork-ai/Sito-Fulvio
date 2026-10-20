@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar/Navbar.jsx";
 import Hero from "../components/hero/Hero.jsx";
 import UserChoice from "../components/UserChoice/UserChoice.jsx";
+import BookingCTA from "../components/BookingCTA/BookingCTA.jsx";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <main>
         <Hero />
         <UserChoice />
+        <BookingCTA />
       </main>
     </>
   );

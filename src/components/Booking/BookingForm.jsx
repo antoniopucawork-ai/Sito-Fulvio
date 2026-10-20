@@ -30,10 +30,16 @@ const BookingForm = ({
   submissionEnabled = false,
 }) => {
   const [formData, setFormData] = useState(initialForm);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState("");
 
   const requiresCompanyAddress = appointmentType?.id === "azienda";
+
+  // ========================================
+  // GESTIONE CAMBIAMENTI DEL MODULO
+  // ========================================
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -48,11 +54,16 @@ const BookingForm = ({
     }
   };
 
+  // ========================================
+  // INVIO RICHIESTA DI APPUNTAMENTO
+  // ========================================
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Impedisce qualsiasi invio finché il backend non è attivo.
-    if (!submissionEnabled || isSubmitting) {
+    // Impedisce l'invio quando il sistema non è attivo,
+    // durante un invio o dopo una richiesta già ricevuta.
+    if (!submissionEnabled || isSubmitting || submitSuccess) {
       return;
     }
 
@@ -72,6 +83,7 @@ const BookingForm = ({
 
     setIsSubmitting(true);
     setSubmitError("");
+    setSubmitSuccess("");
 
     try {
       const bookingData = {
@@ -97,12 +109,25 @@ const BookingForm = ({
         ].join("-"),
 
         time: selectedTime,
+
         duration: appointmentType.duration,
 
         privacyAccepted: formData.privacyAccepted,
       };
 
-      await onSubmit(bookingData);
+      // Invia i dati alla funzione ricevuta da BookingPage.
+      const result = await onSubmit(bookingData);
+
+      // La richiesta è stata registrata, ma non approvata.
+      if (result?.success === true) {
+        setSubmitSuccess(
+          "La tua richiesta è stata ricevuta correttamente! " +
+            "L'appuntamento non è ancora confermato. " +
+            "Dovrai attendere l'approvazione del Dott. Fulvio Martello.",
+        );
+      } else {
+        throw new Error("Il server non ha confermato la ricezione.");
+      }
     } catch (error) {
       console.error("Errore durante la richiesta:", error);
 
@@ -116,7 +141,10 @@ const BookingForm = ({
 
   return (
     <section className="booking-form">
-      {/* INTESTAZIONE */}
+      {/* ========================================
+          INTESTAZIONE
+      ======================================== */}
+
       <div className="booking-form__heading">
         <span className="booking-page__step">PASSAGGIO 03</span>
 
@@ -128,10 +156,14 @@ const BookingForm = ({
         </p>
       </div>
 
-      {/* MODULO */}
+      {/* ========================================
+          MODULO
+      ======================================== */}
+
       <form className="booking-form__card" onSubmit={handleSubmit}>
         <div className="booking-form__grid">
           {/* NOME */}
+
           <div className="booking-form__field">
             <label htmlFor="booking-firstName">
               <UserRound size={17} />
@@ -148,10 +180,12 @@ const BookingForm = ({
               placeholder="Mario"
               maxLength={80}
               required
+              disabled={Boolean(submitSuccess)}
             />
           </div>
 
           {/* COGNOME */}
+
           <div className="booking-form__field">
             <label htmlFor="booking-lastName">
               <UserRound size={17} />
@@ -168,10 +202,12 @@ const BookingForm = ({
               placeholder="Rossi"
               maxLength={80}
               required
+              disabled={Boolean(submitSuccess)}
             />
           </div>
 
           {/* EMAIL */}
+
           <div className="booking-form__field">
             <label htmlFor="booking-email">
               <Mail size={17} />
@@ -188,10 +224,12 @@ const BookingForm = ({
               placeholder="mario@email.it"
               maxLength={254}
               required
+              disabled={Boolean(submitSuccess)}
             />
           </div>
 
           {/* TELEFONO */}
+
           <div className="booking-form__field">
             <label htmlFor="booking-phone">
               <Phone size={17} />
@@ -208,10 +246,14 @@ const BookingForm = ({
               placeholder="+39 333 1234567"
               maxLength={30}
               required
+              disabled={Boolean(submitSuccess)}
             />
           </div>
 
-          {/* CAMPI AZIENDA */}
+          {/* ========================================
+              CAMPI AZIENDA
+          ======================================== */}
+
           {requiresCompanyAddress && (
             <>
               <div className="booking-form__field">
@@ -229,6 +271,7 @@ const BookingForm = ({
                   placeholder="Nome della tua azienda"
                   maxLength={120}
                   required
+                  disabled={Boolean(submitSuccess)}
                 />
               </div>
 
@@ -247,12 +290,16 @@ const BookingForm = ({
                   placeholder="Via, numero civico, città"
                   maxLength={250}
                   required
+                  disabled={Boolean(submitSuccess)}
                 />
               </div>
             </>
           )}
 
-          {/* NOTE */}
+          {/* ========================================
+              NOTE
+          ======================================== */}
+
           <div className="booking-form__field booking-form__field--full">
             <label htmlFor="booking-notes">
               <MessageSquare size={17} />
@@ -267,6 +314,7 @@ const BookingForm = ({
               onChange={handleChange}
               placeholder="Descrivi brevemente il motivo dell'appuntamento, senza inserire informazioni riservate."
               maxLength={500}
+              disabled={Boolean(submitSuccess)}
             />
 
             <span className="booking-form__hint">
@@ -275,7 +323,10 @@ const BookingForm = ({
           </div>
         </div>
 
-        {/* PRIVACY */}
+        {/* ========================================
+            PRIVACY
+        ======================================== */}
+
         <label className="booking-form__privacy">
           <input
             type="checkbox"
@@ -283,6 +334,7 @@ const BookingForm = ({
             checked={formData.privacyAccepted}
             onChange={handleChange}
             required
+            disabled={Boolean(submitSuccess)}
           />
 
           <span>
@@ -294,36 +346,62 @@ const BookingForm = ({
           </span>
         </label>
 
-        {/* AVVISO */}
+        {/* ========================================
+            AVVISO IMPORTANTE
+        ======================================== */}
+
         <div className="booking-form__notice">
           L'invio della richiesta non garantisce la prenotazione
           dell'appuntamento. Riceverai una conferma soltanto dopo l'approvazione
           del Dott. Fulvio Martello.
         </div>
 
-        {/* ERRORE */}
+        {/* ========================================
+            MESSAGGIO DI SUCCESSO
+        ======================================== */}
+
+        {submitSuccess && (
+          <p className="booking-form__notice" role="status">
+            {submitSuccess}
+          </p>
+        )}
+
+        {/* ========================================
+            MESSAGGIO DI ERRORE
+        ======================================== */}
+
         {submitError && (
           <p className="booking-form__notice" role="alert">
             {submitError}
           </p>
         )}
 
-        {/* PULSANTE */}
+        {/* ========================================
+            PULSANTE INVIO
+        ======================================== */}
+
         <button
           type="submit"
           className="booking-form__submit"
-          disabled={isSubmitting || !submissionEnabled}
+          disabled={
+            isSubmitting || !submissionEnabled || Boolean(submitSuccess)
+          }
         >
           <Send size={19} />
 
           {isSubmitting
             ? "Invio in corso..."
-            : submissionEnabled
-              ? "Invia richiesta di appuntamento"
-              : "Invio disponibile a breve"}
+            : submitSuccess
+              ? "Richiesta inviata"
+              : submissionEnabled
+                ? "Invia richiesta di appuntamento"
+                : "Invio disponibile a breve"}
         </button>
 
-        {/* SISTEMA NON ANCORA ATTIVO */}
+        {/* ========================================
+            SISTEMA NON ANCORA ATTIVO
+        ======================================== */}
+
         {!submissionEnabled && (
           <p
             className="booking-form__hint"
