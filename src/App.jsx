@@ -8,7 +8,7 @@ import PrivateServicesPage from "./pages/PrivateServicesPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import PrivacyPage from "./pages/PrivacyPage/PrivacyPage.jsx";
-
+import BookingAdminPage from "./pages/admin/BookingAdminPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
@@ -29,6 +29,7 @@ const App = () => {
         <Route path="/chi-sono" element={<AboutPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/admin" element={<BookingAdminPage />} />
       </Routes>
 
       <Footer />
