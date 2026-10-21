@@ -1,10 +1,19 @@
-/* =========================================
+/* =========================================================
    STUDIO MARTELLO — ADMIN DASHBOARD
-========================================= */
+   01. Layout e variabili
+   02. Sidebar
+   03. Header e statistiche
+   04. Prenotazioni
+   05. Modale
+   06. Proposta appuntamento
+   07. Responsive
+   08. Accessibilità
+========================================================= */
+
+/* ==================== 01. LAYOUT ==================== */
 
 .admin-dashboard {
   --admin-navy: #102b48;
-  --admin-navy-light: #1d4669;
   --admin-gold: #b59a67;
   --admin-background: #f4f6f9;
   --admin-text: #17243a;
@@ -18,9 +27,13 @@
   color: var(--admin-text);
 }
 
-/* =========================================
-   SIDEBAR
-========================================= */
+.admin-dashboard *,
+.admin-dashboard *::before,
+.admin-dashboard *::after {
+  box-sizing: border-box;
+}
+
+/* ==================== 02. SIDEBAR ==================== */
 
 .admin-sidebar {
   position: sticky;
@@ -29,35 +42,35 @@
   flex-direction: column;
   height: 100vh;
   padding: 38px 20px 24px;
-  background: linear-gradient(180deg, #102b48 0%, #153755 55%, #0b223c 100%);
-  color: #ffffff;
+  background: linear-gradient(180deg, #102b48, #153755 55%, #0b223c);
+  color: #fff;
 }
 
 .admin-sidebar__brand {
   padding: 0 16px 38px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid #ffffff1f;
 }
 
-.admin-sidebar__eyebrow {
+.admin-sidebar__eyebrow,
+.admin-topbar__eyebrow,
+.admin-section-eyebrow {
   display: block;
-  margin-bottom: 12px;
-  color: #c9ae79;
-  font-size: 10px;
+  margin-bottom: 11px;
+  color: var(--admin-gold);
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
 }
 
 .admin-sidebar__brand h2 {
   margin: 0;
-  color: #ffffff;
+  color: #fff;
   font-size: 22px;
-  font-weight: 700;
-  line-height: 1.3;
 }
 
 .admin-sidebar__brand p {
   margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.58);
+  color: #ffffff94;
   font-size: 12px;
 }
 
@@ -80,26 +93,25 @@
   border: 0;
   border-radius: 11px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffffb3;
   font: inherit;
   font-size: 14px;
   text-align: left;
 }
 
-.admin-sidebar__link {
+.admin-sidebar__link,
+.admin-sidebar__logout {
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
 }
 
-.admin-sidebar__link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
+.admin-sidebar__link:hover,
+.admin-sidebar__logout:hover {
+  background: #ffffff14;
+  color: #fff;
 }
 
 .admin-sidebar__link.is-active {
-  background: rgba(181, 154, 103, 0.17);
+  background: #b59a672b;
   color: #f3d7a1;
   font-weight: 600;
 }
@@ -118,21 +130,10 @@
 .admin-sidebar__footer {
   margin-top: auto;
   padding-top: 25px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid #ffffff1f;
 }
 
-.admin-sidebar__logout {
-  cursor: pointer;
-}
-
-.admin-sidebar__logout:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-}
-
-/* =========================================
-   MAIN CONTENT
-========================================= */
+/* ==================== 03. HEADER ==================== */
 
 .admin-main {
   width: 100%;
@@ -142,41 +143,31 @@
   padding: 45px clamp(24px, 4vw, 70px) 80px;
 }
 
-/* =========================================
-   TOPBAR
-========================================= */
-
-.admin-topbar {
+.admin-topbar,
+.admin-bookings__heading,
+.admin-booking-card__bottom {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 40px;
+  gap: 20px;
 }
 
-.admin-topbar__eyebrow,
-.admin-section-eyebrow {
-  display: block;
-  margin-bottom: 11px;
-  color: var(--admin-gold);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
+.admin-topbar {
+  align-items: center;
+  margin-bottom: 40px;
 }
 
 .admin-topbar h1 {
   margin: 0 0 10px;
   color: var(--admin-text);
   font-size: clamp(30px, 3vw, 43px);
-  font-weight: 750;
   letter-spacing: -1.4px;
-  line-height: 1.2;
 }
 
-.admin-topbar p {
+.admin-topbar p,
+.admin-bookings__heading p {
   margin: 0;
   color: var(--admin-muted);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.7;
 }
 
@@ -190,30 +181,25 @@
   padding: 11px 19px;
   border: 1px solid var(--admin-border);
   border-radius: 10px;
-  background: #ffffff;
+  background: #fff;
   color: var(--admin-navy);
   font: inherit;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    transform 0.2s ease;
 }
 
 .admin-refresh:hover:not(:disabled) {
   border-color: var(--admin-gold);
-  transform: translateY(-2px);
 }
 
-.admin-refresh:disabled {
-  opacity: 0.6;
+.admin-refresh:disabled,
+.admin-modal__button:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* =========================================
-   STATISTICS
-========================================= */
+/* ==================== STATISTICHE ==================== */
 
 .admin-stats {
   display: grid;
@@ -228,8 +214,8 @@
   padding: 25px;
   border: 1px solid var(--admin-border);
   border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 8px 28px rgba(20, 43, 70, 0.035);
+  background: #fff;
+  box-shadow: 0 8px 28px #142b4609;
 }
 
 .admin-stat-card > span {
@@ -241,11 +227,8 @@
 }
 
 .admin-stat-card strong {
-  display: block;
   color: var(--admin-navy);
   font-size: 36px;
-  font-weight: 750;
-  line-height: 1;
 }
 
 .admin-stat-card > svg {
@@ -267,38 +250,24 @@
   color: #c97a7a;
 }
 
-/* =========================================
-   BOOKINGS SECTION
-========================================= */
+/* ==================== 04. PRENOTAZIONI ==================== */
 
 .admin-bookings {
   padding: 32px;
   border: 1px solid var(--admin-border);
   border-radius: 20px;
-  background: #ffffff;
-  box-shadow: 0 12px 38px rgba(20, 43, 70, 0.035);
+  background: #fff;
+  box-shadow: 0 12px 38px #142b4609;
 }
 
 .admin-bookings__heading {
-  display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
   margin-bottom: 28px;
 }
 
 .admin-bookings__heading h2 {
   margin: 0 0 9px;
-  color: var(--admin-text);
   font-size: 25px;
-  letter-spacing: -0.5px;
-}
-
-.admin-bookings__heading p {
-  margin: 0;
-  color: var(--admin-muted);
-  font-size: 13px;
-  line-height: 1.6;
 }
 
 .admin-bookings__count {
@@ -310,10 +279,6 @@
   font-size: 12px;
   font-weight: 600;
 }
-
-/* =========================================
-   FILTERS
-========================================= */
 
 .admin-filters {
   display: flex;
@@ -327,7 +292,7 @@
 .admin-filter {
   min-height: 39px;
   padding: 9px 16px;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: 9px;
   background: #f2f5f8;
   color: #63748a;
@@ -335,9 +300,6 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
 }
 
 .admin-filter:hover {
@@ -346,12 +308,10 @@
 
 .admin-filter.is-active {
   background: var(--admin-navy);
-  color: #ffffff;
+  color: #fff;
 }
 
-/* =========================================
-   BOOKING CARDS
-========================================= */
+/* ==================== SCHEDE ==================== */
 
 .admin-bookings__list {
   display: grid;
@@ -365,15 +325,12 @@
   padding: 25px 27px;
   border: 1px solid var(--admin-border);
   border-radius: 15px;
-  background: #ffffff;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  background: #fff;
 }
 
 .admin-booking-card:hover {
   border-color: #cbd6e2;
-  box-shadow: 0 10px 25px rgba(16, 43, 72, 0.05);
+  box-shadow: 0 10px 25px #102b480d;
 }
 
 .admin-booking-card__identity {
@@ -384,9 +341,8 @@
 }
 
 .admin-booking-card__avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
   width: 49px;
   height: 49px;
@@ -399,9 +355,7 @@
 
 .admin-booking-card__identity h3 {
   margin: 0 0 6px;
-  color: var(--admin-text);
   font-size: 16px;
-  font-weight: 700;
   overflow-wrap: anywhere;
 }
 
@@ -413,7 +367,6 @@
 .admin-status {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   align-self: center;
   gap: 7px;
   padding: 9px 13px;
@@ -440,11 +393,9 @@
 
 .admin-booking-card__details {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
   grid-column: 1 / -1;
   gap: 14px 30px;
-  padding: 5px 0;
 }
 
 .admin-booking-card__details > div {
@@ -456,16 +407,12 @@
 }
 
 .admin-booking-card__details svg {
-  flex-shrink: 0;
   color: #a5b1bf;
 }
 
 .admin-booking-card__bottom {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
   grid-column: 1 / -1;
-  gap: 15px;
   padding-top: 19px;
   border-top: 1px solid var(--admin-border);
 }
@@ -479,23 +426,21 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--admin-navy);
+  font: inherit;
   font-size: 12px;
   font-weight: 700;
+  cursor: pointer;
 }
 
-.admin-booking-card__details-link small {
-  padding: 4px 6px;
-  border-radius: 5px;
-  background: #f1f3f6;
-  color: #8290a0;
-  font-size: 9px;
-  font-weight: 500;
+.admin-booking-card__details-link:hover {
+  text-decoration: underline;
 }
 
-/* =========================================
-   FEEDBACK / EMPTY STATE
-========================================= */
+/* ==================== FEEDBACK ==================== */
 
 .admin-feedback,
 .admin-empty {
@@ -516,24 +461,398 @@
   padding: 55px 20px;
 }
 
-.admin-empty svg {
-  color: #a4b0be;
-}
-
-.admin-empty h3 {
-  margin: 0;
-  color: var(--admin-text);
-  font-size: 18px;
-}
-
+.admin-empty h3,
 .admin-empty p {
   margin: 0;
-  font-size: 13px;
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* ==================== 05. MODALE ==================== */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0c1930a6;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.admin-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 650px;
+  max-height: min(90vh, 850px);
+  overflow: hidden;
+  border: 1px solid #0f172a14;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 80px #0003;
+}
+
+.admin-modal__header,
+.admin-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 20px;
+  padding: 25px 30px;
+}
+
+.admin-modal__header {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-modal__header h2 {
+  margin: 8px 0 0;
+  color: var(--admin-navy);
+  font-size: 24px;
+}
+
+.admin-modal__close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+}
+
+.admin-modal__content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.admin-modal__section {
+  margin-bottom: 28px;
+}
+
+.admin-modal__section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: var(--admin-navy);
+  font-size: 16px;
+}
+
+.admin-modal__section h3 svg {
+  color: #527ca8;
+}
+
+.admin-modal__info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.admin-modal__info > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.admin-modal__info strong,
+.admin-modal__info a {
+  max-width: 65%;
+  overflow-wrap: anywhere;
+  text-align: right;
+  color: #203b5b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-modal__notes {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #f5f8fc;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.admin-modal__confirmation {
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #f2ddb3;
+  border-radius: 12px;
+  background: #fff8eb;
+  color: #8a5a17;
+}
+
+.admin-modal__confirmation svg {
+  flex-shrink: 0;
+}
+
+.admin-modal__confirmation p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.admin-modal__footer {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid var(--admin-border);
+  background: #fbfcfe;
+}
+
+.admin-modal__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-modal__button--secondary {
+  background: #e9eef5;
+  color: #334155;
+}
+
+.admin-modal__button--approve {
+  background: #18794e;
+  color: #fff;
+}
+
+.admin-modal__button--reject {
+  background: #b93636;
+  color: #fff;
+}
+
+/* ==================== 06. PROPOSTA ==================== */
+
+.admin-proposal-container {
+  width: 100%;
+  min-width: 0;
+  scroll-margin-top: 20px;
+}
+
+.admin-proposal {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.admin-proposal h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.admin-proposal > p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.admin-proposal label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: -8px;
+  color: #334155;
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.admin-proposal label svg {
+  flex-shrink: 0;
+  color: #55759b;
+}
+
+.admin-proposal input,
+.admin-proposal select,
+.admin-proposal textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  background: #fff;
+  color: #172033;
+  font-family: inherit;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.admin-proposal input:hover:not(:disabled),
+.admin-proposal select:hover:not(:disabled),
+.admin-proposal textarea:hover:not(:disabled) {
+  border-color: #94a3b8;
+}
+
+.admin-proposal input:focus-visible,
+.admin-proposal select:focus-visible,
+.admin-proposal textarea:focus-visible {
+  outline: 2px solid #426b9b;
+  outline-offset: 2px;
+  border-color: #426b9b;
+}
+
+.admin-proposal input:disabled,
+.admin-proposal select:disabled,
+.admin-proposal textarea:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.admin-proposal input[type="date"],
+.admin-proposal select {
+  min-height: 48px;
+}
+
+.admin-proposal input[type="date"] {
+  color-scheme: light;
+}
+
+.admin-proposal select {
+  cursor: pointer;
+}
+
+.admin-proposal select:disabled {
+  cursor: not-allowed;
+}
+
+.admin-proposal textarea {
+  min-height: 100px;
+  resize: vertical;
+  overflow-wrap: anywhere;
+}
+
+.admin-proposal textarea::placeholder {
+  color: #94a3b8;
+}
+
+.admin-proposal .admin-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 13px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 11px;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.admin-proposal .admin-feedback svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.admin-proposal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.admin-proposal__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 45px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-proposal__actions button:first-child {
+  border-color: #cbd5e1;
+  background: #fff;
+  color: #334155;
+}
+
+.admin-proposal__actions button:first-child:hover:not(:disabled) {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+}
+
+.admin-proposal__actions button:last-child {
+  border-color: #244a78;
+  background: #244a78;
+  color: #fff;
+}
+
+.admin-proposal__actions button:last-child:hover:not(:disabled) {
+  border-color: #193b64;
+  background: #193b64;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px #244a782e;
+}
+
+.admin-proposal__actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==================== 07. RESPONSIVE ==================== */
 
 @media (max-width: 1150px) {
   .admin-dashboard {
@@ -553,9 +872,16 @@
   }
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+@media (max-width: 768px) {
+  .admin-proposal {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .admin-proposal__actions button {
+    flex: 1 1 auto;
+  }
+}
 
 @media (max-width: 760px) {
   .admin-dashboard {
@@ -572,14 +898,6 @@
     padding: 0 0 18px;
   }
 
-  .admin-sidebar__brand h2 {
-    font-size: 20px;
-  }
-
-  .admin-sidebar__brand p {
-    font-size: 11px;
-  }
-
   .admin-sidebar__nav {
     flex-direction: row;
     gap: 8px;
@@ -588,17 +906,11 @@
   }
 
   .admin-sidebar__link {
-    justify-content: center;
     flex-shrink: 0;
     width: auto;
     min-height: 42px;
     padding: 10px 13px;
     font-size: 12px;
-  }
-
-  .admin-sidebar__link svg {
-    width: 16px;
-    height: 16px;
   }
 
   .admin-sidebar__coming {
@@ -616,7 +928,6 @@
 
   .admin-sidebar__logout {
     width: auto;
-    min-height: 38px;
     padding: 9px;
   }
 
@@ -630,22 +941,11 @@
 
   .admin-topbar {
     align-items: flex-start;
-    gap: 15px;
     margin-bottom: 30px;
   }
 
   .admin-topbar h1 {
     font-size: 30px;
-  }
-
-  .admin-topbar p {
-    max-width: 270px;
-    font-size: 12px;
-  }
-
-  .admin-refresh {
-    min-height: 39px;
-    padding: 10px;
   }
 
   .admin-refresh span {
@@ -660,94 +960,36 @@
   .admin-stat-card {
     min-height: 115px;
     padding: 19px;
-    border-radius: 13px;
-  }
-
-  .admin-stat-card > span {
-    margin-bottom: 17px;
-    font-size: 11px;
   }
 
   .admin-stat-card strong {
     font-size: 29px;
   }
 
-  .admin-stat-card > svg {
-    top: 18px;
-    right: 16px;
-    width: 17px;
-    height: 17px;
-  }
-
   .admin-bookings {
     padding: 22px 15px;
-    border-radius: 15px;
-  }
-
-  .admin-bookings__heading {
-    align-items: flex-start;
-    gap: 12px;
   }
 
   .admin-bookings__heading h2 {
     font-size: 21px;
   }
 
-  .admin-bookings__heading p {
-    font-size: 12px;
-  }
-
-  .admin-bookings__count {
-    padding: 7px 9px;
-    font-size: 10px;
-  }
-
   .admin-filters {
     flex-wrap: nowrap;
-    gap: 7px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
     overflow-x: auto;
   }
 
   .admin-filter {
     flex-shrink: 0;
-    padding: 9px 12px;
-    font-size: 11px;
   }
 
   .admin-booking-card {
-    gap: 18px;
     padding: 19px 16px;
-  }
-
-  .admin-booking-card__identity {
-    gap: 10px;
   }
 
   .admin-booking-card__avatar {
     width: 40px;
     height: 40px;
-    border-radius: 10px;
-    font-size: 12px;
-  }
-
-  .admin-booking-card__identity h3 {
-    font-size: 13px;
-  }
-
-  .admin-booking-card__identity span {
-    font-size: 10px;
-  }
-
-  .admin-status {
-    padding: 7px 9px;
-    font-size: 10px;
-  }
-
-  .admin-status svg {
-    width: 13px;
-    height: 13px;
   }
 
   .admin-booking-card__details {
@@ -756,26 +998,93 @@
     gap: 12px;
   }
 
-  .admin-booking-card__details > div {
-    font-size: 12px;
-  }
-
   .admin-booking-card__bottom {
     align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .admin-modal {
+    max-height: 94dvh;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .admin-modal__header,
+  .admin-modal__content,
+  .admin-modal__footer {
+    padding: 20px;
+  }
+
+  .admin-modal__header h2 {
+    font-size: 20px;
+  }
+
+  .admin-modal__info {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-modal__info strong,
+  .admin-modal__info a {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .admin-modal__button {
+    flex: 1;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-proposal {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .admin-proposal h3 {
+    font-size: 1.05rem;
+  }
+
+  .admin-proposal > p {
+    font-size: 0.86rem;
+  }
+
+  .admin-proposal input,
+  .admin-proposal select,
+  .admin-proposal textarea {
+    padding: 12px 13px;
+    font-size: 16px;
+  }
+
+  .admin-proposal__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .admin-proposal__actions button {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .admin-modal__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-modal__footer .admin-modal__button {
+    width: 100%;
   }
 }
 
 @media (max-width: 390px) {
-  .admin-topbar h1 {
-    font-size: 27px;
-  }
-
-  .admin-bookings__heading {
-    flex-direction: column;
-  }
-
   .admin-booking-card {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -783,14 +1092,21 @@
   .admin-status {
     justify-self: start;
   }
+
+  .admin-bookings__heading {
+    flex-direction: column;
+  }
 }
 
-/* =========================================
-   ACCESSIBILITY
-========================================= */
+/* ==================== 08. ACCESSIBILITÀ ==================== */
 
 .admin-dashboard button:focus-visible {
   outline: 3px solid var(--admin-gold);
+  outline-offset: 3px;
+}
+
+.admin-proposal__actions button:focus-visible {
+  outline: 2px solid #426b9b;
   outline-offset: 3px;
 }
 

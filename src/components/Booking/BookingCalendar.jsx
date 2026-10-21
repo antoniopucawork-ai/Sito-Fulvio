@@ -1,7 +1,14 @@
-import { useState } from "react";
-import { CalendarDays, ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Clock3,
+  RefreshCw,
+} from "lucide-react";
 
 import { bookingConfig } from "../../data/bookingConfig";
+import { getBookingAvailability } from "../../services/bookingService";
 import "./BookingCalendar.css";
 
 const WEEK_DAYS = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
@@ -24,57 +31,25 @@ const getToday = () => {
   return new Date(today.getFullYear(), today.getMonth(), today.getDate());
 };
 
+const formatDateForApi = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 const getMonthDays = (year, month) => {
   const firstDay = new Date(year, month, 1);
 
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const startingDay = (firstDay.getDay() + 6) % 7;
-
   return {
-    daysInMonth,
-    startingDay,
+    daysInMonth: new Date(year, month + 1, 0).getDate(),
+    startingDay: (firstDay.getDay() + 6) % 7,
   };
 };
 
-const isWorkingDay = (date) => {
-  return bookingConfig.officeHours.workingDays.includes(date.getDay());
-};
-
-const timeToMinutes = (time) => {
-  const [hours, minutes] = time.split(":").map(Number);
-
-  return hours * 60 + minutes;
-};
-
-const minutesToTime = (totalMinutes) => {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-    2,
-    "0",
-  )}`;
-};
-
-const generateTimeSlots = (duration) => {
-  const { morning, afternoon } = bookingConfig.officeHours;
-
-  const periods = [morning, afternoon];
-
-  const slots = [];
-
-  periods.forEach((period) => {
-    const start = timeToMinutes(period.start);
-    const end = timeToMinutes(period.end);
-
-    for (let current = start; current + duration <= end; current += duration) {
-      slots.push(minutesToTime(current));
-    }
-  });
-
-  return slots;
-};
+const isWorkingDay = (date) =>
+  bookingConfig.officeHours.workingDays.includes(date.getDay());
 
 const BookingCalendar = ({
   appointmentType,
@@ -89,32 +64,65 @@ const BookingCalendar = ({
     new Date(today.getFullYear(), today.getMonth(), 1),
   );
 
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
 
   const { daysInMonth, startingDay } = getMonthDays(year, month);
 
-  const timeSlots = appointmentType
-    ? generateTimeSlots(appointmentType.duration)
-    : [];
+  const selectedDateKey = selectedDate ? formatDateForApi(selectedDate) : null;
 
-  const isPastDate = (date) => {
-    return date < today;
-  };
+  const appointmentTypeId = appointmentType?.id;
 
-  const isDateDisabled = (date) => {
-    return isPastDate(date) || !isWorkingDay(date);
-  };
+  useEffect(() => {
+    if (!selectedDateKey || !appointmentTypeId) return;
 
-  const isSelectedDate = (date) => {
-    if (!selectedDate) return false;
+    const controller = new AbortController();
 
-    return (
-      selectedDate.getFullYear() === date.getFullYear() &&
-      selectedDate.getMonth() === date.getMonth() &&
-      selectedDate.getDate() === date.getDate()
-    );
-  };
+    const loadAvailability = async () => {
+      setLoading(true);
+      setError("");
+      setAvailableSlots([]);
+
+      try {
+        const slots = await getBookingAvailability(
+          selectedDateKey,
+          appointmentTypeId,
+          controller.signal,
+        );
+
+        if (controller.signal.aborted) return;
+
+        setAvailableSlots(slots);
+      } catch (err) {
+        if (controller.signal.aborted) return;
+
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Impossibile caricare le disponibilità.",
+        );
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadAvailability();
+
+    return () => controller.abort();
+  }, [selectedDateKey, appointmentTypeId]);
+
+  const isDateDisabled = (date) => date < today || !isWorkingDay(date);
+
+  const isSelectedDate = (date) =>
+    selectedDate?.getFullYear() === date.getFullYear() &&
+    selectedDate?.getMonth() === date.getMonth() &&
+    selectedDate?.getDate() === date.getDate();
 
   const handleDateClick = (date) => {
     if (isDateDisabled(date)) return;
@@ -123,25 +131,17 @@ const BookingCalendar = ({
     onTimeChange(null);
   };
 
-  const handlePreviousMonth = () => {
-    const previousMonth = new Date(year, month - 1, 1);
-
+  const changeMonth = (offset) => {
+    const nextMonth = new Date(year, month + offset, 1);
     const firstCurrentMonth = new Date(
       today.getFullYear(),
       today.getMonth(),
       1,
     );
 
-    if (previousMonth < firstCurrentMonth) return;
+    if (nextMonth < firstCurrentMonth) return;
 
-    setCurrentMonth(previousMonth);
-    onDateChange(null);
-    onTimeChange(null);
-  };
-
-  const handleNextMonth = () => {
-    setCurrentMonth(new Date(year, month + 1, 1));
-
+    setCurrentMonth(nextMonth);
     onDateChange(null);
     onTimeChange(null);
   };
@@ -161,16 +161,13 @@ const BookingCalendar = ({
     <section className="booking-calendar">
       <div className="booking-calendar__heading">
         <span className="booking-page__step">PASSAGGIO 02</span>
-
         <h2>Scegli la data e l'orario</h2>
-
         <p>
           Seleziona il giorno e l'orario che preferisci per la tua consulenza.
         </p>
       </div>
 
       <div className="booking-calendar__layout">
-        {/* CALENDARIO */}
         <div className="booking-calendar__card">
           <div className="booking-calendar__navigation">
             <h3>
@@ -181,7 +178,7 @@ const BookingCalendar = ({
             <div className="booking-calendar__arrows">
               <button
                 type="button"
-                onClick={handlePreviousMonth}
+                onClick={() => changeMonth(-1)}
                 disabled={isPreviousMonthDisabled}
                 aria-label="Mese precedente"
               >
@@ -190,7 +187,7 @@ const BookingCalendar = ({
 
               <button
                 type="button"
-                onClick={handleNextMonth}
+                onClick={() => changeMonth(1)}
                 aria-label="Mese successivo"
               >
                 <ChevronRight size={20} />
@@ -249,18 +246,15 @@ const BookingCalendar = ({
           </div>
         </div>
 
-        {/* ORARI */}
         <div className="booking-calendar__card">
           <div className="booking-calendar__times-heading">
             <Clock3 size={22} />
-
             <h3>Orari richiedibili</h3>
           </div>
 
           {!selectedDate ? (
             <div className="booking-calendar__placeholder">
               <CalendarDays size={34} />
-
               <p>
                 Seleziona un giorno dal calendario per visualizzare gli orari.
               </p>
@@ -271,23 +265,46 @@ const BookingCalendar = ({
                 {dateFormatter.format(selectedDate)}
               </p>
 
-              <div className="booking-calendar__time-grid">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    onClick={() => onTimeChange(time)}
-                    className={`booking-calendar__time ${
-                      selectedTime === time
-                        ? "booking-calendar__time--selected"
-                        : ""
-                    }`}
-                    aria-pressed={selectedTime === time}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
+              {loading && (
+                <div className="booking-calendar__placeholder" role="status">
+                  <RefreshCw size={25} />
+                  <p>Verifica disponibilità in corso...</p>
+                </div>
+              )}
+
+              {!loading && error && (
+                <div className="booking-calendar__placeholder" role="alert">
+                  <p>{error}</p>
+                  <p>Riprova selezionando nuovamente la data.</p>
+                </div>
+              )}
+
+              {!loading && !error && availableSlots.length === 0 && (
+                <div className="booking-calendar__placeholder">
+                  <Clock3 size={28} />
+                  <p>Nessun orario disponibile per questa data.</p>
+                </div>
+              )}
+
+              {!loading && !error && availableSlots.length > 0 && (
+                <div className="booking-calendar__time-grid">
+                  {availableSlots.map((time) => (
+                    <button
+                      key={time}
+                      type="button"
+                      onClick={() => onTimeChange(time)}
+                      className={`booking-calendar__time ${
+                        selectedTime === time
+                          ? "booking-calendar__time--selected"
+                          : ""
+                      }`}
+                      aria-pressed={selectedTime === time}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
+              )}
             </>
           )}
         </div>
@@ -296,10 +313,8 @@ const BookingCalendar = ({
       {selectedDate && selectedTime && (
         <div className="booking-calendar__summary">
           <CalendarDays size={22} />
-
           <div>
             <span>Data e orario richiesti</span>
-
             <strong>
               {dateFormatter.format(selectedDate)} alle {selectedTime}
             </strong>
@@ -308,9 +323,9 @@ const BookingCalendar = ({
       )}
 
       <p className="booking-calendar__disclaimer">
-        Gli orari visualizzati sono indicativi e soggetti alla disponibilità del
-        professionista. L'appuntamento sarà effettivo soltanto dopo la conferma
-        del Dott. Fulvio Martello.
+        Gli orari visualizzati sono soggetti alla disponibilità del
+        professionista. L'appuntamento sarà confermato soltanto dopo
+        l'approvazione del Dott. Fulvio Martello.
       </p>
     </section>
   );
