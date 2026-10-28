@@ -20,7 +20,9 @@ import {
   AlertCircle,
 } from "lucide-react";
 
+import AdminCalendar from "./AdminCalendar.jsx";
 import BookingProposalForm from "./BookingProposalForm.jsx";
+
 import "./AdminDashboard.css";
 
 // ==========================================
@@ -152,6 +154,7 @@ const findBookingConflict = (booking, bookings) => {
   if (!booking) return null;
 
   const start = timeToMinutes(booking.appointment_time);
+
   const duration = Number(booking.duration_minutes);
 
   if (start === null || !Number.isFinite(duration) || duration <= 0) {
@@ -164,13 +167,16 @@ const findBookingConflict = (booking, bookings) => {
     bookings.find((other) => {
       if (other.id === booking.id) return false;
 
-      if (other.status !== "confirmed") return false;
+      if (other.status !== "confirmed") {
+        return false;
+      }
 
       if (other.appointment_date !== booking.appointment_date) {
         return false;
       }
 
       const otherStart = timeToMinutes(other.appointment_time);
+
       const otherDuration = Number(other.duration_minutes);
 
       if (
@@ -223,15 +229,10 @@ const AdminDashboard = ({
   // ========================================
 
   const dialogRef = useRef(null);
-
   const closeButtonRef = useRef(null);
-
   const previousFocusRef = useRef(null);
-
   const proposalFormRef = useRef(null);
-
   const modalContentRef = useRef(null);
-
   const actionInProgressRef = useRef(false);
 
   // ========================================
@@ -239,7 +240,9 @@ const AdminDashboard = ({
   // ========================================
 
   const selectedBooking = useMemo(() => {
-    if (selectedBookingId === null) return null;
+    if (selectedBookingId === null) {
+      return null;
+    }
 
     return bookings.find((booking) => booking.id === selectedBookingId) ?? null;
   }, [bookings, selectedBookingId]);
@@ -370,7 +373,7 @@ const AdminDashboard = ({
   }, [selectedBooking, isUpdating, showProposalForm, pendingAction]);
 
   // ========================================
-  // SCORRIMENTO AUTOMATICO AL MODULO
+  // SCORRIMENTO AUTOMATICO PROPOSTA
   // ========================================
 
   useEffect(() => {
@@ -380,12 +383,10 @@ const AdminDashboard = ({
 
     const frame = window.requestAnimationFrame(() => {
       const container = modalContentRef.current;
+
       const target = proposalFormRef.current;
 
       if (!container || !target) return;
-
-      // Scorre soltanto il contenuto della modale.
-      // Non sposta la pagina principale.
 
       const containerRect = container.getBoundingClientRect();
 
@@ -417,9 +418,7 @@ const AdminDashboard = ({
     previousFocusRef.current = document.activeElement;
 
     setSelectedBookingId(bookingId);
-
     setPendingAction(null);
-
     setShowProposalForm(false);
 
     window.requestAnimationFrame(() => {
@@ -437,9 +436,7 @@ const AdminDashboard = ({
     }
 
     setSelectedBookingId(null);
-
     setPendingAction(null);
-
     setShowProposalForm(false);
 
     window.requestAnimationFrame(() => {
@@ -557,7 +554,6 @@ const AdminDashboard = ({
     }
 
     setPendingAction(null);
-
     setShowProposalForm(true);
   };
 
@@ -624,6 +620,8 @@ const AdminDashboard = ({
           className="admin-sidebar__nav"
           aria-label="Navigazione amministrativa"
         >
+          {/* DASHBOARD */}
+
           <button
             type="button"
             className={`admin-sidebar__link ${
@@ -637,6 +635,8 @@ const AdminDashboard = ({
             <LayoutDashboard size={19} />
             <span>Dashboard</span>
           </button>
+
+          {/* PRENOTAZIONI */}
 
           <button
             type="button"
@@ -652,13 +652,20 @@ const AdminDashboard = ({
             <span>Prenotazioni</span>
           </button>
 
-          <div className="admin-sidebar__coming">
+          {/* CALENDARIO */}
+
+          <button
+            type="button"
+            className={`admin-sidebar__link ${
+              activeSection === "calendar" ? "is-active" : ""
+            }`}
+            onClick={() => {
+              setActiveSection("calendar");
+            }}
+          >
             <CalendarDays size={19} />
-
             <span>Calendario</span>
-
-            <small>Prossimamente</small>
-          </div>
+          </button>
         </nav>
 
         <div className="admin-sidebar__footer">
@@ -679,18 +686,26 @@ const AdminDashboard = ({
       ====================================== */}
 
       <main className="admin-main">
+        {/* HEADER */}
+
         <header className="admin-topbar">
           <div>
             <span className="admin-topbar__eyebrow">STUDIO MARTELLO</span>
 
             <h1>
-              {activeSection === "dashboard" ? "Panoramica" : "Prenotazioni"}
+              {activeSection === "dashboard"
+                ? "Panoramica"
+                : activeSection === "bookings"
+                  ? "Prenotazioni"
+                  : "Calendario"}
             </h1>
 
             <p>
               {activeSection === "dashboard"
                 ? "Tieni sotto controllo le richieste di appuntamento."
-                : "Consulta e organizza le richieste ricevute."}
+                : activeSection === "bookings"
+                  ? "Consulta e organizza le richieste ricevute."
+                  : "Visualizza e organizza gli appuntamenti dello studio."}
             </p>
           </div>
 
@@ -706,7 +721,9 @@ const AdminDashboard = ({
           </button>
         </header>
 
-        {/* MESSAGGI */}
+        {/* ======================================
+            MESSAGGI
+        ====================================== */}
 
         {actionError && (
           <div className="admin-feedback" role="alert">
@@ -723,197 +740,215 @@ const AdminDashboard = ({
         )}
 
         {/* ======================================
-            STATISTICHE
+            CALENDARIO
         ====================================== */}
 
-        <section className="admin-stats" aria-label="Statistiche prenotazioni">
-          <div className="admin-stat-card">
-            <span>Richieste totali</span>
+        {activeSection === "calendar" ? (
+          <AdminCalendar
+            bookings={bookings}
+            onSelectBooking={openBookingDetails}
+          />
+        ) : (
+          <>
+            {/* ==================================
+                STATISTICHE
+            ================================== */}
 
-            <strong>{stats.total}</strong>
+            <section
+              className="admin-stats"
+              aria-label="Statistiche prenotazioni"
+            >
+              <div className="admin-stat-card">
+                <span>Richieste totali</span>
+                <strong>{stats.total}</strong>
+                <CalendarDays size={21} />
+              </div>
 
-            <CalendarDays size={21} />
-          </div>
+              <div className="admin-stat-card admin-stat-card--pending">
+                <span>In attesa</span>
+                <strong>{stats.pending}</strong>
+                <Clock3 size={21} />
+              </div>
 
-          <div className="admin-stat-card admin-stat-card--pending">
-            <span>In attesa</span>
+              <div className="admin-stat-card admin-stat-card--confirmed">
+                <span>Confermate</span>
+                <strong>{stats.confirmed}</strong>
+                <CheckCircle2 size={21} />
+              </div>
 
-            <strong>{stats.pending}</strong>
+              <div className="admin-stat-card admin-stat-card--rejected">
+                <span>Rifiutate</span>
+                <strong>{stats.rejected}</strong>
+                <XCircle size={21} />
+              </div>
+            </section>
 
-            <Clock3 size={21} />
-          </div>
+            {/* ==================================
+                PRENOTAZIONI
+            ================================== */}
 
-          <div className="admin-stat-card admin-stat-card--confirmed">
-            <span>Confermate</span>
+            <section className="admin-bookings">
+              <div className="admin-bookings__heading">
+                <div>
+                  <span className="admin-section-eyebrow">
+                    GESTIONE RICHIESTE
+                  </span>
 
-            <strong>{stats.confirmed}</strong>
+                  <h2>Appuntamenti</h2>
 
-            <CheckCircle2 size={21} />
-          </div>
+                  <p>Visualizza e gestisci le richieste inviate dai clienti.</p>
+                </div>
 
-          <div className="admin-stat-card admin-stat-card--rejected">
-            <span>Rifiutate</span>
+                <span className="admin-bookings__count">
+                  {filteredBookings.length} richieste
+                </span>
+              </div>
 
-            <strong>{stats.rejected}</strong>
+              {/* FILTRI */}
 
-            <XCircle size={21} />
-          </div>
-        </section>
-
-        {/* ======================================
-            PRENOTAZIONI
-        ====================================== */}
-
-        <section className="admin-bookings">
-          <div className="admin-bookings__heading">
-            <div>
-              <span className="admin-section-eyebrow">GESTIONE RICHIESTE</span>
-
-              <h2>Appuntamenti</h2>
-
-              <p>Visualizza e gestisci le richieste inviate dai clienti.</p>
-            </div>
-
-            <span className="admin-bookings__count">
-              {filteredBookings.length} richieste
-            </span>
-          </div>
-
-          {/* FILTRI */}
-
-          <div
-            className="admin-filters"
-            role="group"
-            aria-label="Filtra prenotazioni"
-          >
-            {FILTERS.map((filter) => (
-              <button
-                key={filter.id}
-                type="button"
-                className={`admin-filter ${
-                  activeFilter === filter.id ? "is-active" : ""
-                }`}
-                onClick={() => {
-                  setActiveFilter(filter.id);
-                }}
+              <div
+                className="admin-filters"
+                role="group"
+                aria-label="Filtra prenotazioni"
               >
-                {filter.label}
-              </button>
-            ))}
-          </div>
+                {FILTERS.map((filter) => (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    className={`admin-filter ${
+                      activeFilter === filter.id ? "is-active" : ""
+                    }`}
+                    onClick={() => {
+                      setActiveFilter(filter.id);
+                    }}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
 
-          {/* ERRORI */}
+              {/* ERRORI */}
 
-          {error && (
-            <div className="admin-feedback" role="alert">
-              {error}
-            </div>
-          )}
+              {error && (
+                <div className="admin-feedback" role="alert">
+                  {error}
+                </div>
+              )}
 
-          {/* CARICAMENTO */}
+              {/* CARICAMENTO */}
 
-          {loading && (
-            <div className="admin-feedback" role="status">
-              Caricamento delle prenotazioni...
-            </div>
-          )}
+              {loading && (
+                <div className="admin-feedback" role="status">
+                  Caricamento delle prenotazioni...
+                </div>
+              )}
 
-          {/* LISTA VUOTA */}
+              {/* LISTA VUOTA */}
 
-          {!loading && !error && filteredBookings.length === 0 && (
-            <div className="admin-empty">
-              <CalendarDays size={32} />
+              {!loading && !error && filteredBookings.length === 0 && (
+                <div className="admin-empty">
+                  <CalendarDays size={32} />
 
-              <h3>Nessuna richiesta presente</h3>
+                  <h3>Nessuna richiesta presente</h3>
 
-              <p>Non ci sono appuntamenti per il filtro selezionato.</p>
-            </div>
-          )}
+                  <p>Non ci sono appuntamenti per il filtro selezionato.</p>
+                </div>
+              )}
 
-          {/* ELENCO */}
+              {/* ELENCO PRENOTAZIONI */}
 
-          {!loading && !error && filteredBookings.length > 0 && (
-            <div className="admin-bookings__list">
-              {filteredBookings.map((booking) => {
-                const statusGroup = getStatusGroup(booking.status);
+              {!loading && !error && filteredBookings.length > 0 && (
+                <div className="admin-bookings__list">
+                  {filteredBookings.map((booking) => {
+                    const statusGroup = getStatusGroup(booking.status);
 
-                const status = getStatusConfig(booking.status);
+                    const status = getStatusConfig(booking.status);
 
-                const type = getTypeConfig(booking.appointment_type);
+                    const type = getTypeConfig(booking.appointment_type);
 
-                const StatusIcon = status.icon;
-                const TypeIcon = type.icon;
+                    const StatusIcon = status.icon;
 
-                return (
-                  <article className="admin-booking-card" key={booking.id}>
-                    <div className="admin-booking-card__identity">
-                      <div className="admin-booking-card__avatar">
-                        {booking.first_name?.charAt(0)?.toUpperCase()}
+                    const TypeIcon = type.icon;
 
-                        {booking.last_name?.charAt(0)?.toUpperCase()}
-                      </div>
+                    return (
+                      <article className="admin-booking-card" key={booking.id}>
+                        {/* CLIENTE */}
 
-                      <div>
-                        <h3>
-                          {booking.first_name} {booking.last_name}
-                        </h3>
+                        <div className="admin-booking-card__identity">
+                          <div className="admin-booking-card__avatar">
+                            {booking.first_name?.charAt(0)?.toUpperCase()}
 
-                        <span>Richiesta #{booking.id}</span>
-                      </div>
-                    </div>
+                            {booking.last_name?.charAt(0)?.toUpperCase()}
+                          </div>
 
-                    <div
-                      className={`admin-status admin-status--${statusGroup}`}
-                    >
-                      <StatusIcon size={15} />
+                          <div>
+                            <h3>
+                              {booking.first_name} {booking.last_name}
+                            </h3>
 
-                      {status.label}
-                    </div>
+                            <span>Richiesta #{booking.id}</span>
+                          </div>
+                        </div>
 
-                    <div className="admin-booking-card__details">
-                      <div>
-                        <CalendarDays size={18} />
+                        {/* STATO */}
 
-                        <span>{formatDate(booking.appointment_date)}</span>
-                      </div>
+                        <div
+                          className={`admin-status admin-status--${statusGroup}`}
+                        >
+                          <StatusIcon size={15} />
+                          {status.label}
+                        </div>
 
-                      <div>
-                        <Clock3 size={18} />
+                        {/* DETTAGLI */}
 
-                        <span>{formatTime(booking.appointment_time)}</span>
-                      </div>
+                        <div className="admin-booking-card__details">
+                          <div>
+                            <CalendarDays size={18} />
 
-                      <div>
-                        <TypeIcon size={18} />
+                            <span>{formatDate(booking.appointment_date)}</span>
+                          </div>
 
-                        <span>{type.label}</span>
-                      </div>
-                    </div>
+                          <div>
+                            <Clock3 size={18} />
 
-                    <div className="admin-booking-card__bottom">
-                      <span>
-                        {booking.status === "pending"
-                          ? "In attesa di approvazione"
-                          : status.label}
-                      </span>
+                            <span>{formatTime(booking.appointment_time)}</span>
+                          </div>
 
-                      <button
-                        type="button"
-                        className="admin-booking-card__details-link"
-                        onClick={() => {
-                          openBookingDetails(booking.id);
-                        }}
-                      >
-                        Gestione dettagli
-                        <ChevronRight size={17} />
-                      </button>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </section>
+                          <div>
+                            <TypeIcon size={18} />
+
+                            <span>{type.label}</span>
+                          </div>
+                        </div>
+
+                        {/* AZIONI */}
+
+                        <div className="admin-booking-card__bottom">
+                          <span>
+                            {booking.status === "pending"
+                              ? "In attesa di approvazione"
+                              : status.label}
+                          </span>
+
+                          <button
+                            type="button"
+                            className="admin-booking-card__details-link"
+                            onClick={() => {
+                              openBookingDetails(booking.id);
+                            }}
+                          >
+                            Gestione dettagli
+                            <ChevronRight size={17} />
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
+          </>
+        )}
       </main>
 
       {/* ======================================
@@ -962,12 +997,10 @@ const AdminDashboard = ({
               </button>
             </div>
 
-            {/* CONTENUTO SCORREVOLE */}
+            {/* CONTENUTO */}
 
             <div ref={modalContentRef} className="admin-modal__content">
-              {/* ==================================
-                  CLIENTE
-              ================================== */}
+              {/* CLIENTE */}
 
               <div className="admin-modal__section">
                 <h3>
@@ -1014,9 +1047,7 @@ const AdminDashboard = ({
                 </div>
               </div>
 
-              {/* ==================================
-                  APPUNTAMENTO
-              ================================== */}
+              {/* APPUNTAMENTO */}
 
               <div className="admin-modal__section">
                 <h3>
@@ -1067,9 +1098,7 @@ const AdminDashboard = ({
                 </div>
               </div>
 
-              {/* ==================================
-                  AZIENDA
-              ================================== */}
+              {/* AZIENDA */}
 
               {selectedBooking.appointment_type === "azienda" && (
                 <div className="admin-modal__section">
@@ -1096,9 +1125,7 @@ const AdminDashboard = ({
                 </div>
               )}
 
-              {/* ==================================
-                  NOTE
-              ================================== */}
+              {/* NOTE */}
 
               <div className="admin-modal__section">
                 <h3>
@@ -1111,9 +1138,7 @@ const AdminDashboard = ({
                 </p>
               </div>
 
-              {/* ==================================
-                  CONFLITTO
-              ================================== */}
+              {/* CONFLITTO */}
 
               {selectedBooking.status === "pending" && hasConflict && (
                 <div className="admin-modal__confirmation" role="alert">
@@ -1141,9 +1166,7 @@ const AdminDashboard = ({
                 </div>
               )}
 
-              {/* ==================================
-                  BOZZA SALVATA
-              ================================== */}
+              {/* BOZZA PROPOSTA */}
 
               {selectedBooking.proposal_status === "draft" &&
                 !showProposalForm && (
@@ -1168,9 +1191,7 @@ const AdminDashboard = ({
                   </div>
                 )}
 
-              {/* ==================================
-                  PROPOSTA INVIATA
-              ================================== */}
+              {/* PROPOSTA INVIATA */}
 
               {selectedBooking.proposal_status === "sent" && (
                 <div className="admin-modal__confirmation" role="status">
@@ -1189,9 +1210,7 @@ const AdminDashboard = ({
                 </div>
               )}
 
-              {/* ==================================
-                  PROPOSTA ACCETTATA
-              ================================== */}
+              {/* PROPOSTA ACCETTATA */}
 
               {selectedBooking.proposal_status === "accepted" && (
                 <div className="admin-modal__confirmation" role="status">
@@ -1213,9 +1232,7 @@ const AdminDashboard = ({
                 </div>
               )}
 
-              {/* ==================================
-                  MODULO PROPOSTA
-              ================================== */}
+              {/* MODULO PROPOSTA */}
 
               {selectedBooking.status === "pending" && showProposalForm && (
                 <div ref={proposalFormRef} className="admin-proposal-container">
@@ -1229,9 +1246,7 @@ const AdminDashboard = ({
                 </div>
               )}
 
-              {/* ==================================
-                  CONFERMA OPERAZIONE
-              ================================== */}
+              {/* CONFERMA OPERAZIONE */}
 
               {pendingAction && (
                 <div className="admin-modal__confirmation" role="alert">
