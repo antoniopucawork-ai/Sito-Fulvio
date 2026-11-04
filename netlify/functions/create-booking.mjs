@@ -1,4 +1,5 @@
 import { validateBooking } from "./_lib/bookingValidation.mjs";
+import { sendNewBookingNotification } from "./_lib/bookingEmails.mjs";
 
 const MAX_BODY_SIZE = 10_000;
 
@@ -93,7 +94,6 @@ export default async function handler(request) {
   // ========================================
 
   const supabaseUrl = process.env.SUPABASE_URL;
-
   const bookingSecret = process.env.BOOKING_INTERNAL_SECRET;
 
   if (!supabaseUrl || !bookingSecret) {
@@ -137,6 +137,7 @@ export default async function handler(request) {
         companyAddress: booking.companyAddress,
         notes: booking.notes,
         privacyAccepted: true,
+        turnstileToken: payload.turnstileToken,
       }),
 
       signal: AbortSignal.timeout(10000),
@@ -157,7 +158,34 @@ export default async function handler(request) {
     }
 
     // ========================================
-    // 7. RISPOSTA POSITIVA
+    // 7. NOTIFICA NUOVA PRENOTAZIONE
+    // ========================================
+
+    // La prenotazione è già stata salvata.
+    // Un eventuale errore email non deve
+    // trasformarla in una richiesta fallita.
+
+    try {
+      const emailSent = await sendNewBookingNotification(
+        booking,
+        result.bookingId,
+      );
+
+      if (!emailSent) {
+        console.warn(
+          "Prenotazione salvata, ma notifica email non inviata.",
+          result.bookingId,
+        );
+      }
+    } catch (emailError) {
+      console.error(
+        "Prenotazione salvata, ma notifica email fallita:",
+        emailError instanceof Error ? emailError.message : "Errore sconosciuto",
+      );
+    }
+
+    // ========================================
+    // 8. RISPOSTA POSITIVA
     // ========================================
 
     return json(
