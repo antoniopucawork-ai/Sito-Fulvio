@@ -1,10 +1,24 @@
-const json = (data, status = 200) =>
-  Response.json(data, {
-    status,
-    headers: {
-      "Cache-Control": "no-store",
-    },
-  });
+/**
+ * GET /.netlify/functions/get-availability
+ *
+ * Restituisce gli orari disponibili per una data
+ * e una modalità di appuntamento.
+ *
+ * Regole:
+ * - Apertura dal lunedì al venerdì.
+ * - Mattina: 09:00 - 13:00.
+ * - Pomeriggio: 14:30 - 18:30.
+ * - Videochiamata: 30 minuti.
+ * - Studio: 60 minuti.
+ * - Azienda: 60 minuti + 90 minuti
+ *   di viaggio prima e dopo.
+ * - Soltanto le prenotazioni confermate
+ *   occupano il calendario.
+ */
+
+// ==========================================
+// CONFIGURAZIONE
+// ==========================================
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -14,10 +28,36 @@ const DURATIONS = {
   azienda: 60,
 };
 
+const TRAVEL_BUFFER_MINUTES = 90;
+
+const WORKING_PERIODS = [
+  [9 * 60, 13 * 60],
+  [14 * 60 + 30, 18 * 60 + 30],
+];
+
+// ==========================================
+// RISPOSTE HTTP
+// ==========================================
+
+const json = (data, status = 200) =>
+  Response.json(data, {
+    status,
+    headers: {
+      "Cache-Control": "no-store",
+    },
+  });
+
+// ==========================================
+// VALIDAZIONE DATE
+// ==========================================
+
 const isValidDate = (value) => {
-  if (!DATE_REGEX.test(value)) return false;
+  if (typeof value !== "string" || !DATE_REGEX.test(value)) {
+    return false;
+  }
 
   const [year, month, day] = value.split("-").map(Number);
+
   const parsed = new Date(Date.UTC(year, month - 1, day));
 
   return (
@@ -27,46 +67,191 @@ const isValidDate = (value) => {
   );
 };
 
+// ==========================================
+// GIORNI LAVORATIVI
+// ==========================================
+
+const isWeekend = (date) => {
+  const day = new Date(`${date}T12:00:00Z`).getUTCDay();
+
+  return day === 0 || day === 6;
+};
+
+// ==========================================
+// CONVERSIONE ORARI
+// ==========================================
+
 const timeToMinutes = (value) => {
-  const [hours, minutes] = value.split(":").map(Number);
+  if (typeof value !== "string") {
+    return NaN;
+  }
+
+  const parts = value.split(":");
+
+  if (parts.length < 2) {
+    return NaN;
+  }
+
+  const hours = Number(parts[0]);
+  const minutes = Number(parts[1]);
+
+  if (
+    !Number.isInteger(hours) ||
+    !Number.isInteger(minutes) ||
+    hours < 0 ||
+    hours > 23 ||
+    minutes < 0 ||
+    minutes > 59
+  ) {
+    return NaN;
+  }
+
   return hours * 60 + minutes;
 };
 
-const generateSlots = (duration) => {
-  const periods = [
-    [9 * 60, 13 * 60],
-    [14 * 60 + 30, 18 * 60 + 30],
-  ];
+const minutesToTime = (minutes) => {
+  const hours = String(Math.floor(minutes / 60)).padStart(2, "0");
 
-  return periods.flatMap(([start, end]) => {
-    const slots = [];
+  const remainingMinutes = String(minutes % 60).padStart(2, "0");
 
-    for (let current = start; current + duration <= end; current += duration) {
-      const hours = String(Math.floor(current / 60)).padStart(2, "0");
-      const minutes = String(current % 60).padStart(2, "0");
-
-      slots.push(`${hours}:${minutes}`);
-    }
-
-    return slots;
-  });
+  return `${hours}:${remainingMinutes}`;
 };
 
-export default async function handler(request) {
-  if (request.method !== "GET") {
-    return json({ success: false, message: "Metodo non consentito." }, 405);
+// ==========================================
+// GENERAZIONE SLOT
+// ==========================================
+
+const generateSlots = (duration) => {
+  const slots = [];
+
+  for (const [periodStart, periodEnd] of WORKING_PERIODS) {
+    for (
+      let current = periodStart;
+      current + duration <= periodEnd;
+      current += duration
+    ) {
+      slots.push(minutesToTime(current));
+    }
   }
+
+  return slots;
+};
+
+// ==========================================
+// BUFFER VIAGGIO
+// ==========================================
+
+const getTravelBuffer = (appointmentType) => {
+  return appointmentType === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
+};
+
+// ==========================================
+// INTERVALLI OCCUPATI
+// ==========================================
+
+const getOccupiedInterval = (booking) => {
+  const start = timeToMinutes(booking.appointment_time);
+
+  const duration = Number(booking.duration_minutes);
+
+  if (
+    !Number.isFinite(start) ||
+    !Number.isFinite(duration) ||
+    duration <= 0 ||
+    !Object.hasOwn(DURATIONS, booking.appointment_type)
+  ) {
+    throw new Error("Dati prenotazione confermata non validi.");
+  }
+
+  const buffer = getTravelBuffer(booking.appointment_type);
+
+  return {
+    start: start - buffer,
+    end: start + duration + buffer,
+  };
+};
+
+// ==========================================
+// INTERVALLO RICHIESTO
+// ==========================================
+
+const getRequestedInterval = (time, type, duration) => {
+  const start = timeToMinutes(time);
+  const buffer = getTravelBuffer(type);
+
+  return {
+    start: start - buffer,
+    end: start + duration + buffer,
+  };
+};
+
+// ==========================================
+// CONTROLLO SOVRAPPOSIZIONI
+// ==========================================
+
+const intervalsOverlap = (first, second) => {
+  return first.start < second.end && first.end > second.start;
+};
+
+// ==========================================
+// FUNZIONE PRINCIPALE
+// ==========================================
+
+export default async function handler(request) {
+  // ========================================
+  // 1. METODO HTTP
+  // ========================================
+
+  if (request.method !== "GET") {
+    return json(
+      {
+        success: false,
+        message: "Metodo non consentito.",
+      },
+      405,
+    );
+  }
+
+  // ========================================
+  // 2. PARAMETRI
+  // ========================================
 
   const url = new URL(request.url);
 
   const date = url.searchParams.get("date");
   const type = url.searchParams.get("type");
 
-  if (!date || !isValidDate(date) || !Object.hasOwn(DURATIONS, type)) {
-    return json({ success: false, message: "Parametri non validi." }, 400);
+  if (!isValidDate(date) || !Object.hasOwn(DURATIONS, type)) {
+    return json(
+      {
+        success: false,
+        message: "Parametri non validi.",
+      },
+      400,
+    );
   }
 
+  // ========================================
+  // 3. BLOCCO WEEKEND
+  // ========================================
+
+  if (isWeekend(date)) {
+    return json(
+      {
+        success: false,
+        message: "Lo studio è chiuso il sabato e la domenica.",
+        availableSlots: [],
+      },
+      400,
+    );
+  }
+
+  // ========================================
+  // 4. CONFIGURAZIONE SUPABASE
+  // ========================================
+
   const supabaseUrl = process.env.SUPABASE_URL;
+
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceKey) {
@@ -81,6 +266,10 @@ export default async function handler(request) {
     );
   }
 
+  // ========================================
+  // 5. RECUPERO PRENOTAZIONI
+  // ========================================
+
   try {
     const endpoint = new URL(`${supabaseUrl}/rest/v1/bookings`);
 
@@ -88,7 +277,9 @@ export default async function handler(request) {
       "select",
       "appointment_time,duration_minutes,appointment_type",
     );
+
     endpoint.searchParams.set("appointment_date", `eq.${date}`);
+
     endpoint.searchParams.set("status", "eq.confirmed");
 
     const response = await fetch(endpoint, {
@@ -123,37 +314,41 @@ export default async function handler(request) {
       );
     }
 
+    // ======================================
+    // 6. DURATA APPUNTAMENTO RICHIESTO
+    // ======================================
+
     const duration = DURATIONS[type];
 
-    const TRAVEL_BUFFER_MINUTES = 90;
+    // ======================================
+    // 7. INTERVALLI GIÀ OCCUPATI
+    // ======================================
 
-    const occupiedIntervals = confirmedBookings.map((booking) => {
-      const start = timeToMinutes(booking.appointment_time);
+    const occupiedIntervals = confirmedBookings.map(getOccupiedInterval);
 
-      const buffer =
-        booking.appointment_type === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
-
-      return {
-        start: start - buffer,
-        end: start + booking.duration_minutes + buffer,
-      };
-    });
+    // ======================================
+    // 8. GENERAZIONE ORARI
+    // ======================================
 
     const slots = generateSlots(duration);
 
+    // ======================================
+    // 9. FILTRO CONFLITTI
+    // ======================================
+
     const availableSlots = slots.filter((slot) => {
-      const start = timeToMinutes(slot);
+      const requestedInterval = getRequestedInterval(slot, type, duration);
 
-      const buffer = type === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
-
-      const effectiveStart = start - buffer;
-      const effectiveEnd = start + duration + buffer;
-
-      return !occupiedIntervals.some(
-        (occupied) =>
-          effectiveStart < occupied.end && effectiveEnd > occupied.start,
+      const hasConflict = occupiedIntervals.some((occupiedInterval) =>
+        intervalsOverlap(requestedInterval, occupiedInterval),
       );
+
+      return !hasConflict;
     });
+
+    // ======================================
+    // 10. RISPOSTA
+    // ======================================
 
     return json({
       success: true,
