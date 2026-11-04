@@ -1,3 +1,5 @@
+import { getItalianDateTime, isFutureAppointment } from "./_lib/bookingTime.mjs";
+
 /**
  * GET /.netlify/functions/get-availability
  *
@@ -21,6 +23,9 @@
 // ==========================================
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+
+const DATABASE_TIME_REGEX =
+  /^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d(?:\.\d+)?)?$/;
 
 const DURATIONS = {
   video: 30,
@@ -82,31 +87,12 @@ const isWeekend = (date) => {
 // ==========================================
 
 const timeToMinutes = (value) => {
-  if (typeof value !== "string") {
-    return NaN;
-  }
+  const match =
+    typeof value === "string" ? value.match(DATABASE_TIME_REGEX) : null;
 
-  const parts = value.split(":");
+  if (!match) return NaN;
 
-  if (parts.length < 2) {
-    return NaN;
-  }
-
-  const hours = Number(parts[0]);
-  const minutes = Number(parts[1]);
-
-  if (
-    !Number.isInteger(hours) ||
-    !Number.isInteger(minutes) ||
-    hours < 0 ||
-    hours > 23 ||
-    minutes < 0 ||
-    minutes > 59
-  ) {
-    return NaN;
-  }
-
-  return hours * 60 + minutes;
+  return Number(match[1]) * 60 + Number(match[2]);
 };
 
 const minutesToTime = (minutes) => {
@@ -336,7 +322,11 @@ export default async function handler(request) {
     // 9. FILTRO CONFLITTI
     // ======================================
 
+    const now = getItalianDateTime();
+
     const availableSlots = slots.filter((slot) => {
+      if (!isFutureAppointment(date, slot, now)) return false;
+
       const requestedInterval = getRequestedInterval(slot, type, duration);
 
       const hasConflict = occupiedIntervals.some((occupiedInterval) =>

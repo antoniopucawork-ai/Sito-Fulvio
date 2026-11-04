@@ -1,3 +1,5 @@
+import { isFutureAppointment } from "./bookingTime.mjs";
+
 // ========================================
 // BOOKING VALIDATION - FULVIO MARTELLO
 // ========================================
@@ -21,38 +23,6 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 const TIME_REGEX = /^([01]\d|2[0-3]):[0-5]\d$/;
-// Data e ora correnti dello studio, nel fuso italiano.
-const getItalianDateTime = () => {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Europe/Rome",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
-
-  const values = Object.fromEntries(
-    parts.map(({ type, value }) => [type, value]),
-  );
-
-  return {
-    date: `${values.year}-${values.month}-${values.day}`,
-    time: `${values.hour}:${values.minute}`,
-  };
-};
-
-// Impedisce di richiedere appuntamenti nel passato.
-const isFutureAppointment = (date, time) => {
-  const now = getItalianDateTime();
-
-  if (date > now.date) return true;
-  if (date < now.date) return false;
-
-  return time > now.time;
-};
-
 // Controlla che l'orario rispetti gli intervalli
 // effettivamente proposti dal calendario.
 const isValidTimeSlot = (time, duration) => {
@@ -150,7 +120,10 @@ export const validateBooking = (payload) => {
     errors.phone = "Inserisci un numero di telefono valido.";
   }
 
-  if (!Object.hasOwn(APPOINTMENT_TYPES, appointmentType)) {
+  if (
+    typeof appointmentType !== "string" ||
+    !Object.hasOwn(APPOINTMENT_TYPES, appointmentType)
+  ) {
     errors.appointmentType = "Modalità di appuntamento non valida.";
   }
 
