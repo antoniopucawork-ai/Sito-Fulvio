@@ -1,4 +1,10 @@
-import { getItalianDateTime, isFutureAppointment } from "./_lib/bookingTime.mjs";
+import {
+  getItalianDateTime,
+  getTimeInterval,
+  intervalsOverlap,
+  isFutureAppointment,
+  timeToMicroseconds,
+} from "./_lib/bookingTime.mjs";
 
 /**
  * GET /.netlify/functions/get-availability
@@ -23,9 +29,6 @@ import { getItalianDateTime, isFutureAppointment } from "./_lib/bookingTime.mjs"
 // ==========================================
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
-
-const DATABASE_TIME_REGEX =
-  /^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d(?:\.\d+)?)?$/;
 
 const DURATIONS = {
   video: 30,
@@ -86,15 +89,6 @@ const isWeekend = (date) => {
 // CONVERSIONE ORARI
 // ==========================================
 
-const timeToMinutes = (value) => {
-  const match =
-    typeof value === "string" ? value.match(DATABASE_TIME_REGEX) : null;
-
-  if (!match) return NaN;
-
-  return Number(match[1]) * 60 + Number(match[2]);
-};
-
 const minutesToTime = (minutes) => {
   const hours = String(Math.floor(minutes / 60)).padStart(2, "0");
 
@@ -136,7 +130,7 @@ const getTravelBuffer = (appointmentType) => {
 // ==========================================
 
 const getOccupiedInterval = (booking) => {
-  const start = timeToMinutes(booking.appointment_time);
+  const start = timeToMicroseconds(booking.appointment_time);
 
   const duration = Number(booking.duration_minutes);
 
@@ -151,10 +145,7 @@ const getOccupiedInterval = (booking) => {
 
   const buffer = getTravelBuffer(booking.appointment_type);
 
-  return {
-    start: start - buffer,
-    end: start + duration + buffer,
-  };
+  return getTimeInterval(start, duration, buffer);
 };
 
 // ==========================================
@@ -162,21 +153,10 @@ const getOccupiedInterval = (booking) => {
 // ==========================================
 
 const getRequestedInterval = (time, type, duration) => {
-  const start = timeToMinutes(time);
+  const start = timeToMicroseconds(time);
   const buffer = getTravelBuffer(type);
 
-  return {
-    start: start - buffer,
-    end: start + duration + buffer,
-  };
-};
-
-// ==========================================
-// CONTROLLO SOVRAPPOSIZIONI
-// ==========================================
-
-const intervalsOverlap = (first, second) => {
-  return first.start < second.end && first.end > second.start;
+  return getTimeInterval(start, duration, buffer);
 };
 
 // ==========================================

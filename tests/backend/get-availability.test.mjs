@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import handler from "../../netlify/functions/get-availability.mjs";
+import { malformedDatabaseTimes, precisionCases } from "./fixtures/timePrecisionCases.mjs";
 
 const videoSlots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
 const hourSlots = ["09:00", "10:00", "11:00", "12:00", "14:30", "15:30", "16:30", "17:30"];
@@ -48,11 +49,16 @@ describe("slot, durate e orari", () => {
 });
 
 describe("conflitti e buffer", () => {
-  test.each(["09:00", "09:00:00", "09:00:00.123456"])("supporta l'orario PostgreSQL valido %s", async (appointment_time) => {
+  test.each([
+    ["09:00", ["09:00", "09:30"]],
+    ["09:00:00", ["09:00", "09:30"]],
+    ["09:00:00.000000", ["09:00", "09:30"]],
+    ["09:00:00.123456", ["09:00", "09:30", "10:00"]],
+  ])("supporta l'orario PostgreSQL valido %s senza perdere precisione", async (appointment_time, occupiedSlots) => {
     fetchMock.mockResolvedValue(Response.json([confirmed({ appointment_time })]));
     const { response, body } = await getAvailability({ date: "2030-01-08", type: "video" });
     expect(response.status).toBe(200);
-    expect(body.availableSlots).toEqual(videoSlots.filter(slot => !["09:00", "09:30"].includes(slot)));
+    expect(body.availableSlots).toEqual(videoSlots.filter(slot => !occupiedSlots.includes(slot)));
   });
 
   test.each([
@@ -208,6 +214,26 @@ describe("errori: nessuna falsa disponibilità", () => {
     confirmed({ appointment_time: "09:00:99" }),
   ])("riga confermata corrotta: %j", async (row) => {
     fetchMock.mockResolvedValue(Response.json([row]));
+    const { response, body } = await getAvailability();
+    expect(response.status).toBe(502);
+    expect(body.success).toBe(false);
+    expect(body).not.toHaveProperty("availableSlots");
+  });
+});
+
+describe("precisione PostgreSQL e confini dei buffer", () => {
+  test.each(precisionCases)("$label", async ({ confirmedType, confirmedTime, duration, requestedType, requestedTime, conflict }) => {
+    fetchMock.mockResolvedValue(Response.json([confirmed({
+      appointment_type: confirmedType, appointment_time: confirmedTime, duration_minutes: duration,
+    })]));
+    const { response, body } = await getAvailability({ date: "2030-01-08", type: requestedType });
+    expect(response.status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.availableSlots.includes(requestedTime)).toBe(!conflict);
+  });
+
+  test.each(malformedDatabaseTimes)("orario DB malformato %s: nessuna falsa disponibilità", async (appointment_time) => {
+    fetchMock.mockResolvedValue(Response.json([confirmed({ appointment_time })]));
     const { response, body } = await getAvailability();
     expect(response.status).toBe(502);
     expect(body.success).toBe(false);

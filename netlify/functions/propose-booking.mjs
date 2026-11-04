@@ -1,3 +1,10 @@
+import {
+  getTimeInterval,
+  intervalsOverlap,
+  MICROSECONDS_PER_MINUTE,
+  timeToMicroseconds,
+} from "./_lib/bookingTime.mjs";
+
 /**
  * POST /.netlify/functions/propose-booking
  *
@@ -17,9 +24,6 @@
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
 const TIME_REGEX = /^([01]\d|2[0-3]):[0-5]\d$/;
-
-const DATABASE_TIME_REGEX =
-  /^([01]\d|2[0-3]):([0-5]\d)(?::[0-5]\d(?:\.\d+)?)?$/;
 
 const DURATIONS = {
   video: 30,
@@ -80,22 +84,8 @@ const isWeekend = (date) => {
 // CONVERSIONE ORARI
 // ==========================================
 
-const toMinutes = (time) => {
-  if (typeof time !== "string") {
-    return NaN;
-  }
-
-  const match = time.match(DATABASE_TIME_REGEX);
-
-  if (!match) {
-    return NaN;
-  }
-
-  const hours = Number(match[1]);
-  const minutes = Number(match[2]);
-
-  return hours * 60 + minutes;
-};
+// Le proposte pubbliche restano HH:MM; qui servono minuti per fasce e slot.
+const toMinutes = (time) => timeToMicroseconds(time) / MICROSECONDS_PER_MINUTE;
 
 // ==========================================
 // VALIDAZIONE SLOT
@@ -189,7 +179,7 @@ const getEffectiveInterval = ({ time, duration, type }) => {
     throw new Error("Modalità appuntamento non valida.");
   }
 
-  const start = toMinutes(time);
+  const start = timeToMicroseconds(time);
   const minutes = Number(duration);
 
   if (!Number.isFinite(start) || !Number.isInteger(minutes) || minutes <= 0) {
@@ -198,18 +188,7 @@ const getEffectiveInterval = ({ time, duration, type }) => {
 
   const buffer = getTravelBuffer(type);
 
-  return {
-    start: start - buffer,
-    end: start + minutes + buffer,
-  };
-};
-
-// ==========================================
-// SOVRAPPOSIZIONI
-// ==========================================
-
-const intervalsOverlap = (first, second) => {
-  return first.start < second.end && first.end > second.start;
+  return getTimeInterval(start, minutes, buffer);
 };
 
 // ==========================================
@@ -511,11 +490,11 @@ export default async function handler(request) {
     // 10. PROPOSTA DIVERSA DALL'ORIGINALE
     // ======================================
 
-    const originalTime = booking.appointment_time?.slice(0, 5);
+    const originalTime = timeToMicroseconds(booking.appointment_time);
 
     if (
       proposedDate === booking.appointment_date &&
-      proposedTime === originalTime
+      timeToMicroseconds(proposedTime) === originalTime
     ) {
       return json(
         {
