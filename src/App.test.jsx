@@ -20,10 +20,10 @@ const renderAppAtRoute = (route) => {
 };
 
 describe("App routing", () => {
-  test("la route / mostra la Home", () => {
+  test("la route / mostra la Home", async () => {
     renderAppAtRoute("/");
 
-    const mainTitle = screen.getByRole("heading", {
+    const mainTitle = await screen.findByRole("heading", {
       level: 1,
     });
 
@@ -34,10 +34,10 @@ describe("App routing", () => {
     );
   });
 
-  test("la route /servizi mostra la pagina Servizi", () => {
+  test("la route /servizi mostra la pagina Servizi", async () => {
     renderAppAtRoute("/servizi");
 
-    const mainTitle = screen.getByRole("heading", {
+    const mainTitle = await screen.findByRole("heading", {
       level: 1,
     });
 
@@ -46,10 +46,10 @@ describe("App routing", () => {
     expect(mainTitle).toHaveTextContent(/come possiamo aiutarti/i);
   });
 
-  test("la route /sicurezza-sul-lavoro mostra la pagina Sicurezza", () => {
+  test("la route /sicurezza-sul-lavoro mostra la pagina Sicurezza", async () => {
     renderAppAtRoute("/sicurezza-sul-lavoro");
 
-    const mainTitle = screen.getByRole("heading", {
+    const mainTitle = await screen.findByRole("heading", {
       level: 1,
     });
 
@@ -60,10 +60,10 @@ describe("App routing", () => {
     );
   });
 
-  test("la route /formazione mostra la pagina Formazione", () => {
+  test("la route /formazione mostra la pagina Formazione", async () => {
     renderAppAtRoute("/formazione");
 
-    const mainTitle = screen.getByRole("heading", {
+    const mainTitle = await screen.findByRole("heading", {
       level: 1,
     });
 

@@ -125,18 +125,31 @@ export const timeToMinutes = (time) => {
   return hours * 60 + minutes;
 };
 
-export const findBookingConflict = (booking, bookings) => {
-  if (!booking) return null;
+const TRAVEL_BUFFER_MINUTES = 90;
 
+const getEffectiveInterval = (booking) => {
   const start = timeToMinutes(booking.appointment_time);
-
   const duration = Number(booking.duration_minutes);
 
   if (start === null || !Number.isFinite(duration) || duration <= 0) {
     return null;
   }
 
-  const end = start + duration;
+  const buffer =
+    booking.appointment_type === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
+
+  return {
+    start: start - buffer,
+    end: start + duration + buffer,
+  };
+};
+
+export const findBookingConflict = (booking, bookings) => {
+  if (!booking) return null;
+
+  const requested = getEffectiveInterval(booking);
+
+  if (!requested) return null;
 
   return (
     bookings.find((other) => {
@@ -150,21 +163,12 @@ export const findBookingConflict = (booking, bookings) => {
         return false;
       }
 
-      const otherStart = timeToMinutes(other.appointment_time);
+      const occupied = getEffectiveInterval(other);
 
-      const otherDuration = Number(other.duration_minutes);
+      if (!occupied) return false;
 
-      if (
-        otherStart === null ||
-        !Number.isFinite(otherDuration) ||
-        otherDuration <= 0
-      ) {
-        return false;
-      }
-
-      const otherEnd = otherStart + otherDuration;
-
-      return start < otherEnd && end > otherStart;
+      // Intervalli a contatto sono consecutivi, senza sovrapposizione.
+      return requested.start < occupied.end && requested.end > occupied.start;
     }) ?? null
   );
 };
