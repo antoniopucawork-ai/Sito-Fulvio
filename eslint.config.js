@@ -7,7 +7,8 @@ import { defineConfig, globalIgnores } from "eslint/config";
 export default defineConfig([
   globalIgnores(["dist", ".netlify/**"]),
   {
-    files: ["**/*.{js,jsx}"],
+    name: "react-browser",
+    files: ["src/**/*.{js,jsx}"],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
@@ -16,6 +17,16 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+  {
+    name: "node-esm",
+    files: ["**/*.mjs", "*.config.js"],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: globals.nodeBuiltin,
     },
   },
 ]);
