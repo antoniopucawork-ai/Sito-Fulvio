@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 import {
   UserRound,
   Mail,
@@ -29,18 +30,28 @@ const BookingForm = ({
   onSubmit,
   submissionEnabled = false,
 }) => {
+  // DATI DEL MODULO
   const [formData, setFormData] = useState(initialForm);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
 
+  // CLOUDFLARE TURNSTILE
+  const turnstileRef = useRef(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
   const requiresCompanyAddress = appointmentType?.id === "azienda";
 
-  // ========================================
-  // GESTIONE CAMBIAMENTI DEL MODULO
-  // ========================================
+  const canSubmit =
+    submissionEnabled &&
+    Boolean(siteKey) &&
+    Boolean(turnstileToken) &&
+    !isSubmitting &&
+    !submitSuccess;
 
+  // GESTIONE CAMPI
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -54,15 +65,16 @@ const BookingForm = ({
     }
   };
 
-  // ========================================
-  // INVIO RICHIESTA DI APPUNTAMENTO
-  // ========================================
+  // RESET VERIFICA ANTISPAM
+  const resetTurnstile = () => {
+    setTurnstileToken("");
+    turnstileRef.current?.reset();
+  };
 
+  // INVIO RICHIESTA
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Impedisce l'invio quando il sistema non è attivo,
-    // durante un invio o dopo una richiesta già ricevuta.
     if (!submissionEnabled || isSubmitting || submitSuccess) {
       return;
     }
@@ -73,11 +85,17 @@ const BookingForm = ({
       !selectedTime ||
       !formData.privacyAccepted
     ) {
+      setSubmitError("Controlla i dati obbligatori.");
+      return;
+    }
+
+    if (!siteKey || !turnstileToken) {
+      setSubmitError("Completa la verifica di sicurezza prima di procedere.");
       return;
     }
 
     if (typeof onSubmit !== "function") {
-      setSubmitError("Il servizio di prenotazione non è ancora disponibile.");
+      setSubmitError("Il servizio di prenotazione non è disponibile.");
       return;
     }
 
@@ -109,22 +127,23 @@ const BookingForm = ({
         ].join("-"),
 
         time: selectedTime,
-
         duration: appointmentType.duration,
-
         privacyAccepted: formData.privacyAccepted,
+
+        // Token da verificare successivamente sul server
+        turnstileToken,
       };
 
-      // Invia i dati alla funzione ricevuta da BookingPage.
       const result = await onSubmit(bookingData);
 
-      // La richiesta è stata registrata, ma non approvata.
       if (result?.success === true) {
         setSubmitSuccess(
           "La tua richiesta è stata ricevuta correttamente! " +
             "L'appuntamento non è ancora confermato. " +
             "Dovrai attendere l'approvazione del Dott. Fulvio Martello.",
         );
+
+        setTurnstileToken("");
       } else {
         throw new Error("Il server non ha confermato la ricezione.");
       }
@@ -134,6 +153,8 @@ const BookingForm = ({
       setSubmitError(
         "Non è stato possibile inviare la richiesta. Riprova più tardi.",
       );
+
+      resetTurnstile();
     } finally {
       setIsSubmitting(false);
     }
@@ -141,10 +162,7 @@ const BookingForm = ({
 
   return (
     <section className="booking-form">
-      {/* ========================================
-          INTESTAZIONE
-      ======================================== */}
-
+      {/* INTESTAZIONE */}
       <div className="booking-form__heading">
         <span className="booking-page__step">PASSAGGIO 03</span>
 
@@ -156,14 +174,9 @@ const BookingForm = ({
         </p>
       </div>
 
-      {/* ========================================
-          MODULO
-      ======================================== */}
-
       <form className="booking-form__card" onSubmit={handleSubmit}>
         <div className="booking-form__grid">
           {/* NOME */}
-
           <div className="booking-form__field">
             <label htmlFor="booking-firstName">
               <UserRound size={17} />
@@ -185,7 +198,6 @@ const BookingForm = ({
           </div>
 
           {/* COGNOME */}
-
           <div className="booking-form__field">
             <label htmlFor="booking-lastName">
               <UserRound size={17} />
@@ -207,7 +219,6 @@ const BookingForm = ({
           </div>
 
           {/* EMAIL */}
-
           <div className="booking-form__field">
             <label htmlFor="booking-email">
               <Mail size={17} />
@@ -229,7 +240,6 @@ const BookingForm = ({
           </div>
 
           {/* TELEFONO */}
-
           <div className="booking-form__field">
             <label htmlFor="booking-phone">
               <Phone size={17} />
@@ -250,10 +260,7 @@ const BookingForm = ({
             />
           </div>
 
-          {/* ========================================
-              CAMPI AZIENDA
-          ======================================== */}
-
+          {/* CAMPI AZIENDA */}
           {requiresCompanyAddress && (
             <>
               <div className="booking-form__field">
@@ -296,10 +303,7 @@ const BookingForm = ({
             </>
           )}
 
-          {/* ========================================
-              NOTE
-          ======================================== */}
-
+          {/* NOTE */}
           <div className="booking-form__field booking-form__field--full">
             <label htmlFor="booking-notes">
               <MessageSquare size={17} />
@@ -323,10 +327,7 @@ const BookingForm = ({
           </div>
         </div>
 
-        {/* ========================================
-            PRIVACY
-        ======================================== */}
-
+        {/* PRIVACY */}
         <label className="booking-form__privacy">
           <input
             type="checkbox"
@@ -346,46 +347,53 @@ const BookingForm = ({
           </span>
         </label>
 
-        {/* ========================================
-            AVVISO IMPORTANTE
-        ======================================== */}
-
+        {/* AVVISO */}
         <div className="booking-form__notice">
           L'invio della richiesta non garantisce la prenotazione
           dell'appuntamento. Riceverai una conferma soltanto dopo l'approvazione
           del Dott. Fulvio Martello.
         </div>
 
-        {/* ========================================
-            MESSAGGIO DI SUCCESSO
-        ======================================== */}
-
+        {/* MESSAGGIO SUCCESSO */}
         {submitSuccess && (
           <p className="booking-form__notice" role="status">
             {submitSuccess}
           </p>
         )}
 
-        {/* ========================================
-            MESSAGGIO DI ERRORE
-        ======================================== */}
-
+        {/* MESSAGGIO ERRORE */}
         {submitError && (
           <p className="booking-form__notice" role="alert">
             {submitError}
           </p>
         )}
 
-        {/* ========================================
-            PULSANTE INVIO
-        ======================================== */}
+        {/* CLOUDFLARE TURNSTILE */}
+        {siteKey && !submitSuccess && (
+          <div className="booking-form__turnstile">
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={siteKey}
+              onSuccess={(token) => {
+                setTurnstileToken(token);
+                setSubmitError("");
+              }}
+              onExpire={() => {
+                setTurnstileToken("");
+              }}
+              onError={() => {
+                setTurnstileToken("");
+                setSubmitError("Verifica di sicurezza non riuscita. Riprova.");
+              }}
+            />
+          </div>
+        )}
 
+        {/* PULSANTE INVIO */}
         <button
           type="submit"
           className="booking-form__submit"
-          disabled={
-            isSubmitting || !submissionEnabled || Boolean(submitSuccess)
-          }
+          disabled={!canSubmit}
         >
           <Send size={19} />
 
@@ -398,10 +406,7 @@ const BookingForm = ({
                 : "Invio disponibile a breve"}
         </button>
 
-        {/* ========================================
-            SISTEMA NON ANCORA ATTIVO
-        ======================================== */}
-
+        {/* SISTEMA NON ANCORA ATTIVO */}
         {!submissionEnabled && (
           <p
             className="booking-form__hint"

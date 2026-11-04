@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js@2/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { verifyTurnstile } from "../_shared/verifyTurnstile.ts";
 
 // ========================================
 // CONFIGURAZIONE
@@ -190,6 +191,22 @@ Deno.serve(async (request: Request) => {
         message: "Devi dichiarare di aver letto l'informativa privacy.",
       },
       400,
+    );
+  }
+
+  // ========================================
+  // VERIFICA CLOUDFLARE TURNSTILE
+  // ========================================
+
+  const isHuman = await verifyTurnstile(payload.turnstileToken);
+
+  if (!isHuman) {
+    return json(
+      {
+        success: false,
+        message: "Verifica di sicurezza non riuscita. Riprova.",
+      },
+      403,
     );
   }
 
