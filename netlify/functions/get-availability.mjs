@@ -84,7 +84,10 @@ export default async function handler(request) {
   try {
     const endpoint = new URL(`${supabaseUrl}/rest/v1/bookings`);
 
-    endpoint.searchParams.set("select", "appointment_time,duration_minutes");
+    endpoint.searchParams.set(
+      "select",
+      "appointment_time,duration_minutes,appointment_type",
+    );
     endpoint.searchParams.set("appointment_date", `eq.${date}`);
     endpoint.searchParams.set("status", "eq.confirmed");
 
@@ -122,12 +125,17 @@ export default async function handler(request) {
 
     const duration = DURATIONS[type];
 
+    const TRAVEL_BUFFER_MINUTES = 90;
+
     const occupiedIntervals = confirmedBookings.map((booking) => {
       const start = timeToMinutes(booking.appointment_time);
 
+      const buffer =
+        booking.appointment_type === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
+
       return {
-        start,
-        end: start + booking.duration_minutes,
+        start: start - buffer,
+        end: start + booking.duration_minutes + buffer,
       };
     });
 
@@ -135,10 +143,15 @@ export default async function handler(request) {
 
     const availableSlots = slots.filter((slot) => {
       const start = timeToMinutes(slot);
-      const end = start + duration;
+
+      const buffer = type === "azienda" ? TRAVEL_BUFFER_MINUTES : 0;
+
+      const effectiveStart = start - buffer;
+      const effectiveEnd = start + duration + buffer;
 
       return !occupiedIntervals.some(
-        (occupied) => start < occupied.end && end > occupied.start,
+        (occupied) =>
+          effectiveStart < occupied.end && effectiveEnd > occupied.start,
       );
     });
 
